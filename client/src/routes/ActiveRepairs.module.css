@@ -1,0 +1,38 @@
+.activeTable {
+  margin: 2rem auto;
+  border: 2px solid #fefefe;
+  padding: 0;
+  width: 80%;
+  color: #f9f9f9;
+}
+
+.activeTable thead {
+  background-color: #213547;
+}
+.activeTable thead tr {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.activeTable tbody {
+  background-color: #464545;
+}
+.activeTable tbody tr {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0;
+}
+.activeTable tbody tr td:first-child {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media screen and (max-width: 500px) {
+  .activeTable {
+    width: 80%;
+  }
+  .activeTable tbody tr td {
+    font-size: 1.4rem;
+    padding: 0.2rem;
+  }
+}

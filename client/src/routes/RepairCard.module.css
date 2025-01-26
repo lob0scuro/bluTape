@@ -1,0 +1,110 @@
+.cardHeader {
+  margin: 0;
+  color: #f9f9f9;
+}
+.cardSubHeader {
+  color: #f9f9f9;
+}
+
+.notesBlock ul {
+  border: 2px solid #fefefe;
+  list-style: none;
+  background-color: #213547;
+  color: #f9f9f9;
+  width: 80%;
+  height: 23em;
+  overflow-y: scroll;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+}
+.notesBlock ul li {
+  border-bottom: 2px solid #fefefe;
+  margin: 1rem 1rem 1.8rem 0;
+  padding-bottom: 1em;
+}
+.noteItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+button.deleteNote {
+  background-color: rgb(68, 18, 18);
+  width: 0.5em;
+  height: 1em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addNoteForm {
+  padding-bottom: 5em;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.addNoteForm input[type="submit"] {
+  font-size: 1.4rem;
+  margin: 0.4rem auto 0.8rem auto;
+  padding: 0.3em 0.5em 0.3em 0.5em;
+  font-weight: 600;
+  width: fit-content;
+  background-color: #0c0e3a;
+}
+
+a.trash {
+  background-color: rgb(68, 18, 18);
+}
+a.sellIt {
+  background-color: rgb(34, 92, 20);
+}
+
+.qrBlock {
+  display: none;
+}
+
+.printLabelButton {
+  font-weight: 600;
+  font-size: 1em;
+  border: 1px solid #f9f9f9;
+  background-color: #213547;
+  color: #f9f9f9;
+}
+
+.printNotesButton {
+  margin-top: 1em;
+  background-color: #213547;
+  color: #f9f9f9;
+  border: 2px solid #f9f9f9;
+}
+
+@media screen and (max-width: 500px) {
+  .card h1 {
+    margin-top: 1em;
+    font-size: 2rem;
+  }
+  .card h2 {
+    font-size: 1rem;
+  }
+  .handleMachine div {
+    font-size: 0.9rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .handleMachine div a {
+    height: fit-content;
+    width: fit-content;
+  }
+  .notesBlock {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .notesBlock ul {
+    width: 100%;
+  }
+  .notesBlock ul li button {
+    color: unset;
+  }
+}

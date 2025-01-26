@@ -1,0 +1,34 @@
+.navbarHeader {
+  font-size: 3rem;
+}
+.navbarHeader a {
+  color: #366897;
+}
+
+.navbarHeader a span {
+  font-size: 0.5em;
+}
+
+header nav a {
+  color: #fefefe;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.8em;
+  width: 100vw;
+  height: 8em;
+  background-color: #464545;
+  color: #366897;
+}
+
+@media screen and (max-width: 500px) {
+  .navbarHeader {
+    font-size: 2rem;
+  }
+  .navbarHeader a span {
+    font-size: 0.4em;
+  }
+}
