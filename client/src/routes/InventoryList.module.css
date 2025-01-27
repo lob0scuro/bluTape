@@ -45,6 +45,7 @@
 @media screen and (max-width: 500px) {
   .inventoryTable {
     width: 95%;
+    height: 60vh;
   }
   .inventoryTable tbody tr td {
     font-size: 1.2rem;
