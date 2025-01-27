@@ -21,10 +21,15 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loggedIn) {
+    const storedUser = localStorage.getItem("loggedInUser");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
       navigate("/login-page");
     }
-  }, [loggedIn, navigate]);
+  }, [navigate]);
 
   return (
     <div id="app-container">

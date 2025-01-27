@@ -12,7 +12,7 @@ const RepairCard = () => {
   const [newNote, setNewNote] = useState("");
   const location = useLocation();
   const { id } = useParams();
-  const { loggedIn, setLoggedIn } = useContext(LoginContext);
+  const { loggedIn, setLoggedIn, user, setUser } = useContext(LoginContext);
 
   useEffect(() => {
     fetch(`/api/get_machine/${id}`)
@@ -110,7 +110,7 @@ const RepairCard = () => {
         {/* qr code block for printing */}
         <div id="qr-block" className={styles.qrBlock}>
           <QRCodeSVG
-            value={`http://192.168.1.109:5173/repair-card/${machine.id}`}
+            value={`http://192.168.1.77:5173/repair-card/${machine.id}`}
           />
           <p>ID: {machine.id}</p>
         </div>

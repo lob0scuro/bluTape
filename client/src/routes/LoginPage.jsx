@@ -46,8 +46,7 @@ const LoginPage = () => {
       }
       const data = await response.json();
       console.log(data.message);
-      setLoggedIn(true);
-      setUser(data.tech);
+      localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
       navigate("/");
     } catch (error) {
       console.error("Problem with login", error);

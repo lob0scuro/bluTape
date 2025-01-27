@@ -15,6 +15,7 @@ const Navbar = () => {
       const data = await response.json();
       console.log(data.message);
       setLoggedIn(false);
+      localStorage.removeItem("loggedInUser");
       setUser({});
     } catch (error) {
       console.error(error);
@@ -30,12 +31,10 @@ const Navbar = () => {
         </Link>
       </h1>
       <nav>
-        {loggedIn ? (
+        {loggedIn && (
           <Link to="/login-page" onClick={logout}>
             Logout
           </Link>
-        ) : (
-          <Link to="/login-page">Login</Link>
         )}
       </nav>
     </header>
