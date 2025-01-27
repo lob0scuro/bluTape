@@ -1,7 +1,7 @@
 from flask import jsonify, request
 from app.api import bp
 from app.extensions import db, mail
-from app.models import Tech, Machine, Notes
+from app.models import Tech, Machine, Notes, Archive
 from flask_login import login_user, logout_user, current_user
 from flask_mail import Message
 
@@ -74,7 +74,7 @@ def create_machine():
 def get_techs():
     try:
         techs = Tech.query.all()
-        return jsonify(techs = [tech.serialize() for tech in techs])
+        return jsonify(techs = [tech.serialize() for tech in techs]), 200
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(error = "Problem with query"), 401
@@ -85,7 +85,7 @@ def get_tech(id):
     tech = Tech.query.get(id)
     if not tech:
         return jsonify(error = "Tech not found, check inputs and try again."), 401
-    return jsonify(tech = tech.serialize())
+    return jsonify(tech = tech.serialize()), 200
 
 
 # get all machines
@@ -93,7 +93,7 @@ def get_tech(id):
 def get_machines():
     try:
         machines = Machine.query.filter_by(in_progress=True).all()
-        return jsonify(data = [machine.serialize() for machine in machines])
+        return jsonify(data = [machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(error = "Problem with query"), 400
@@ -104,7 +104,7 @@ def get_machine(id):
     machine = Machine.query.get(int(id))
     if not machine:
         return jsonify(error = "Could not find machine, check inputs and try again."), 404
-    return jsonify(machine = machine.serialize())
+    return jsonify(machine = machine.serialize()), 200
 
 #update machine info
 @bp.route('/update_machine/<int:id>', methods=('GET', 'POST'))
@@ -129,40 +129,40 @@ def update_macine(id):
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()
-        return jsonify(error = "Could not complete query, check inputs and try agian."), 400
+        return jsonify(error = "Could not complete query, check inputs and try agian."), 401
 
 # add note to machine
 @bp.route('/add_note/<int:id>', methods=('GET', 'POST'))
 def add_note(id):
     machine = Machine.query.get(id)
     if not machine:
-        return jsonify(error = "Could not locate machine, check inputs and try again"), 401
+        return jsonify(error = "Could not locate machine, check inputs and try again"), 400
     try:
         data = request.get_json()
         note = data.get('note')
         addNote = Notes(content=note, tech_id=current_user.id, machine_id=machine.id)
         db.session.add(addNote)
         db.session.commit()
-        return jsonify(message = "Success! note added to machine")
+        return jsonify(message = "Success! note added to machine"), 201
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()
-        return jsonify(error="Problem with query, please try again")
+        return jsonify(error="Problem with query, please try again"), 401
 
 # delete note from machine
 @bp.route('/delete_note/<int:id>', methods=['DELETE'])
 def delete_note(id):
     note = Notes.query.get(id)
     if not note:
-        return jsonify(error = "Could not find note, check inputs and try again")
+        return jsonify(error = "Could not find note, check inputs and try again"), 400
     try:
         db.session.delete(note)
         db.session.commit()
-        return jsonify(message = "Deleted Note")
+        return jsonify(message = "Deleted Note"), 200
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()
-        return jsonify(error = "Could not complete query, please try again")
+        return jsonify(error = "Could not complete query, please try again"), 401
         
 # delete machine
 @bp.route('/delete/<int:id>', methods=['DELETE'])
@@ -173,7 +173,7 @@ def delete(id):
     try:
         db.session.delete(machine)
         db.session.commit()
-        return jsonify(message = "Deleted machine from database!")
+        return jsonify(message = "Deleted machine from database!"), 201
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()
@@ -184,10 +184,10 @@ def delete(id):
 def get_inventory():
     try:
         machines = Machine.query.filter_by(in_progress=False).all()
-        return jsonify(machines = [machine.serialize() for machine in machines])
+        return jsonify(machines = [machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")
-        return jsonify(error = "Problem with query, please try again")
+        return jsonify(error = "Problem with query, please try again"), 400
         
     
 # add machine to Inventory list
@@ -195,17 +195,38 @@ def get_inventory():
 def add_to_inventory(id):
     machine = Machine.query.get(id)
     if not machine:
-        return jsonify(error = "Could not locate machine, check inputs and try again")
+        return jsonify(error = "Could not locate machine, check inputs and try again"), 400
     try:
         machine.in_progress = False
         db.session.commit()
-        return jsonify(message = "Machine added to inventory")
+        return jsonify(message = "Machine added to inventory"), 201
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()
-        return jsonify(error = "Error with query, please try again")
+        return jsonify(error = "Error with query, please try again"), 400
+    
+# add machine to archive list and delete from active table
+@bp.route('/archive_machine/<int:id>', methods=('GET', 'POST'))
+def archive_machine(id):
+    machine = Machine.query.get(id)
+    if not machine:
+        return jsonify(error = "Machine not found, check inputs and try again"), 400
+    try:
+        archive_item = Archive(id = machine.id, make=machine.make, model=machine.model, serial=machine.serial, color=machine.color, style=machine.style, notes=machine.notes)
+        db.session.add(archive_item)
+        db.session.flush()
+        Notes.query.filter_by(machine_id=machine.id).update({'machine_id': None, 'archive_id': archive_item.id})
+        db.session.delete(machine)
+        db.session.commit()
+        return jsonify(message = "Machine added to archive!", machine = archive_item.serialize()), 201
+    except Exception as e:
+        print(f"Error: {e}")
+        db.session.rollback()
+        return jsonify(error = "Problem with query, please try again"), 400
+
+    
         
-        
+# send exported as .xlsx sheet data to email 
 @bp.route("/send_email", methods=('GET', 'POST'))
 def send_email():
     if "file" not in request.files:
