@@ -1,27 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { LoginContext } from "../App";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn, user, setUser] = useContext(LoginContext);
 
-  const logout = async () => {
-    try {
-      const response = await fetch("/api/logout");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log(data.message);
-      setLoggedIn(false);
-      localStorage.removeItem("loggedInUser");
-      setUser({});
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
   return (
     <header>
       <h1 className={styles.navbarHeader}>
@@ -30,13 +14,14 @@ const Navbar = () => {
           <span>{user ? user.first_name : null}</span>
         </Link>
       </h1>
-      <nav>
-        {loggedIn && (
-          <Link to="/login-page" onClick={logout}>
-            Logout
-          </Link>
-        )}
-      </nav>
+
+      {loggedIn && (
+        <nav>
+          <NavLink to="/start-repair">Start Repair</NavLink>
+          <NavLink to="/active-repairs">Active</NavLink>
+          <NavLink to="/inventory-list">Inventory</NavLink>
+        </nav>
+      )}
     </header>
   );
 };

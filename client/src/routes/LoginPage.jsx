@@ -24,7 +24,6 @@ const LoginPage = () => {
 
   const handleFormChange = (e) => {
     setFormData(e.target.value);
-    console.log(formData);
   };
 
   const handleSubmit = async (e) => {

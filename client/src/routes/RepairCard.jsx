@@ -103,7 +103,9 @@ const RepairCard = () => {
   return (
     <>
       <div className={styles.card}>
-        <h1 className={styles.cardHeader}>{machine.make}</h1>
+        <h1 className={styles.cardHeader}>
+          {machine.make} <small>{machine.style}</small>
+        </h1>
         <h2 className={styles.cardSubHeader}>
           Model: {machine.model} | Serial: {machine.serial}
         </h2>
@@ -116,31 +118,31 @@ const RepairCard = () => {
         </div>
         {/* end qr block */}
         <div className={styles.handleMachine}>
-          <div className="button-block-inline">
-            <button
-              className={styles.printLabelButton}
-              onClick={() => PrintLabel("qr-block")}
-            >
-              Print Label
-            </button>
+          {/* <div className="button-block-inline"> */}
+          <button
+            className={styles.printLabelButton}
+            onClick={() => PrintLabel("qr-block")}
+          >
+            Print Label
+          </button>
 
-            {machine.in_progress && (
-              <Link
-                to="/inventory-list"
-                onClick={() => addToInventory(machine.id)}
-              >
-                Add to Inventory
-              </Link>
-            )}
-            <Link to={`/edit-machine/${machine.id}`}>Edit</Link>
+          {machine.in_progress && (
             <Link
-              to="/active-repairs"
-              onClick={() => deleteMachine(machine.id)}
-              className={machine.in_progress ? styles.trash : styles.sellIt}
+              to="/inventory-list"
+              onClick={() => addToInventory(machine.id)}
             >
-              {machine.in_progress ? "Trash" : "Sell"}
+              Add to Inventory
             </Link>
-          </div>
+          )}
+          <Link to={`/edit-machine/${machine.id}`}>Edit</Link>
+          <Link
+            to="/active-repairs"
+            onClick={() => deleteMachine(machine.id)}
+            className={styles.trash}
+          >
+            Trash
+          </Link>
+          {/* </div> */}
         </div>
 
         <div id="notes-block" className={styles.notesBlock}>
@@ -159,10 +161,11 @@ const RepairCard = () => {
             <label htmlFor="toAdd">
               <div>Add Note</div>
               <textarea
+                className={styles.addNoteArea}
                 name="toAdd"
                 id="toAdd"
-                rows="15"
-                cols="50"
+                rows="10"
+                // cols="45"
                 value={newNote}
                 onChange={(e) => setNewNote(e.target.value)}
               ></textarea>

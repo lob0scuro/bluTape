@@ -4,6 +4,8 @@
   padding: 0;
   width: 80%;
   color: #f9f9f9;
+  max-height: 65vh;
+  overflow: scroll;
 }
 
 .activeTable thead {

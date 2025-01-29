@@ -1,5 +1,5 @@
 .loginHeader {
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 .loginForm {
@@ -7,7 +7,7 @@
   flex-direction: column;
   gap: 1.5em;
   width: fit-content;
-  margin: 4em auto;
+  margin: 2em auto 1em auto;
   padding: 1em;
   border-radius: 11px;
   border: inset 2px #f9f9f9;

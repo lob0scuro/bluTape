@@ -67,9 +67,6 @@ const InventoryList = () => {
     try {
       fetch("/api/send_email", {
         method: "POST",
-        // headers: {
-        //   "Content-Type": "application.json",
-        // },
         body: formData,
       })
         .then((response) => {
@@ -111,9 +108,11 @@ const InventoryList = () => {
         </thead>
         <tbody>{renderList}</tbody>
       </table>
-      <button onClick={exportTable} className={styles.exportButton}>
-        Export
-      </button>
+      <div className={styles.buttonBlock}>
+        <button onClick={exportTable} className={styles.exportButton}>
+          Export
+        </button>
+      </div>
     </>
   );
 };
