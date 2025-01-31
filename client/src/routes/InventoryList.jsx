@@ -55,14 +55,12 @@ const InventoryList = () => {
     XLSX.utils.book_append_sheet(wb, ws, "Inventory Log");
 
     const wbBlob = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    const blob = new Blob([
-      wbBlob,
-      {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      },
-    ]);
+    const blob = new Blob([wbBlob], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
     const formData = new FormData();
     formData.append("file", blob, "InventoryLog.xlsx");
+    console.log(formData);
 
     try {
       fetch("/api/send_email", {
@@ -88,7 +86,7 @@ const InventoryList = () => {
   const renderList = machines.map((machine) => (
     <tr key={machine.id}>
       <td>
-        <Link to={`/edit-machine/${machine.id}`}>{machine.make}</Link>
+        <Link to={`/repair-card/${machine.id}`}>{machine.make}</Link>
       </td>
       <td>{machine.model}</td>
       <td className={machine.color}>{machine.style}</td>
@@ -97,7 +95,7 @@ const InventoryList = () => {
 
   return (
     <>
-      <h1 className={styles.inventoryHeader}>Inventory List</h1>
+      <h1 className={styles.inventoryHeader}>Finished Repairs</h1>
       <table className={styles.inventoryTable}>
         <thead>
           <tr>

@@ -1,5 +1,5 @@
 .activeTable {
-  margin: 2rem auto;
+  margin: 1rem auto;
   border: 2px solid #fefefe;
   padding: 0;
   width: 80%;
@@ -29,7 +29,22 @@
   text-underline-offset: 3px;
 }
 
+.addRepairButton {
+  background-color: #456433;
+  width: fit-content;
+  align-self: flex-end;
+  margin-right: 2.5em;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #f9f9f9;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
 @media screen and (max-width: 500px) {
+  .activeHeader {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
   .activeTable {
     width: 80%;
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getTechs } from "../api/Calls";
 import styles from "./LoginPage.module.css";
 import { LoginContext } from "../App";
@@ -9,6 +9,8 @@ const LoginPage = () => {
   const [formData, setFormData] = useState("");
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn, user, setUser] = useContext(LoginContext);
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   useEffect(() => {
     const fetchTechs = async () => {
@@ -46,7 +48,7 @@ const LoginPage = () => {
       const data = await response.json();
       console.log(data.message);
       localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
-      navigate("/");
+      navigate(from);
     } catch (error) {
       console.error("Problem with login", error);
     }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { deleteMachine, addToInventory, getTechs } from "../api/Calls";
-import { PrintLabel } from "../utils";
+import { PrintLabel, PrintNotes } from "../utils";
 import { QRCodeSVG } from "qrcode.react";
 import { LoginContext } from "../App";
 import styles from "./RepairCard.module.css";
+import PrintPage from "../components/PrintPage";
 
 const RepairCard = () => {
   const [machine, setMachine] = useState({});
@@ -111,14 +112,10 @@ const RepairCard = () => {
         </h2>
         {/* qr code block for printing */}
         <div id="qr-block" className={styles.qrBlock}>
-          <QRCodeSVG
-            value={`http://192.168.1.77:5173/repair-card/${machine.id}`}
-          />
-          <p>ID: {machine.id}</p>
+          <PrintPage machine={machine} />
         </div>
         {/* end qr block */}
         <div className={styles.handleMachine}>
-          {/* <div className="button-block-inline"> */}
           <button
             className={styles.printLabelButton}
             onClick={() => PrintLabel("qr-block")}
@@ -142,7 +139,6 @@ const RepairCard = () => {
           >
             Trash
           </Link>
-          {/* </div> */}
         </div>
 
         <div id="notes-block" className={styles.notesBlock}>
@@ -150,7 +146,7 @@ const RepairCard = () => {
         </div>
         <button
           className={styles.printNotesButton}
-          onClick={() => PrintLabel("notes-block")}
+          onClick={() => PrintNotes("notes-block", machine)}
         >
           Print Notes
         </button>

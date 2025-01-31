@@ -19,7 +19,7 @@ const Navbar = () => {
         <nav>
           <NavLink to="/start-repair">Start Repair</NavLink>
           <NavLink to="/active-repairs">Active</NavLink>
-          <NavLink to="/inventory-list">Inventory</NavLink>
+          <NavLink to="/inventory-list">Completed</NavLink>
         </nav>
       )}
     </header>

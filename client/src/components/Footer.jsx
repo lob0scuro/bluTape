@@ -36,7 +36,9 @@ const Footer = () => {
         <p>Matt's Appliances, LLC.</p>
       </div>
       <div>
-        <p>created by: Cameron Lopez</p>
+        <p>
+          <b>bluTape</b>/ created by: Cameron Lopez
+        </p>
       </div>
     </footer>
   );

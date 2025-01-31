@@ -31,7 +31,7 @@ const ActiveRepairs = () => {
 
   return (
     <>
-      <h1>Active Repairs</h1>
+      <h1 className={styles.activeHeader}>Active Repairs</h1>
       <table className={styles.activeTable}>
         <thead>
           <tr>
@@ -42,6 +42,9 @@ const ActiveRepairs = () => {
         </thead>
         <tbody>{renderData}</tbody>
       </table>
+      <Link to="/start-repair" className={styles.addRepairButton}>
+        Add Repair
+      </Link>
     </>
   );
 };

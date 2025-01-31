@@ -1,7 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import { getTechs } from "./api/Calls";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./routes/Home";
@@ -42,7 +42,19 @@ function App() {
           <Route path="/active-repairs" element={<ActiveRepairs />} />
           <Route path="/edit-machine/:id" element={<EditMachine />} />
           <Route path="/inventory-list" element={<InventoryList />} />
-          <Route path="/repair-card/:id" element={<RepairCard />} />
+          <Route
+            path="/repair-card/:id"
+            element={
+              loggedIn ? (
+                <RepairCard />
+              ) : (
+                <Navigate
+                  to="/login-page"
+                  state={{ from: location.pathname }}
+                />
+              )
+            }
+          />
         </Routes>
         <Footer />
       </LoginContext.Provider>

@@ -30,7 +30,7 @@
 }
 
 .inventoryHeader {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   margin-bottom: 0.6em;
 }
 
@@ -49,6 +49,9 @@
 }
 
 @media screen and (max-width: 475px) {
+  .inventoryHeader {
+    font-size: 1.5rem;
+  }
   .inventoryTable {
     width: 95%;
     max-height: 60vh;
