@@ -3,7 +3,7 @@ import { QRCodeSVG } from "qrcode.react";
 import logo from "../assets/images/matts-logo.png";
 
 const PrintPage = (props) => {
-  const url = `http://192.168.1.113:5173/repair-card/${props.machine.id}`;
+  const url = `https://blutape.net/repair-card/${props.machine.id}`;
 
   return (
     <>
