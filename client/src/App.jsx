@@ -1,5 +1,4 @@
 import { useState, createContext, useEffect } from "react";
-import { getTechs } from "./api/Calls";
 import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

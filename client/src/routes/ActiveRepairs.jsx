@@ -1,23 +1,27 @@
+import styles from "./ActiveRepairs.module.css";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./ActiveRepairs.module.css";
 
 const ActiveRepairs = () => {
   const navigate = useNavigate();
   const [machines, setMachines] = useState([]);
 
-  useEffect(() => {
+  const fetchMachines = () => {
     fetch("/api/get_machines")
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        setMachines(data.data);
+        setMachines([...data.data]);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchMachines();
+  }, [navigate]);
 
   const renderData = machines.map((machine) => (
     <tr key={machine.id}>
@@ -31,20 +35,26 @@ const ActiveRepairs = () => {
 
   return (
     <>
-      <h1 className={styles.activeHeader}>Active Repairs</h1>
-      <table className={styles.activeTable}>
-        <thead>
-          <tr>
-            <th>Make</th>
-            <th>Model</th>
-            <th>Style</th>
-          </tr>
-        </thead>
-        <tbody>{renderData}</tbody>
-      </table>
-      <Link to="/start-repair" className={styles.addRepairButton}>
-        Add Repair
-      </Link>
+      {machines.length !== 0 ? (
+        <>
+          <h1 className={styles.activeHeader}>Active Repairs</h1>
+          <table className={styles.activeTable}>
+            <thead>
+              <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Style</th>
+              </tr>
+            </thead>
+            <tbody>{renderData}</tbody>
+          </table>
+          <Link to="/start-repair" className={styles.addRepairButton}>
+            Add Repair
+          </Link>
+        </>
+      ) : (
+        <h1 className={styles.activeHeader}>No Active repairs</h1>
+      )}
     </>
   );
 };

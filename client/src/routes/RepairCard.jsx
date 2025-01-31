@@ -1,10 +1,9 @@
+import styles from "./RepairCard.module.css";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { deleteMachine, addToInventory, getTechs } from "../api/Calls";
 import { PrintLabel, PrintNotes } from "../utils";
-import { QRCodeSVG } from "qrcode.react";
 import { LoginContext } from "../App";
-import styles from "./RepairCard.module.css";
 import PrintPage from "../components/PrintPage";
 
 const RepairCard = () => {

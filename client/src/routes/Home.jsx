@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { LoginContext } from "../App";
-import ActiveRepairs from "./ActiveRepairs";
 const Home = () => {
   const [user, setUser] = useContext(LoginContext);
   return (
     <>
-      {/* <ActiveRepairs /> */}
       <div className="buttonBlock">
         <Link to="/start-repair">Start Repair</Link>
         <Link to="/active-repairs">Active Repairs</Link>

@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
 import styles from "./Footer.module.css";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { LoginContext } from "../App";
 
@@ -23,7 +23,7 @@ const Footer = () => {
     }
   };
   return (
-    <footer>
+    <footer className={styles.footer}>
       {loggedIn && (
         <div>
           <Link to="/login-page" onClick={() => logout()}>

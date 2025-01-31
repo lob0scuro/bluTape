@@ -4,13 +4,15 @@ import logo from "../assets/images/matts-logo.png";
 
 const PrintPage = (props) => {
   const url = `https://blutape.net/repair-card/${props.machine.id}`;
+  //label is 2in x 4in
+  // converted to pixels = 192px x 384px
 
   return (
     <>
       <div>
         <QRCodeSVG
           value={url}
-          size={230}
+          size={300}
           imageSettings={{ src: logo, height: 100, width: 100 }}
         />
       </div>

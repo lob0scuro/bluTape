@@ -206,23 +206,28 @@ def add_to_inventory(id):
         return jsonify(error = "Error with query, please try again"), 400
     
 # add machine to archive list and delete from active table
-@bp.route('/archive_machine/<int:id>', methods=('GET', 'POST'))
-def archive_machine(id):
-    machine = Machine.query.get(id)
-    if not machine:
-        return jsonify(error = "Machine not found, check inputs and try again"), 400
+@bp.route('/archive_machines', methods=('GET', 'POST'))
+def archive_machines():
     try:
-        archive_item = Archive(id = machine.id, make=machine.make, model=machine.model, serial=machine.serial, color=machine.color, style=machine.style, notes=machine.notes)
-        db.session.add(archive_item)
-        db.session.flush()
-        Notes.query.filter_by(machine_id=machine.id).update({'machine_id': None, 'archive_id': archive_item.id})
-        db.session.delete(machine)
-        db.session.commit()
-        return jsonify(message = "Machine added to archive!", machine = archive_item.serialize()), 201
+        data = request.get_json()
+        if not data:
+            return jsonify("Data not received"), 401
+        for d in data:
+            machine = Machine.query.get(int(d["id"]))
+            archive_item = Archive(id = machine.id, make=machine.make, model=machine.model, serial=machine.serial, color=machine.color, style=machine.style, notes=machine.notes)
+            db.session.add(archive_item)
+            db.session.flush()
+            Notes.query.filter_by(machine_id=machine.id).update({'machine_id': None, 'archive_id': archive_item.id})
+            db.session.delete(machine)
+            db.session.commit()       
+        return jsonify(message="Added machines to archive!")
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()
         return jsonify(error = "Problem with query, please try again"), 400
+    
+    
+    
 
     
         

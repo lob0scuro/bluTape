@@ -9,26 +9,25 @@ export const PrintLabel = (el) => {
                       <style>
                           @media print {
                                 @page {
-                                    size: 3in 5in;
-                                    size: landscape;
+                                    size: 4in 2in;
+                                    margin: 0;
                                 }
                               
   
                               body {
-                              width: 80%;
-                              height: 100%;
-                              margin: 0 0 0 45px;
+                              height: 406px;
+                              width: 812px;
+                              margin: 0;
                               padding: 0;
                               display: flex;
-                              place-content: center;
+                              justify-content: center;
                               align-items: center;
-                              font-size: 40px;
+                              font-size: 22px;
                               gap: 30px;
                               }
                               body:last-child {
                                 line-height: 10px;
                               }
-  
                               * {
                               box-sizing: border-box;
                               }
@@ -97,3 +96,6 @@ export const PrintNotes = (el, machine) => {
   printWindow.print();
   printWindow.close();
 };
+
+window.PrintLabel = PrintLabel;
+window.PrintNotes = PrintNotes;

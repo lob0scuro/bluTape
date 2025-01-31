@@ -1,7 +1,7 @@
+import styles from "./LoginPage.module.css";
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getTechs } from "../api/Calls";
-import styles from "./LoginPage.module.css";
 import { LoginContext } from "../App";
 
 const LoginPage = () => {

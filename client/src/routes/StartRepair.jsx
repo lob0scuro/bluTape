@@ -1,6 +1,6 @@
+import styles from "./StartRepair.module.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./StartRepair.module.css";
 
 const StartRepair = () => {
   const navigate = useNavigate();
@@ -41,11 +41,11 @@ const StartRepair = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data.machine);
+        console.log(data.message);
         navigate(`/repair-card/${data.machine.id}`);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("There was an error brother", error);
       });
     console.log("Form Submitted: ", formData);
     setFormInputs(formData);

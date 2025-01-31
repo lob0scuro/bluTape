@@ -1,86 +1,113 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styles from "./InventoryList.module.css";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 
 const InventoryList = () => {
+  const navigate = useNavigate();
   const [machines, setMachines] = useState([]);
 
-  useEffect(() => {
+  const fetchMachines = () => {
     fetch("/api/get_inventory")
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        setMachines(data.machines);
+        setMachines([...data.machines]);
       })
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  useEffect(() => {
+    fetchMachines();
   }, []);
 
   const exportTable = () => {
-    const data = machines.map((machine) => ({
-      date: new Date().toDateString("en-US"),
-      id: machine.id,
-      make: machine.make,
-      model: machine.model,
-      serial: machine.serial,
-      style: machine.style,
-      color: machine.color,
-    }));
+    let conf = confirm("Export data and archive machines?");
+    if (!conf) {
+      return;
+    } else {
+      const data = machines.map((machine) => [
+        new Date().toDateString("en-US"),
+        machine.id,
+        machine.make,
+        machine.model,
+        machine.serial,
+        machine.style,
+        machine.color,
+      ]);
 
-    const headers = [
-      "Date",
-      "ID",
-      "Make",
-      "Model No.",
-      "Serial No.",
-      "Style",
-      "Color",
-    ];
-    const ws = XLSX.utils.json_to_sheet(data, { skipHeader: true });
-    XLSX.utils.sheet_add_aoa(ws, [headers], { origin: "A1" });
-    ws["!cols"] = [
-      { wpx: 90 },
-      { wpx: 25 },
-      { wpx: 80 },
-      { wpx: 100 },
-      { wpx: 100 },
-      { wpx: 75 },
-      { wpx: 75 },
-    ];
+      const archiveData = machines.map((machine) => ({ id: machine.id }));
 
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Inventory Log");
+      const headers = [
+        ["Date", "ID", "Make", "Model No.", "Serial No.", "Style", "Color"],
+      ];
+      const ws = XLSX.utils.aoa_to_sheet([...headers, ...data]);
+      ws["!cols"] = [
+        { wpx: 90 },
+        { wpx: 25 },
+        { wpx: 80 },
+        { wpx: 100 },
+        { wpx: 100 },
+        { wpx: 75 },
+        { wpx: 75 },
+      ];
 
-    const wbBlob = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    const blob = new Blob([wbBlob], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
-    const formData = new FormData();
-    formData.append("file", blob, "InventoryLog.xlsx");
-    console.log(formData);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Inventory Log");
 
-    try {
-      fetch("/api/send_email", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => {
-          return response.json();
+      const wbBlob = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+      const blob = new Blob([wbBlob], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const formData = new FormData();
+      formData.append("file", blob, "InventoryLog.xlsx");
+
+      // try {
+      //   fetch("/api/send_email", {
+      //     method: "POST",
+      //     body: formData,
+      //   })
+      //     .then((response) => {
+      //       return response.json();
+      //     })
+      //     .then((data) => {
+      //       console.log(data.message);
+      //     })
+      //     .catch((error) => {
+      //       console.error(error);
+      //     });
+      // } catch (error) {
+      //   console.error(error);
+      // }
+
+      try {
+        fetch("/api/archive_machines", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(archiveData),
         })
-        .then((data) => {
-          console.log(data.message);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } catch (error) {
-      console.error(error);
+          .then((response) => {
+            return response.json;
+          })
+          .then((data) => {
+            console.log(data.message);
+            fetchMachines();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+
+      XLSX.writeFile(wb, "InventorySheet.xlsx");
     }
-
-    XLSX.writeFile(wb, "InventorySheet.xlsx");
   };
 
   const renderList = machines.map((machine) => (
@@ -95,22 +122,30 @@ const InventoryList = () => {
 
   return (
     <>
-      <h1 className={styles.inventoryHeader}>Finished Repairs</h1>
-      <table className={styles.inventoryTable}>
-        <thead>
-          <tr>
-            <th>Make</th>
-            <th>Model</th>
-            <th>Style</th>
-          </tr>
-        </thead>
-        <tbody>{renderList}</tbody>
-      </table>
-      <div className={styles.buttonBlock}>
-        <button onClick={exportTable} className={styles.exportButton}>
-          Export
-        </button>
-      </div>
+      {machines.length !== 0 ? (
+        <>
+          <h1 className={styles.inventoryHeader}>Finished Repairs</h1>
+          <table className={styles.inventoryTable}>
+            <thead>
+              <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Style</th>
+              </tr>
+            </thead>
+            <tbody>{renderList}</tbody>
+          </table>
+          <div className={styles.buttonBlock}>
+            <button onClick={exportTable} className={styles.exportButton}>
+              Export
+            </button>
+          </div>
+        </>
+      ) : (
+        <h1 className={styles.inventoryHeader}>
+          All repairs have been archived
+        </h1>
+      )}
     </>
   );
 };
