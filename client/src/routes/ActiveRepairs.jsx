@@ -53,7 +53,14 @@ const ActiveRepairs = () => {
           </Link>
         </>
       ) : (
-        <h1 className={styles.activeHeader}>No Active repairs</h1>
+        <div className={styles.noDataBlock}>
+          <br />
+          <h1 className={styles.activeNoDataHeader}>No Active repairs</h1>
+          <br />
+          <Link to="/start-repair" className={styles.addRepairButton}>
+            Add Repair
+          </Link>
+        </div>
       )}
     </>
   );
