@@ -24,12 +24,12 @@ def register():
         return jsonify(error = "Could not complete query, please check inputs and try again"), 500
 
 #login technician
-@bp.route('/login', methods=('GET', 'POST'))
-def login():
+@bp.route('/login/<int:id>', methods=('GET', 'POST'))
+def login(id):
     try:
-        data = request.get_json()
-        tech_id = data.get('id')
-        tech = Tech.query.get(tech_id)
+        # data = request.get_json()
+        # tech_id = data.get('id')
+        tech = Tech.query.get(id)
         if not tech:
             return jsonify(error = "Tech not found, please check inputs and try again."), 400
         login_user(tech)
@@ -227,6 +227,28 @@ def archive_machines():
         return jsonify(error = "Problem with query, please try again"), 400
     
     
+@bp.route('/get_archives', methods=('GET', 'POST'))
+def get_archives():
+    try:
+        machines = Archive.query.all()
+        if not machines:
+            return jsonify(error="Could not fetch archives, please try again"), 401
+        return jsonify([machine.serialize() for machine in machines]), 200
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify(error="Problem with query, please try again"), 401
+    
+@bp.route("/get_archived_machine/<int:id>", methods=('GET', 'POST'))    
+def get_archived_machine(id):
+    try:
+        machine = Archive.query.get(id)
+        if not machine:
+            return jsonify(error=f"Could not fin machine with id {id}"), 400
+        return jsonify(machine.serialize()), 200
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify(error="Problem with query, please check inputs and try again"), 401
+        
     
 
     

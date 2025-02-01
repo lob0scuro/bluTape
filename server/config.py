@@ -15,3 +15,10 @@ class Config:
     MAIL_PASSWORD = os.environ.get('APP_PASSWORD')
     MAIL_DEFAULT_SENDER = "matts.blutape@gmail.com"
     DEBUG = False
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = 'None'
+
+
+
+    

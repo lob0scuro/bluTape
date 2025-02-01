@@ -1,11 +1,13 @@
 import styles from "./InventoryList.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
+import { UserContext } from "../context/UserContext";
 
 const InventoryList = () => {
   const navigate = useNavigate();
   const [machines, setMachines] = useState([]);
+  const { user } = useContext(UserContext);
 
   const fetchMachines = () => {
     fetch("/api/get_inventory")
@@ -22,7 +24,7 @@ const InventoryList = () => {
 
   useEffect(() => {
     fetchMachines();
-  }, []);
+  }, [navigate]);
 
   const exportTable = () => {
     let conf = confirm("Export data and archive machines?");
@@ -65,23 +67,23 @@ const InventoryList = () => {
       const formData = new FormData();
       formData.append("file", blob, "InventoryLog.xlsx");
 
-      // try {
-      //   fetch("/api/send_email", {
-      //     method: "POST",
-      //     body: formData,
-      //   })
-      //     .then((response) => {
-      //       return response.json();
-      //     })
-      //     .then((data) => {
-      //       console.log(data.message);
-      //     })
-      //     .catch((error) => {
-      //       console.error(error);
-      //     });
-      // } catch (error) {
-      //   console.error(error);
-      // }
+      try {
+        fetch("/api/send_email", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data.message);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } catch (error) {
+        console.error(error);
+      }
 
       try {
         fetch("/api/archive_machines", {
@@ -135,11 +137,13 @@ const InventoryList = () => {
             </thead>
             <tbody>{renderList}</tbody>
           </table>
-          <div className={styles.buttonBlock}>
-            <button onClick={exportTable} className={styles.exportButton}>
-              Export
-            </button>
-          </div>
+          {(user.first_name === "Ethan" || user.first_name === "Jesse") && (
+            <div className={styles.buttonBlock}>
+              <button onClick={exportTable} className={styles.exportButton}>
+                Export
+              </button>
+            </div>
+          )}
         </>
       ) : (
         <h1 className={styles.inventoryHeader}>

@@ -1,10 +1,9 @@
 import styles from "./Navbar.module.css";
 import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { LoginContext } from "../App";
-
+import { UserContext } from "../context/UserContext";
 const Navbar = () => {
-  const [loggedIn, setLoggedIn, user, setUser] = useContext(LoginContext);
+  const { user } = useContext(UserContext);
 
   return (
     <header>
@@ -15,7 +14,7 @@ const Navbar = () => {
         </Link>
       </h1>
 
-      {loggedIn && (
+      {user && (
         <nav>
           <NavLink to="/start-repair">Start Repair</NavLink>
           <NavLink to="/active-repairs">Active</NavLink>

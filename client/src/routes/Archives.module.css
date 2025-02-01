@@ -1,62 +1,50 @@
-.inventoryTable {
-  margin: 0 auto;
+.archiveTable {
+  margin: 0 auto 2rem auto;
   border: 2px solid #fefefe;
   padding: 0;
   width: 80%;
+  height: 10rem;
   max-height: 55vh;
   overflow: scroll;
   color: #f9f9f9;
 }
 
-.inventoryTable thead {
+.archiveTable thead {
   background-color: #213547;
 }
-.inventoryTable thead tr {
+
+.archiveTable thead tr {
   font-size: 1.8rem;
   font-weight: 700;
 }
 
-.inventoryTable tbody {
+.archiveTable tbody {
   background-color: #464545;
 }
-.inventoryTable tbody tr {
-  font-size: 1.4rem;
+.archiveTable tbody tr {
+  font-size: 1rem;
   font-weight: 500;
   margin: 0;
 }
-.inventoryTable tbody tr td:first-child {
+/* .archiveTable tbody tr td:first-child {
   text-decoration: underline;
   text-underline-offset: 5px;
-}
+} */
 
-.inventoryHeader {
+.archiveHeader {
   margin-top: 1rem;
   margin-bottom: 0.6em;
-}
-
-.buttonBlock {
-  padding: 2rem 3rem 2rem 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.exportButton {
-  background-color: #213547;
-  border: 1px solid #f9f9f9;
-  width: fit-content;
-  color: #f9f9f9;
 }
 
 @media screen and (max-width: 475px) {
   .inventoryHeader {
     font-size: 1.5rem;
   }
-  .inventoryTable {
-    width: 95%;
+  .archiveTable {
+    width: 80%;
     max-height: 60vh;
   }
-  .inventoryTable tbody tr td {
+  .archiveTable tbody tr td {
     font-size: 1.2rem;
     padding: 0.2rem;
   }

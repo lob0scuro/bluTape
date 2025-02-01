@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { deleteMachine, addToInventory, getTechs } from "../api/Calls";
 import { PrintLabel, PrintNotes } from "../utils";
-import { LoginContext } from "../App";
+import { UserContext } from "../context/UserContext";
 import PrintPage from "../components/PrintPage";
 
 const RepairCard = () => {
@@ -12,8 +12,7 @@ const RepairCard = () => {
   const [newNote, setNewNote] = useState("");
   const location = useLocation();
   const { id } = useParams();
-  const { loggedIn, setLoggedIn, user, setUser } = useContext(LoginContext);
-
+  const { user } = useContext(UserContext);
   useEffect(() => {
     fetch(`/api/get_machine/${id}`)
       .then((response) => {
@@ -90,12 +89,14 @@ const RepairCard = () => {
           <div>{note.content}</div>
           <div>{note.created_on}</div>
         </div>
-        <button
-          onClick={() => handleDelete(note.id)}
-          className={styles.deleteNote}
-        >
-          X
-        </button>
+        {user && (
+          <button
+            onClick={() => handleDelete(note.id)}
+            className={styles.deleteNote}
+          >
+            X
+          </button>
+        )}
       </li>
     ));
   };
@@ -115,29 +116,43 @@ const RepairCard = () => {
         </div>
         {/* end qr block */}
         <div className={styles.handleMachine}>
-          <button
-            className={styles.printLabelButton}
-            onClick={() => PrintLabel("qr-block")}
-          >
-            Print Label
-          </button>
+          {user ? (
+            <>
+              <button
+                className={styles.printLabelButton}
+                onClick={() => PrintLabel("qr-block")}
+              >
+                Print Label
+              </button>
 
-          {machine.in_progress && (
-            <Link
-              to="/inventory-list"
-              onClick={() => addToInventory(machine.id)}
-            >
-              Add to Inventory
-            </Link>
+              {machine.in_progress && (
+                <Link
+                  to="/inventory-list"
+                  onClick={() => addToInventory(machine.id)}
+                >
+                  Add to Inventory
+                </Link>
+              )}
+              <Link to={`/edit-machine/${machine.id}`}>Edit</Link>
+              <Link
+                to="/active-repairs"
+                onClick={() => deleteMachine(machine.id)}
+                className={styles.trash}
+              >
+                Trash
+              </Link>
+            </>
+          ) : (
+            <>
+              <button
+                className={styles.printLabelButton}
+                onClick={() => PrintLabel("qr-block")}
+              >
+                Print Label
+              </button>
+              <Link to="/login-page">Login</Link>
+            </>
           )}
-          <Link to={`/edit-machine/${machine.id}`}>Edit</Link>
-          <Link
-            to="/active-repairs"
-            onClick={() => deleteMachine(machine.id)}
-            className={styles.trash}
-          >
-            Trash
-          </Link>
         </div>
 
         <div id="notes-block" className={styles.notesBlock}>
@@ -150,25 +165,28 @@ const RepairCard = () => {
           Print Notes
         </button>
       </div>
-      <div>
-        <form className={styles.addNoteForm} onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="toAdd">
-              <div>Add Note</div>
-              <textarea
-                className={styles.addNoteArea}
-                name="toAdd"
-                id="toAdd"
-                rows="10"
-                // cols="45"
-                value={newNote}
-                onChange={(e) => setNewNote(e.target.value)}
-              ></textarea>
-            </label>
-          </div>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+
+      {user && (
+        <div>
+          <form className={styles.addNoteForm} onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="toAdd">
+                <div>Add Note</div>
+                <textarea
+                  className={styles.addNoteArea}
+                  name="toAdd"
+                  id="toAdd"
+                  rows="10"
+                  // cols="45"
+                  value={newNote}
+                  onChange={(e) => setNewNote(e.target.value)}
+                ></textarea>
+              </label>
+            </div>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      )}
     </>
   );
 };

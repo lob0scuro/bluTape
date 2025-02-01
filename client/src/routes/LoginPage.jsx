@@ -1,16 +1,14 @@
 import styles from "./LoginPage.module.css";
 import React, { useState, useEffect, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getTechs } from "../api/Calls";
-import { LoginContext } from "../App";
+import { UserContext } from "../context/UserContext";
 
 const LoginPage = () => {
   const [techs, setTechs] = useState([]);
   const [formData, setFormData] = useState("");
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn, user, setUser] = useContext(LoginContext);
-  const location = useLocation();
-  const from = location.state?.from || "/";
+  const { user, login } = useContext(UserContext);
 
   useEffect(() => {
     const fetchTechs = async () => {
@@ -35,20 +33,7 @@ const LoginPage = () => {
       return;
     }
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: formData }),
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log(data.message);
-      localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
-      navigate(from);
+      login(formData);
     } catch (error) {
       console.error("Problem with login", error);
     }

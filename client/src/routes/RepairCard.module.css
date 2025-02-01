@@ -94,6 +94,7 @@ button.deleteNote {
 
 .printNotesButton {
   margin-top: 1em;
+  margin-bottom: 2rem;
   background-color: #213547;
   color: #f9f9f9;
   border: 2px solid #f9f9f9;
