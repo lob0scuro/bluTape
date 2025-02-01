@@ -9,17 +9,20 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       {user && (
-        <div>
+        <div className={styles.logoutLink}>
           <Link to="/login-page" onClick={() => logout()}>
             Logout
           </Link>
         </div>
       )}
 
-      <div>
-        <p>Matt's Appliances, LLC.</p>
-      </div>
-      <div>
+      <div className={styles.footerTextBlock}>
+        <p>
+          <small>Matt's Appliances, LLC.</small>
+        </p>
+        <p>
+          <small>2600 Common St. Lake Charles, LA, 70607</small>
+        </p>
         <p>
           <b>bluTape</b>/ created by: Cameron Lopez
         </p>
