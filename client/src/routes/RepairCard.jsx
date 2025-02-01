@@ -1,7 +1,7 @@
 import styles from "./RepairCard.module.css";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { deleteMachine, addToInventory, getTechs } from "../api/Calls";
+import { deleteMachine, addToInventory } from "../api/Calls";
 import { PrintLabel, PrintNotes } from "../utils";
 import { UserContext } from "../context/UserContext";
 import PrintPage from "../components/PrintPage";
@@ -10,7 +10,6 @@ const RepairCard = () => {
   const [machine, setMachine] = useState({});
   const [noteCount, setNoteCount] = useState(0);
   const [newNote, setNewNote] = useState("");
-  const location = useLocation();
   const { id } = useParams();
   const { user } = useContext(UserContext);
   useEffect(() => {

@@ -137,7 +137,7 @@ const InventoryList = () => {
             </thead>
             <tbody>{renderList}</tbody>
           </table>
-          {(user.first_name === "Ethan" || user.first_name === "Jesse") && (
+          {["Ethan", "Jesse", "Matt", "Donovan"].includes(user.first_name) && (
             <div className={styles.buttonBlock}>
               <button onClick={exportTable} className={styles.exportButton}>
                 Export
