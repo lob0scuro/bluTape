@@ -1,6 +1,6 @@
 from flask import Flask
 from config import Config
-from app.extensions import cors, db, login_manager, mail
+from app.extensions import cors, db, login_manager, mail, migrate
 from app.models import Tech
 
 def create_app(config_class=Config):
@@ -12,6 +12,7 @@ def create_app(config_class=Config):
     cors.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    migrate.init_app(app, db)
     
     #register blueprints
     from app.api import bp as api_bp
