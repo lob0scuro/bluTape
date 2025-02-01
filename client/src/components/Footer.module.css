@@ -3,11 +3,11 @@
   color: #f9f9f9;
   height: fit-content;
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   padding: 1.4em 2rem 5.6rem 1.4rem;
   margin-top: auto;
+  gap: 1rem;
 }
 
 .footer .logoutLink a {
@@ -18,7 +18,7 @@
 .footer .footerTextBlock {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
 }
 
