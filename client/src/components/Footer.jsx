@@ -21,9 +21,6 @@ const Footer = () => {
           <small>Matt's Appliances, LLC.</small>
         </p>
         <p>
-          <small>2600 Common St. Lake Charles, LA, 70607</small>
-        </p>
-        <p>
           <b>bluTape</b>/ created by: Cameron Lopez
         </p>
       </div>
