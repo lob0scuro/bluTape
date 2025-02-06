@@ -103,8 +103,13 @@ def get_machines():
 def get_machine(id):
     machine = Machine.query.get(int(id))
     if not machine:
-        return jsonify(error = "Could not find machine, check inputs and try again."), 404
+        machine = Archive.query.get(int(id))
+        if not machine:           
+            return jsonify(error = "Could not find machine, check inputs and try again."), 404
+        return jsonify(machine = machine.serialize()), 200
     return jsonify(machine = machine.serialize()), 200
+
+    
 
 #update machine info
 @bp.route('/update_machine/<int:id>', methods=('GET', 'POST'))
@@ -167,9 +172,11 @@ def delete_note(id):
 # delete machine
 @bp.route('/delete/<int:id>', methods=['DELETE'])
 def delete(id):
-    machine = Machine.query.get(id)
+    machine = Machine.query.get(int(id))
     if not machine:
-        return jsonify(error = "Machine not found"), 401
+        machine = Archive.query.get(int(id))
+        if not machine:
+            return jsonify(error = "Machine not found"), 401
     try:
         db.session.delete(machine)
         db.session.commit()
@@ -266,7 +273,7 @@ def send_email():
     try:
         msg = Message(
             "Inventory Log",
-            recipients=["kamrin717@gmail.com"],
+            recipients=["jesse@mattsappliancesla.net", "ethann@mattsappliancesla.net", "kamrin717@gmail.com"],
             body="Please find attached the inventory log"
         )
         

@@ -1,5 +1,5 @@
 .inventoryTable {
-  margin: 0 auto;
+  margin: 0 auto 2em auto;
   border: 2px solid #fefefe;
   padding: 0;
   width: 80%;
@@ -46,6 +46,7 @@
   border: 1px solid #f9f9f9;
   width: fit-content;
   color: #f9f9f9;
+  margin: 1em 1em 1em auto;
 }
 
 @media screen and (max-width: 475px) {
@@ -57,7 +58,7 @@
     max-height: 60vh;
   }
   .inventoryTable tbody tr td {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 0.2rem;
   }
 }

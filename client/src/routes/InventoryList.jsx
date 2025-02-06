@@ -137,12 +137,12 @@ const InventoryList = () => {
             </thead>
             <tbody>{renderList}</tbody>
           </table>
-          {["Ethan", "Jesse", "Matt", "Donovan"].includes(user.first_name) && (
-            <div className={styles.buttonBlock}>
-              <button onClick={exportTable} className={styles.exportButton}>
-                Export
-              </button>
-            </div>
+          {["Ethan", "Jesse", "Matt", "Cameron"].includes(user.first_name) && (
+            // <div className={styles.buttonBlock}>
+            <button onClick={exportTable} className={styles.exportButton}>
+              Export
+            </button>
+            // </div>
           )}
         </>
       ) : (
