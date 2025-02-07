@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 const EditMachine = () => {
   const navigate = useNavigate();
+
   const { id } = useParams();
   const [machine, setMachine] = useState({});
   const [make, setMake] = useState("");
@@ -72,11 +73,7 @@ const EditMachine = () => {
         })
         .then((data) => {
           console.log(data.message);
-          if (machine.in_progress) {
-            navigate("/active-repairs");
-          } else {
-            navigate("/inventory-list");
-          }
+          navigate(`/repair-card/${id}`);
         })
         .catch((error) => {
           console.error(error);

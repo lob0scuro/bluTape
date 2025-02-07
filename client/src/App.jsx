@@ -8,11 +8,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "./context/UserContext";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ProtectedRoute from "./routes/ProtectedRoutes";
 import Home from "./routes/Home";
 import LoginPage from "./routes/LoginPage";
 import StartRepair from "./routes/StartRepair";
@@ -22,20 +17,23 @@ import EditMachine from "./routes/EditMachine";
 import RepairCard from "./routes/RepairCard";
 import Archives from "./routes/Archives";
 import RootLayout from "./layout/RootLayout";
+import ProtectedRoutes from "./layout/ProtectedRoutes";
 
 function App() {
-  const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  // const navigate = useNavigate();
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<Home />} />
-        <Route path="start-repair" element={<StartRepair />} />
-        <Route path="active-repairs" element={<ActiveRepairs />} />
-        <Route path="edit-machine/:id" element={<EditMachine />} />
-        <Route path="inventory-list" element={<InventoryList />} />
-        <Route path="archives" element={<Archives />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route index element={<Home />} />
+          <Route path="start-repair" element={<StartRepair />} />
+          <Route path="active-repairs" element={<ActiveRepairs />} />
+          <Route path="edit-machine/:id" element={<EditMachine />} />
+          <Route path="inventory-list" element={<InventoryList />} />
+          <Route path="archives" element={<Archives />} />
+        </Route>
+        <Route path="login-page" element={<LoginPage />} />
         <Route path="repair-card/:id" element={<RepairCard />} />
       </Route>
     )

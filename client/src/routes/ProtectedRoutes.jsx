@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { useAuth } from "../context/UserContext";
 
 const ProtectedRoute = ({ element, exemptRoutes = [] }) => {
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   const location = useLocation();
 
   const isExempt = exemptRoutes.some((path) =>

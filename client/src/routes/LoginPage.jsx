@@ -1,14 +1,16 @@
 import styles from "./LoginPage.module.css";
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getTechs } from "../api/Calls";
-import { UserContext } from "../context/UserContext";
+import { useAuth } from "../context/UserContext";
 
 const LoginPage = () => {
   const [techs, setTechs] = useState([]);
   const [formData, setFormData] = useState("");
   const navigate = useNavigate();
-  const { user, login } = useContext(UserContext);
+  const location = useLocation();
+  const { user, login } = useAuth();
+  const from = location.state?.from || "/";
 
   useEffect(() => {
     const fetchTechs = async () => {
@@ -34,6 +36,7 @@ const LoginPage = () => {
     }
     try {
       login(formData);
+      navigate("/");
     } catch (error) {
       console.error("Problem with login", error);
     }

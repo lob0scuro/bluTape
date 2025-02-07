@@ -1,9 +1,9 @@
 import styles from "./Navbar.module.css";
 import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { useAuth } from "../context/UserContext";
 const Navbar = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
 
   return (
     <header>

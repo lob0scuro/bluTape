@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { deleteMachine, addToInventory } from "../api/Calls";
 import { PrintLabel, PrintNotes } from "../utils";
-import { UserContext } from "../context/UserContext";
+import { useAuth } from "../context/UserContext";
 import PrintPage from "../components/PrintPage";
 
 const RepairCard = () => {
@@ -11,7 +11,7 @@ const RepairCard = () => {
   const [noteCount, setNoteCount] = useState(0);
   const [newNote, setNewNote] = useState("");
   const { id } = useParams();
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   useEffect(() => {
     fetch(`/api/get_machine/${id}`)
       .then((response) => {

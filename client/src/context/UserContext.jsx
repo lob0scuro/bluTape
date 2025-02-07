@@ -1,12 +1,11 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const UserContext = createContext();
+const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const from = location.state?.from || "/";
 
   useEffect(() => {
@@ -33,7 +32,7 @@ export const UserProvider = ({ children }) => {
           setUser(data.tech);
           localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
           console.log(data.message);
-          navigate(from);
+          // navigate(from);
         })
         .catch((error) => {
           console.error(error);
@@ -68,3 +67,5 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(UserContext);

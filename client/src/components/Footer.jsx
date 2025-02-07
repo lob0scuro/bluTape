@@ -1,10 +1,10 @@
 import styles from "./Footer.module.css";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { useAuth } from "../context/UserContext";
 
 const Footer = () => {
-  const { user, logout } = useContext(UserContext);
+  const { user, logout } = useAuth();
 
   return (
     <footer className={styles.footer}>

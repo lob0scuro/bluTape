@@ -2,12 +2,12 @@ import styles from "./InventoryList.module.css";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
-import { UserContext } from "../context/UserContext";
+import { useAuth } from "../context/UserContext";
 
 const InventoryList = () => {
   const navigate = useNavigate();
   const [machines, setMachines] = useState([]);
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
 
   const fetchMachines = () => {
     fetch("/api/get_inventory")

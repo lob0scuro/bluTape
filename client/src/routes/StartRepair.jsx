@@ -15,6 +15,10 @@ const StartRepair = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const assurance = confirm("Confirm repair?");
+    if (!assurance) {
+      return;
+    }
     const formData = {
       make,
       model,
