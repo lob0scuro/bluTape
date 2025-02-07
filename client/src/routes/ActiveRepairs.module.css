@@ -3,16 +3,22 @@
   border: 2px solid #fefefe;
   padding: 0;
   width: 80%;
-  color: #f9f9f9;
   max-height: 55vh;
   overflow: scroll;
+  color: #f9f9f9;
+}
+
+.activeHeader {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .activeTable thead {
   background-color: #213547;
 }
+
 .activeTable thead tr {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 700;
 }
 
@@ -20,13 +26,13 @@
   background-color: #464545;
 }
 .activeTable tbody tr {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 500;
   margin: 0;
 }
 .activeTable tbody tr td:first-child {
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 5px;
 }
 
 .addRepairButton {
@@ -40,16 +46,18 @@
   font-weight: 600;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 475px) {
   .activeHeader {
     font-size: 1.5rem;
-    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.8rem;
   }
   .activeTable {
     width: 80%;
+    max-height: 60vh;
   }
   .activeTable tbody tr td {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     padding: 0.2rem;
   }
 }

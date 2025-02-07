@@ -16,31 +16,53 @@ export const UserProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = (id) => {
+  const login = async (id) => {
     try {
-      fetch(`/api/login/${id}`, {
+      const response = await fetch(`/api/login/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ id: id }),
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          setUser(data.tech);
-          localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
-          console.log(data.message);
-          // navigate(from);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      });
+
+      const data = await response.json();
+      setUser(data.tech);
+      localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
+      console.log(data.message);
+      return data; // Return the data or a success message
     } catch (error) {
-      throw new Error("An error occured: ", error);
+      console.error("Error with login:", error);
+      throw error; // You can rethrow to handle it in the submit function
     }
   };
+
+  // const login = (id) => {
+  //   try {
+  //     fetch(`/api/login/${id}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ id: id }),
+  //     })
+  //       .then((response) => {
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         setUser(data.tech);
+  //         localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
+  //         console.log(data.message);
+  //         // navigate(from);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //         throw error;
+  //       });
+  //   } catch (error) {
+  //     throw new Error("An error occured: ", error);
+  //   }
+  // };
 
   const logout = () => {
     try {

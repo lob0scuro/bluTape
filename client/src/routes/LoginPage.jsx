@@ -35,9 +35,10 @@ const LoginPage = () => {
       return;
     }
     try {
-      login(formData);
+      await login(formData);
       navigate("/");
     } catch (error) {
+      alert("Login failed. Please try again.");
       console.error("Problem with login", error);
     }
   };

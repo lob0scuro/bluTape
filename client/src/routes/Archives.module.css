@@ -1,34 +1,11 @@
 .archiveTable {
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 2em auto;
   border: 2px solid #fefefe;
   padding: 0;
   width: 80%;
-  height: 10rem;
   max-height: 55vh;
   overflow: scroll;
   color: #f9f9f9;
-}
-
-.archiveTable thead {
-  background-color: #213547;
-}
-
-.archiveTable thead tr {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
-.archiveTable tbody {
-  background-color: #464545;
-}
-.archiveTable tbody tr {
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 0;
-}
-.archiveTable tbody tr td:first-child {
-  text-decoration: underline;
-  text-underline-offset: 5px;
 }
 
 .archiveHeader {
@@ -36,16 +13,41 @@
   margin-bottom: 0.6em;
 }
 
+.archiveTable thead {
+  background-color: #213547;
+}
+
+.archiveTable thead tr {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.archiveTable tbody {
+  background-color: #464545;
+}
+.archiveTable tbody tr {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.archiveTable tbody tr td:first-child {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
 @media screen and (max-width: 475px) {
   .archiveHeader {
     font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.8rem;
   }
   .archiveTable {
-    width: 95%;
+    width: 80%;
     max-height: 60vh;
   }
   .archiveTable tbody tr td {
-    font-size: 1rem;
+    font-size: 1.2rem;
     padding: 0.2rem;
   }
 }

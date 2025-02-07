@@ -237,7 +237,7 @@ def archive_machines():
 @bp.route('/get_archives', methods=('GET', 'POST'))
 def get_archives():
     try:
-        machines = Archive.query.all()
+        machines = Archive.query.limit(15).all()
         if not machines:
             return jsonify(error="Could not fetch archives, please try again"), 401
         return jsonify([machine.serialize() for machine in machines]), 200

@@ -44,49 +44,6 @@ function App() {
       <RouterProvider router={router} />
     </>
   );
-
-  // return (
-  //   <div id="app-container">
-  //     <Navbar />
-  //     <Routes>
-  //       <Route
-  //         path="/"
-  //         element={user ? <Home /> : <Navigate to="/login-page" />}
-  //       />
-  //       <Route path="/login-page" element={<LoginPage />} />
-  //       <Route
-  //         path="/start-repair"
-  //         element={<ProtectedRoute element={<StartRepair />} />}
-  //       />
-  //       <Route
-  //         path="/active-repairs"
-  //         element={<ProtectedRoute element={<ActiveRepairs />} />}
-  //       />
-  //       <Route
-  //         path="/edit-machine/:id"
-  //         element={<ProtectedRoute element={<EditMachine />} />}
-  //       />
-  //       <Route
-  //         path="/inventory-list"
-  //         element={<ProtectedRoute element={<InventoryList />} />}
-  //       />
-  //       <Route
-  //         path="/archives"
-  //         element={<ProtectedRoute element={<Archives />} />}
-  //       />
-  //       <Route
-  //         path="/repair-card/:id"
-  //         element={
-  //           <ProtectedRoute
-  //             element={<RepairCard />}
-  //             exemptRoutes={["/repair-card"]}
-  //           />
-  //         }
-  //       />
-  //     </Routes>
-  //     <Footer />
-  //   </div>
-  // );
 }
 
 export default App;

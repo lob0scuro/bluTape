@@ -6,7 +6,7 @@ const Navbar = () => {
   const { user } = useAuth();
 
   return (
-    <header>
+    <header className={styles.header}>
       <h1 className={styles.navbarHeader}>
         <Link to="/">
           bluTape<small>/</small>

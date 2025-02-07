@@ -1,5 +1,5 @@
 import styles from "./InventoryList.module.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { useAuth } from "../context/UserContext";
@@ -138,11 +138,9 @@ const InventoryList = () => {
             <tbody>{renderList}</tbody>
           </table>
           {["Ethan", "Jesse", "Matt", "Cameron"].includes(user.first_name) && (
-            // <div className={styles.buttonBlock}>
             <button onClick={exportTable} className={styles.exportButton}>
               Export
             </button>
-            // </div>
           )}
         </>
       ) : (
