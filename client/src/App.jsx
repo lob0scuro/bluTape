@@ -18,6 +18,7 @@ import Archives from "./routes/Archives";
 function App() {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  //practice line for branching
 
   return (
     <div id="app-container">
