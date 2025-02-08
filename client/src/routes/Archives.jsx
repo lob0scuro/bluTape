@@ -53,6 +53,12 @@ const Archives = () => {
             />
             <button type="submit">Search</button>
           </form>
+          <button
+            onClick={() => fetchMachines("get_archives", setMachines)}
+            className={styles.resetButton}
+          >
+            Reset Table
+          </button>
           {error && <p className="error-text">{error}</p>}
           <h1 className={styles.archiveHeader}>Archives</h1>
           <table className={styles.archiveTable}>

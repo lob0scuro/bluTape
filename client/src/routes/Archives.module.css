@@ -43,10 +43,11 @@
 
 .dateQuery {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   width: fit-content;
-  margin: 0 auto;
-  gap: 0.4rem;
+  align-items: center;
+  margin: 0.8rem auto 0 auto;
+  gap: 1rem;
 }
 .dateQuery label {
   color: #f9f9f9;
@@ -60,6 +61,15 @@
 .dateQuery button {
   width: fit-content;
   align-self: center;
+  font-size: 0.8rem;
+  border: 1px solid #f9f9f9;
+}
+
+.resetButton {
+  width: fit-content;
+  margin: 0.5rem auto 0 auto;
+  font-size: 0.8rem;
+  border: 1px solid #f9f9f9;
 }
 
 @media screen and (max-width: 475px) {
@@ -75,5 +85,10 @@
   .archiveTable tbody tr td {
     font-size: 1.2rem;
     padding: 0 0.2rem;
+  }
+
+  .dateQuery {
+    flex-direction: column;
+    gap: 0.3rem;
   }
 }

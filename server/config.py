@@ -18,5 +18,9 @@ class Config:
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'None'
+    
+    PREFERRED_URL_SCHEME = 'https'
+    CORS_ORIGINS = ['https://blutape.net']
+    CORS_SUPPORTS_CREDENTIALS = True
 
 

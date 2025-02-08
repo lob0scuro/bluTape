@@ -12,6 +12,7 @@ const EditMachine = () => {
   const [serial, setSerial] = useState("");
   const [color, setColor] = useState("");
   const [type, setType] = useState("");
+  const [condition, setCondition] = useState("");
 
   const [edit, setEdit] = useState({
     make: false,
@@ -19,6 +20,7 @@ const EditMachine = () => {
     serial: false,
     color: false,
     type: false,
+    condition: false,
   });
 
   useEffect(() => {
@@ -33,6 +35,7 @@ const EditMachine = () => {
         setSerial(data.machine.serial);
         setColor(data.machine.color);
         setType(data.machine.style);
+        setCondition(data.machine.condition);
       })
       .catch((error) => {
         console.error(error);
@@ -66,6 +69,7 @@ const EditMachine = () => {
           serial: serial,
           color: color,
           style: type,
+          condition: condition,
         }),
       })
         .then((response) => {
@@ -212,6 +216,30 @@ const EditMachine = () => {
               id="editType"
               checked={edit.type}
               onChange={() => toggleEditor("type")}
+            />
+            <small>edit</small>
+          </label>
+        </div>
+        <div>
+          <label htmlFor="condition">
+            Condition:&nbsp;
+            <select
+              name="condition"
+              id="condition"
+              value={condition}
+              onChange={(e) => setCondition(e.target.value)}
+              disabled={!edit.condition}
+            >
+              <option value="null">Select...</option>
+              <option value="USED">Used</option>
+              <option value="NEW">New</option>
+            </select>
+            <input
+              type="checkbox"
+              name="editCondition"
+              id="editCondition"
+              checked={edit.condition}
+              onChange={() => toggleEditor("condition")}
             />
             <small>edit</small>
           </label>
