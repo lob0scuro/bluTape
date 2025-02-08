@@ -57,7 +57,7 @@ def create_machine():
         condition = data.get('condition')
         
         note = data.get('note')
-        addMachine = Machine(make=make, model=model, serial=serial, color=color, style=style, condition=condition)
+        addMachine = Machine(make=make, model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition)
         db.session.add(addMachine)
         db.session.commit()
         
@@ -122,13 +122,15 @@ def update_macine(id):
         serial = data.get('serial')
         color = data.get('color')
         style = data.get('style')
+        condition = data.get('condition')
         
         machine = Machine.query.get(id)
         machine.make = make
-        machine.model = model
-        machine.serial = serial
+        machine.model = model.upper()
+        machine.serial = serial.upper()
         machine.color = color
         machine.style = style
+        machine.condition = condition.upper()
         
         db.session.commit()
         return jsonify(message = "Successfully updated machine!"), 201
@@ -222,7 +224,7 @@ def archive_machines():
             return jsonify("Data not received"), 401
         for d in data:
             machine = Machine.query.get(int(d["id"]))
-            archive_item = Archive(id = machine.id, make=machine.make, model=machine.model, serial=machine.serial, color=machine.color, style=machine.style, notes=machine.notes)
+            archive_item = Archive(id = machine.id, make=machine.make, model=machine.model, serial=machine.serial, color=machine.color, style=machine.style, condition=machine.condition, notes=machine.notes)
             db.session.add(archive_item)
             db.session.flush()
             Notes.query.filter_by(machine_id=machine.id).update({'machine_id': None, 'archive_id': archive_item.id})

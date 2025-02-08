@@ -78,6 +78,7 @@ class Archive(db.Model):
     serial = db.Column(db.String(150))
     color = db.Column(db.String(150))
     style = db.Column(db.String(150))
+    condition = db.Column(db.String(50), server_default="USED")
     added_on = db.Column(db.Date, default=func.current_date())
     notes = db.relationship('Notes', backref="archive")
     
@@ -89,6 +90,7 @@ class Archive(db.Model):
             'serial': self.serial,
             'color': self.color,
             'style': self.style, 
+            'condition': self.condition,
             'added_on': self.added_on, 
             'notes': [note.serialize() for note in self.notes] 
         }
