@@ -97,7 +97,7 @@ export const exportTable = (machines, fetchMachines) => {
       machine.serial,
       machine.make,
       machine.style,
-      machine.color + machine.style,
+      machine.color + " " + machine.style,
       0,
       0,
       machine.condition,
