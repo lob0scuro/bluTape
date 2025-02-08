@@ -54,9 +54,10 @@ def create_machine():
         serial = data.get('serial')
         color = data.get('color')
         style = data.get('style')
+        condition = data.get('condition')
         
         note = data.get('note')
-        addMachine = Machine(make=make, model=model, serial=serial, color=color, style=style)
+        addMachine = Machine(make=make, model=model, serial=serial, color=color, style=style, condition=condition)
         db.session.add(addMachine)
         db.session.commit()
         
@@ -245,16 +246,20 @@ def get_archives():
         print(f"Error: {e}")
         return jsonify(error="Problem with query, please try again"), 401
     
-@bp.route("/get_archived_machine/<int:id>", methods=('GET', 'POST'))    
-def get_archived_machine(id):
+    
+@bp.route('/archive_by_date/<date>', methods=('GET', 'POST'))
+def archive_by_date(date):
     try:
-        machine = Archive.query.get(id)
-        if not machine:
-            return jsonify(error=f"Could not fin machine with id {id}"), 400
-        return jsonify(machine.serialize()), 200
+        machines = Archive.query.filter_by(added_on=date).all()
+        if not machines:
+            print("could not query machines, please check dates and try again")
+            return jsonify(error="could not query machines, please check dates and try again"), 404
+        return jsonify(data=[machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")
-        return jsonify(error="Problem with query, please check inputs and try again"), 401
+        return jsonify(error="Problem with server"), 500
+    
+
         
     
 

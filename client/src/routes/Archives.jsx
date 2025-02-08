@@ -7,22 +7,44 @@ import { fetchMachines } from "../api/Calls";
 const Archives = () => {
   const [machines, setMachines] = useState([]);
   const [queryDate, setQueryDate] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchMachines("get_archives", setMachines);
-  }, []);
+    if (error) {
+      setTimeout(() => {
+        setError("");
+      }, 4000);
+    }
+  }, [error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(queryDate);
+    fetch(`/api/archive_by_date/${queryDate}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.data && data.data.length !== 0) {
+          setMachines(data.data);
+        } else {
+          setError(data.error);
+          fetchMachines("get_archives", setMachines);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
     <>
       {machines.length !== 0 ? (
         <>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="date">Search Archives by Date</label>
+          <form className={styles.dateQuery} onSubmit={handleSubmit}>
+            <label htmlFor="date">
+              <b>Search Archives by Date</b>:&nbsp;
+            </label>
             <input
               type="date"
               name="date"
@@ -31,6 +53,7 @@ const Archives = () => {
             />
             <button type="submit">Search</button>
           </form>
+          {error && <p className="error-text">{error}</p>}
           <h1 className={styles.archiveHeader}>Archives</h1>
           <table className={styles.archiveTable}>
             <thead>

@@ -1,18 +1,16 @@
 import styles from "./InventoryList.module.css";
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import { exportTable, fetchMachines } from "../api/Calls";
 import { renderData } from "../Tools";
 
 const InventoryList = () => {
-  const navigate = useNavigate();
   const [machines, setMachines] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
     fetchMachines("get_inventory", setMachines);
-  }, [navigate]);
+  }, []);
 
   return (
     <>

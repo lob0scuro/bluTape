@@ -12,6 +12,7 @@ const StartRepair = () => {
   const [type, setType] = useState("");
   const [color, setColor] = useState("");
   const [note, setNote] = useState("");
+  const [condition, setCondition] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ const StartRepair = () => {
       type,
       color,
       note,
+      condition,
     };
     fetch("/api/create_machine", {
       method: "POST",
@@ -39,6 +41,7 @@ const StartRepair = () => {
         color: color,
         style: type,
         note: note,
+        condition: condition,
       }),
     })
       .then((response) => {
@@ -58,6 +61,7 @@ const StartRepair = () => {
     setType("");
     setColor("");
     setNote("");
+    setCondition("");
   };
 
   return (
@@ -134,6 +138,20 @@ const StartRepair = () => {
               <option value="Freezer">Freezer</option>
               <option value="Bottom Top">Bottom Top</option>
               <option value="other">Other</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label htmlFor="condition">
+            Condition:&nbsp;
+            <select
+              name="condition"
+              id="condition"
+              onChange={(e) => setCondition(e.target.value)}
+            >
+              <option value="null">Select...</option>
+              <option value="USED">Used</option>
+              <option value="NEW">New</option>
             </select>
           </label>
         </div>

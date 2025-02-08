@@ -41,6 +41,27 @@
   text-underline-offset: 5px;
 }
 
+.dateQuery {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 0 auto;
+  gap: 0.4rem;
+}
+.dateQuery label {
+  color: #f9f9f9;
+}
+.dateQuery input {
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  color: #333333;
+}
+
+.dateQuery button {
+  width: fit-content;
+  align-self: center;
+}
+
 @media screen and (max-width: 475px) {
   .archiveHeader {
     font-size: 1.5rem;

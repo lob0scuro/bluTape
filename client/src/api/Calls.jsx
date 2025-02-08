@@ -91,15 +91,6 @@ export const exportTable = (machines, fetchMachines) => {
   if (!conf) {
     return;
   } else {
-    // const data = machines.map((machine) => [
-    //   new Date().toDateString("en-US"),
-    //   machine.id,
-    //   machine.make,
-    //   machine.model,
-    //   machine.serial,
-    //   machine.style,
-    //   machine.color,
-    // ]);
     const data = machines.map((machine) => [
       machine.model,
       1,
@@ -109,7 +100,7 @@ export const exportTable = (machines, fetchMachines) => {
       machine.color + machine.style,
       0,
       0,
-      "USED",
+      machine.condition,
     ]);
 
     const headers = [

@@ -136,3 +136,7 @@ button:focus-visible {
   background-color: #fefefe;
   color: #222222;
 }
+
+.error-text {
+  color: rgb(189, 36, 36);
+}
