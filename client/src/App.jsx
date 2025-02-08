@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import React from "react";
 import "./App.css";
 import {
-  Navigate,
   Route,
-  Routes,
   createRoutesFromElements,
   createBrowserRouter,
   RouterProvider,
@@ -20,8 +18,6 @@ import RootLayout from "./layout/RootLayout";
 import ProtectedRoutes from "./layout/ProtectedRoutes";
 
 function App() {
-  // const navigate = useNavigate();
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>

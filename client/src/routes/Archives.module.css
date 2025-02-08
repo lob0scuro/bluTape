@@ -4,7 +4,7 @@
   padding: 0;
   width: 80%;
   max-height: 55vh;
-  overflow: scroll;
+  overflow: auto;
   color: #f9f9f9;
 }
 
@@ -31,6 +31,11 @@
   margin: 0;
 }
 
+.archiveTable td {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
 .archiveTable tbody tr td:first-child {
   text-decoration: underline;
   text-underline-offset: 5px;
@@ -48,6 +53,6 @@
   }
   .archiveTable tbody tr td {
     font-size: 1.2rem;
-    padding: 0.2rem;
+    padding: 0 0.2rem;
   }
 }

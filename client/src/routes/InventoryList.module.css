@@ -55,6 +55,6 @@
   }
   .inventoryTable tbody tr td {
     font-size: 1.2rem;
-    padding: 0.2rem;
+    padding: 0 0.2rem;
   }
 }
