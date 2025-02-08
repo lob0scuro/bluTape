@@ -1,46 +1,36 @@
 import styles from "./Archives.module.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { renderData } from "../Tools";
+import { fetchMachines } from "../api/Calls";
 
 const Archives = () => {
   const [machines, setMachines] = useState([]);
-
-  const fetchMachines = () => {
-    try {
-      fetch("/api/get_archives")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-          setMachines([...data]);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [queryDate, setQueryDate] = useState("");
 
   useEffect(() => {
-    fetchMachines();
+    fetchMachines("get_archives", setMachines);
   }, []);
 
-  const renderList = machines.map((machine) => (
-    <tr key={machine.id}>
-      <td>
-        <Link to={`/repair-card/${machine.id}`}>{machine.make}</Link>
-      </td>
-      <td>{machine.model}</td>
-      <td className={machine.color}>{machine.style}</td>
-    </tr>
-  ));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(queryDate);
+  };
 
   return (
     <>
       {machines.length !== 0 ? (
         <>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="date">Search Archives by Date</label>
+            <input
+              type="date"
+              name="date"
+              id="date"
+              onChange={(e) => setQueryDate(e.target.value)}
+            />
+            <button type="submit">Search</button>
+          </form>
           <h1 className={styles.archiveHeader}>Archives</h1>
           <table className={styles.archiveTable}>
             <thead>
@@ -50,7 +40,7 @@ const Archives = () => {
                 <th>Style</th>
               </tr>
             </thead>
-            <tbody>{renderList}</tbody>
+            <tbody>{renderData(machines)}</tbody>
           </table>
         </>
       ) : (

@@ -12,6 +12,7 @@ const RepairCard = () => {
   const [newNote, setNewNote] = useState("");
   const { id } = useParams();
   const { user } = useAuth();
+
   useEffect(() => {
     fetch(`/api/get_machine/${id}`)
       .then((response) => {
@@ -31,7 +32,7 @@ const RepairCard = () => {
             return response.json();
           })
           .then((data) => {
-            console.log(data.message);
+            alert(data.message);
           })
           .catch((error) => {
             console.error(error);

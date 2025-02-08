@@ -1,3 +1,18 @@
+import * as XLSX from "xlsx";
+
+export const fetchMachines = (route, setMachines) => {
+  fetch(`/api/${route}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      setMachines([...data.data]);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 export const getTechs = async () => {
   try {
     const response = await fetch("/api/get_techs");
@@ -40,7 +55,7 @@ export const deleteMachine = (id) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data.message);
+        alert(data.message);
       })
       .catch((error) => {
         console.error(error);
@@ -63,10 +78,120 @@ export const addToInventory = (id) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        alert(data.message);
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+};
+
+export const exportTable = (machines, fetchMachines) => {
+  let conf = confirm("Export data and archive machines?");
+  if (!conf) {
+    return;
+  } else {
+    // const data = machines.map((machine) => [
+    //   new Date().toDateString("en-US"),
+    //   machine.id,
+    //   machine.make,
+    //   machine.model,
+    //   machine.serial,
+    //   machine.style,
+    //   machine.color,
+    // ]);
+    const data = machines.map((machine) => [
+      machine.model,
+      1,
+      machine.serial,
+      machine.make,
+      machine.style,
+      machine.color + machine.style,
+      0,
+      0,
+      "USED",
+    ]);
+
+    const headers = [
+      // ["Date", "ID", "Make", "Model No.", "Serial No.", "Style", "Color"],
+      [
+        "Model",
+        "QTY",
+        "Serial",
+        "Brand",
+        "Type",
+        "Descr.",
+        "Cost",
+        "Price",
+        "Cond.",
+      ],
+    ];
+    const ws = XLSX.utils.aoa_to_sheet([...headers, ...data]);
+    ws["!cols"] = [
+      { wpx: 100 }, //mod
+      { wpx: 25 }, //quan
+      { wpx: 100 }, // ser
+      { wpx: 80 }, // brand
+      { wpx: 60 }, //type
+      { wpx: 120 }, //descr
+      { wpx: 60 }, // cost
+      { wpx: 60 }, //price
+      { wpx: 80 }, //cond
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Inventory Log");
+
+    const wbBlob = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const blob = new Blob([wbBlob], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    const formData = new FormData();
+    formData.append("file", blob, "InventoryLog.xlsx");
+
+    try {
+      fetch("/api/send_email", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          alert(data.message);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+
+    const archiveData = machines.map((machine) => ({ id: machine.id }));
+
+    try {
+      fetch("/api/archive_machines", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(archiveData),
+      })
+        .then((response) => {
+          return response.json;
+        })
+        .then((data) => {
+          console.log(data.message);
+          fetchMachines();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+
+    XLSX.writeFile(wb, "InventorySheet.xlsx");
   }
 };

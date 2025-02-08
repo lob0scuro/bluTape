@@ -45,13 +45,12 @@ const StartRepair = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data.message);
         navigate(`/repair-card/${data.machine.id}`);
+        alert(data.message);
       })
       .catch((error) => {
         console.error("There was an error brother", error);
       });
-    console.log("Form Submitted: ", formData);
     setFormInputs(formData);
     setMake("");
     setModel("");

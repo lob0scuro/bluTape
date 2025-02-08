@@ -191,7 +191,7 @@ def delete(id):
 def get_inventory():
     try:
         machines = Machine.query.filter_by(in_progress=False).all()
-        return jsonify(machines = [machine.serialize() for machine in machines]), 200
+        return jsonify(data = [machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(error = "Problem with query, please try again"), 400
@@ -237,10 +237,10 @@ def archive_machines():
 @bp.route('/get_archives', methods=('GET', 'POST'))
 def get_archives():
     try:
-        machines = Archive.query.limit(15).all()
+        machines = Archive.query.order_by(Archive.id.desc()).limit(15).all()
         if not machines:
             return jsonify(error="Could not fetch archives, please try again"), 401
-        return jsonify([machine.serialize() for machine in machines]), 200
+        return jsonify(data = [machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(error="Problem with query, please try again"), 401
@@ -269,11 +269,11 @@ def send_email():
     
     if not file:
         return jsonify(error = "File is empty"), 400
-    
+    #"jesse@mattsappliancesla.net", "ethann@mattsappliancesla.net", 
     try:
         msg = Message(
             "Inventory Log",
-            recipients=["jesse@mattsappliancesla.net", "ethann@mattsappliancesla.net", "kamrin717@gmail.com"],
+            recipients=["kamrin717@gmail.com"],
             body="Please find attached the inventory log"
         )
         
