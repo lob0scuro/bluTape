@@ -57,7 +57,7 @@ def create_machine():
         condition = data.get('condition')
         
         note = data.get('note')
-        addMachine = Machine(make=make, model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition)
+        addMachine = Machine(make=make.capitalize(), model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition)
         db.session.add(addMachine)
         db.session.commit()
         
@@ -125,7 +125,7 @@ def update_macine(id):
         condition = data.get('condition')
         
         machine = Machine.query.get(id)
-        machine.make = make
+        machine.make = make.capitalize()
         machine.model = model.upper()
         machine.serial = serial.upper()
         machine.color = color
@@ -255,7 +255,7 @@ def archive_by_date(date):
         machines = Archive.query.filter_by(added_on=date).all()
         if not machines:
             print("could not query machines, please check dates and try again")
-            return jsonify(error="could not query machines, please check dates and try again"), 404
+            return jsonify(error="No archives found for this date."), 404
         return jsonify(data=[machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")
@@ -276,11 +276,11 @@ def send_email():
     
     if not file:
         return jsonify(error = "File is empty"), 400
-    #"jesse@mattsappliancesla.net", "ethann@mattsappliancesla.net", 
+    
     try:
         msg = Message(
             "Inventory Log",
-            recipients=["kamrin717@gmail.com"],
+            recipients=["jesse@mattsappliancesla.net", "ethann@mattsappliancesla.net", "kamrin717@gmail.com"],
             body="Please find attached the inventory log"
         )
         
