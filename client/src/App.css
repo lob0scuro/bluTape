@@ -4,7 +4,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  /* height: 100svh; */
+  min-height: 100svh;
 }
 
 .logo {
@@ -45,6 +45,6 @@
 
 @media screen and (max-width: 415px) {
   #root {
-    height: 100svh;
+    min-height: 100svh;
   }
 }
