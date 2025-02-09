@@ -1,6 +1,27 @@
 import styles from "./StartRepair.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+const brands = {
+  Admiral: "Admiral",
+  Amana: "Amana",
+  Avanti: "Avanti",
+  Bosch: "Bosch",
+  Crosley: "Crosley",
+  Cuisinart: "Cuisinart",
+  Danby: "Danby",
+  Fridgidaire: "Fridgidaire",
+  GE: "GE",
+  Haier: "Haier",
+  Hotpoint: "Hotpoint",
+  Kenmore: "Kenmore",
+  Kitchenaid: "Kitchenaid",
+  LG: "LG",
+  Maytag: "Maytag",
+  Roper: "Roper",
+  Samsung: "Samsung",
+  Whirlpool: "Whirlpool",
+};
 
 const StartRepair = () => {
   const navigate = useNavigate();
@@ -13,6 +34,15 @@ const StartRepair = () => {
   const [color, setColor] = useState("");
   const [note, setNote] = useState("");
   const [condition, setCondition] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError("");
+      }, 8000);
+    }
+  }, [error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,25 +64,20 @@ const StartRepair = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        make: make,
-        model: model,
-        serial: serial,
-        color: color,
-        style: type,
-        note: note,
-        condition: condition,
-      }),
+      body: JSON.stringify(formData),
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        navigate(`/repair-card/${data.machine.id}`);
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Something went wrong");
+        }
         alert(data.message);
+        navigate(`/repair-card/${data.machine.id}`);
       })
       .catch((error) => {
-        console.error("There was an error brother", error);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        console.error("Error: ", error);
+        setError(error.message);
       });
     setFormInputs(formData);
     setMake("");
@@ -64,21 +89,27 @@ const StartRepair = () => {
     setCondition("");
   };
 
+  const renderSelect = Object.entries(brands).map(([key, value]) => (
+    <option key={key} value={key}>
+      {value}
+    </option>
+  ));
+
   return (
     <>
+      {error && <p className="error-text">{error}</p>}
       <form onSubmit={handleSubmit} className={styles.startRepairForm}>
         <h2>Start Repair</h2>
         <div>
-          <label htmlFor="make">
-            Make:&nbsp;
-            <input
-              type="text"
-              name="make"
-              id="make"
-              value={make}
-              onChange={(e) => setMake(e.target.value)}
-            />
-          </label>
+          <label htmlFor="make">Brand:</label>
+          <select
+            name="make"
+            id="make"
+            onChange={(e) => setMake(e.target.value)}
+          >
+            <option value="">Select...</option>
+            {renderSelect}
+          </select>
         </div>
         <div>
           <label htmlFor="model">
@@ -126,8 +157,8 @@ const StartRepair = () => {
           <label htmlFor="style">
             Style:&nbsp;
             <select
-              name="style"
-              id="style"
+              name="type"
+              id="type"
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
@@ -155,19 +186,17 @@ const StartRepair = () => {
             </select>
           </label>
         </div>
-        <div>
-          <label htmlFor="note">
-            Note
-            <br />
-            <textarea
-              name="note"
-              id="note"
-              cols="45"
-              rows="10"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-            ></textarea>
-          </label>
+        <div className={styles.textArea}>
+          <label htmlFor="note">Note</label>
+          <br />
+          <textarea
+            name="note"
+            id="note"
+            cols="45"
+            rows="10"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          ></textarea>
         </div>
         <div>
           <input type="submit" value="Submit" />

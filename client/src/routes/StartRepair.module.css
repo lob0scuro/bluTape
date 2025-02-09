@@ -24,6 +24,20 @@
   font-size: 1.3rem;
 }
 
+.textArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+
+.startRepairForm div textarea {
+  font-size: 16px;
+  width: 85%;
+  height: 8rem;
+}
+
 .startRepairForm input[type="submit"] {
   font-size: 1.5rem;
   font-weight: 800;
