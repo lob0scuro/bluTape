@@ -4,17 +4,8 @@ import { useNavigate } from "react-router-dom";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const from = location.state?.from || "/";
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("loggedInUser");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
-  }, []);
+  const storedUser = localStorage.getItem("loggedInUser");
+  const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : null);
 
   const login = async (id) => {
     try {
@@ -27,8 +18,8 @@ export const UserProvider = ({ children }) => {
       });
 
       const data = await response.json();
-      setUser(data.tech);
       localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
+      setUser(data.tech);
       alert(data.message);
       return data; // Return the data or a success message
     } catch (error) {
@@ -38,14 +29,18 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
+    const assurance = confirm("Logout?");
+    if (!assurance) {
+      return;
+    }
     try {
       fetch("/api/logout")
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          setUser(null);
           localStorage.removeItem("loggedInUser");
+          setUser(null);
           alert(data.message);
         })
         .catch((error) => {
@@ -58,7 +53,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider value={{ user, login, logout }}>
-      {!loading && children}
+      {children}
     </UserContext.Provider>
   );
 };

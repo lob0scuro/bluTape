@@ -101,13 +101,13 @@ const StartRepair = () => {
       <form onSubmit={handleSubmit} className={styles.startRepairForm}>
         <h2>Start Repair</h2>
         <div>
-          <label htmlFor="make">Brand:</label>
+          <label htmlFor="make">Brand:&nbsp;</label>
           <select
             name="make"
             id="make"
             onChange={(e) => setMake(e.target.value)}
           >
-            <option value="">Select...</option>
+            <option value="">-- Select Brand --</option>
             {renderSelect}
           </select>
         </div>
@@ -144,7 +144,7 @@ const StartRepair = () => {
               value={color}
               onChange={(e) => setColor(e.target.value)}
             >
-              <option value="null">Select...</option>
+              <option value="null">-- Select Color --</option>
               <option value="white">White</option>
               <option value="black">Black</option>
               <option value="stainless">Stainless</option>
@@ -162,7 +162,7 @@ const StartRepair = () => {
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
-              <option value="null">Select...</option>
+              <option value="null">-- Select Style --</option>
               <option value="Top & Bottom">Top and Bottom</option>
               <option value="Side by Side">Side by Side</option>
               <option value="French Door">French Door</option>
@@ -180,7 +180,7 @@ const StartRepair = () => {
               id="condition"
               onChange={(e) => setCondition(e.target.value)}
             >
-              <option value="null">Select...</option>
+              <option value="null">-- Select Condition --</option>
               <option value="USED">Used</option>
               <option value="NEW">New</option>
             </select>

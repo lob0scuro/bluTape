@@ -10,9 +10,12 @@
   gap: 1rem;
 }
 
-.footer .logoutLink a {
-  font-weight: 650;
+.footer .logoutLink button {
+  font-weight: 700;
   color: #fff;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
 
 .footer .footerTextBlock {
@@ -44,7 +47,7 @@
     gap: 0.2rem;
   }
 
-  .footer .logoutLink a {
+  .footer .logoutLink button {
     font-weight: 650;
     color: #fff;
   }

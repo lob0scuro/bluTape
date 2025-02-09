@@ -62,7 +62,7 @@ def create_machine():
                 return jsonify(error="Serial already exists in database."), 409
         
         note = data.get('note')
-        addMachine = Machine(make=make.capitalize(), model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition)
+        addMachine = Machine(make=make.capitalize() if len(make) > 2 else make.upper(), model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition)
         db.session.add(addMachine)
         db.session.commit()
         
@@ -130,7 +130,7 @@ def update_macine(id):
         condition = data.get('condition')
         
         machine = Machine.query.get(id)
-        machine.make = make.capitalize()
+        machine.make = make.capitalize() if len(make) > 2 else make.upper()
         machine.model = model.upper()
         machine.serial = serial.upper()
         machine.color = color

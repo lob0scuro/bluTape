@@ -1,44 +1,20 @@
 import styles from "./RepairCard.module.css";
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
-import { deleteMachine, addToInventory } from "../api/Calls";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { deleteMachine, addToInventory, fetchMachine } from "../api/Calls";
 import { PrintLabel, PrintNotes } from "../utils";
 import { useAuth } from "../context/UserContext";
 import PrintPage from "../components/PrintPage";
 
 const RepairCard = () => {
+  const { id } = useParams();
   const [machine, setMachine] = useState({});
   const [noteCount, setNoteCount] = useState(0);
   const [newNote, setNewNote] = useState("");
-  const { id } = useParams();
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch(`/api/get_machine/${id}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setMachine(data.machine);
-      })
-      .catch((error) => {
-        ch(`/api/delete/${id}`, {
-          methods: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            alert(data.message);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-        console.error(error);
-      });
+    fetchMachine(id, setMachine);
   }, [noteCount]);
 
   const handleSubmit = (e) => {
@@ -110,6 +86,7 @@ const RepairCard = () => {
         <h2 className={styles.cardSubHeader}>
           Model: {machine.model} | Serial: {machine.serial}
         </h2>
+        <p>({machine.condition})</p>
         {/* qr code block for printing */}
         <div id="qr-block" className={styles.qrBlock}>
           <PrintPage machine={machine} />

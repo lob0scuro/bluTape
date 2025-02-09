@@ -13,6 +13,20 @@ export const fetchMachines = (route, setMachines) => {
     });
 };
 
+export const fetchMachine = (id, setMachine) => {
+  fetch(`/api/get_machine/${id}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      setMachine(data.machine);
+      return data.machine;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 export const getTechs = async () => {
   try {
     const response = await fetch("/api/get_techs");

@@ -1,5 +1,5 @@
 import styles from "./Footer.module.css";
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 
@@ -10,16 +10,12 @@ const Footer = () => {
     <footer className={styles.footer}>
       {user && (
         <div className={styles.logoutLink}>
-          <Link to="/login-page" onClick={() => logout()}>
-            Logout
-          </Link>
+          <button onClick={() => logout()}>Logout</button>
         </div>
       )}
 
       <div className={styles.footerTextBlock}>
-        <p>
-          <small>Matt's Appliances, LLC.</small>
-        </p>
+        <p>Matt's Appliances, LLC.</p>
         <p>
           <b>bluTape</b>/ created by: Cameron Lopez
         </p>

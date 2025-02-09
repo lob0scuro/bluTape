@@ -51,6 +51,7 @@ a.trash {
 }
 .addNoteArea {
   width: 75%;
+  font-size: 16px;
 }
 .notesBlock ul li {
   border-bottom: 2px solid #fefefe;
