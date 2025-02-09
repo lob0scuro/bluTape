@@ -30,7 +30,7 @@ header.header {
   align-items: center;
   padding: 1em 3em 2em 3em;
   width: 100vw;
-  height: 8em;
+  height: 6em;
   background-color: #464545;
   color: #c5c5c9;
 }
@@ -42,6 +42,7 @@ header.header {
     /* gap: 1.5rem; */
     padding: 0;
     margin: 0;
+    height: 8em;
   }
   header.header h1 {
     margin-top: 10px;

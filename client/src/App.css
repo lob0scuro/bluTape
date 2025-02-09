@@ -1,11 +1,10 @@
 #root {
-  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100svh;
+  /* height: 100svh; */
 }
 
 .logo {
@@ -42,4 +41,10 @@
 
 .read-the-docs {
   color: #888;
+}
+
+@media screen and (max-width: 415px) {
+  #root {
+    height: 100svh;
+  }
 }

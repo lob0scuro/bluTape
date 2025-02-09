@@ -1,9 +1,12 @@
 import styles from "./Navbar.module.css";
-import React, { useContext, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 const Navbar = () => {
   const { user } = useAuth();
+  const location = useLocation();
+
+  const isHome = location.pathname === "/";
 
   return (
     <header className={styles.header}>
@@ -14,7 +17,7 @@ const Navbar = () => {
         </Link>
       </h1>
 
-      {user && (
+      {user && !isHome && (
         <nav>
           <NavLink to="/start-repair">Start Repair</NavLink>
           <NavLink to="/active-repairs">Active</NavLink>

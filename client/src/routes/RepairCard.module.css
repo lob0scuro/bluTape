@@ -3,8 +3,20 @@
   color: #f9f9f9;
   font-size: 2.5rem;
 }
+.machineStyle {
+  color: #f9f9f9;
+  font-size: 1.8rem;
+}
 .cardSubHeader {
   font-size: 1rem;
+  color: #f9f9f9;
+}
+.cardSubHeader span {
+  font-weight: 400;
+  margin-left: 0.2rem;
+}
+
+.condition {
   color: #f9f9f9;
 }
 

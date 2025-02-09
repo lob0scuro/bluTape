@@ -80,13 +80,13 @@ const RepairCard = () => {
   return (
     <>
       <div className={styles.card}>
-        <h1 className={styles.cardHeader}>
-          {machine.make} <small>{machine.style}</small>
-        </h1>
+        <h1 className={styles.cardHeader}>{machine.make}</h1>
+        <p className={styles.machineStyle}>{machine.style}</p>
         <h2 className={styles.cardSubHeader}>
-          Model: {machine.model} | Serial: {machine.serial}
+          Model: <span>{machine.model}</span> | Serial:{" "}
+          <span>{machine.serial}</span>
         </h2>
-        <p>({machine.condition})</p>
+        <p className={styles.condition}>({machine.condition})</p>
         {/* qr code block for printing */}
         <div id="qr-block" className={styles.qrBlock}>
           <PrintPage machine={machine} />

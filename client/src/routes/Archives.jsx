@@ -14,7 +14,7 @@ const Archives = () => {
     if (error) {
       setTimeout(() => {
         setError("");
-      }, 4000);
+      }, 3000);
     }
   }, [error]);
 
@@ -51,14 +51,17 @@ const Archives = () => {
               id="date"
               onChange={(e) => setQueryDate(e.target.value)}
             />
-            <button type="submit">Search</button>
+            <div className={styles.archiveButtonBlock}>
+              <button type="submit">Search</button>
+              <button
+                type="button"
+                onClick={() => fetchMachines("get_archives", setMachines)}
+                className={styles.resetButton}
+              >
+                Reset Table
+              </button>
+            </div>
           </form>
-          <button
-            onClick={() => fetchMachines("get_archives", setMachines)}
-            className={styles.resetButton}
-          >
-            Reset Table
-          </button>
           {error && <p className="error-text">{error}</p>}
           <h1 className={styles.archiveHeader}>Archives</h1>
           <table className={styles.archiveTable}>

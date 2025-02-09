@@ -2,6 +2,27 @@ import styles from "./EditMachine.module.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
+const brands = {
+  Admiral: "Admiral",
+  Amana: "Amana",
+  Avanti: "Avanti",
+  Bosch: "Bosch",
+  Crosley: "Crosley",
+  Cuisinart: "Cuisinart",
+  Danby: "Danby",
+  Fridgidaire: "Fridgidaire",
+  GE: "GE",
+  Haier: "Haier",
+  Hotpoint: "Hotpoint",
+  Kenmore: "Kenmore",
+  Kitchenaid: "Kitchenaid",
+  LG: "LG",
+  Maytag: "Maytag",
+  Roper: "Roper",
+  Samsung: "Samsung",
+  Whirlpool: "Whirlpool",
+};
+
 const EditMachine = () => {
   const navigate = useNavigate();
 
@@ -87,36 +108,45 @@ const EditMachine = () => {
     }
   };
 
+  const renderSelect = Object.entries(brands).map(([key, value]) => (
+    <option key={key} value={key}>
+      {value}
+    </option>
+  ));
+
   return (
     <>
       <h1 className={styles.editHeader}>
-        Edit <br />
         {machine.make} <br /> <small>{machine.style}</small>
       </h1>
       <div className="button-block-inline">
         <Link to={`/repair-card/${machine.id}`}>View Notes</Link>
       </div>
       <form className={styles.editMachineForm} onSubmit={handleSubmit}>
-        <div className="check-all">
+        <div className={styles.checkAll}>
           <label htmlFor="all">
+            edit all
             <input
               type="checkbox"
               name="all"
               id="all"
               onChange={(e) => toggleEditor("all", e.target.checked)}
             />
-            edit all
           </label>
         </div>
         <div>
           <label htmlFor="make">
             Make:&nbsp;
-            <input
-              type="text"
+            <select
+              name="make"
+              id="make"
               value={make}
               onChange={(e) => setMake(e.target.value)}
               disabled={!edit.make}
-            />
+            >
+              <option value="">-- Select Brand --</option>
+              {renderSelect}
+            </select>
             <input
               type="checkbox"
               name="editMake"
@@ -124,7 +154,7 @@ const EditMachine = () => {
               checked={edit.make}
               onChange={() => toggleEditor("make")}
             />
-            <small>edit</small>
+            {/* <small>edit</small> */}
           </label>
         </div>
         <div>
@@ -143,7 +173,7 @@ const EditMachine = () => {
               checked={edit.model}
               onChange={() => toggleEditor("model")}
             />
-            <small>edit</small>
+            {/* <small>edit</small> */}
           </label>
         </div>
         <div>
@@ -162,7 +192,7 @@ const EditMachine = () => {
               checked={edit.serial}
               onChange={() => toggleEditor("serial")}
             />
-            <small>edit</small>
+            {/* <small>edit</small> */}
           </label>
         </div>
         <div>
@@ -189,7 +219,7 @@ const EditMachine = () => {
               checked={edit.color}
               onChange={() => toggleEditor("color")}
             />
-            <small>edit</small>
+            {/* <small>edit</small> */}
           </label>
         </div>
         <div>
@@ -217,7 +247,7 @@ const EditMachine = () => {
               checked={edit.type}
               onChange={() => toggleEditor("type")}
             />
-            <small>edit</small>
+            {/* <small>edit</small> */}
           </label>
         </div>
         <div>
@@ -241,7 +271,8 @@ const EditMachine = () => {
               checked={edit.condition}
               onChange={() => toggleEditor("condition")}
             />
-            <small>edit</small>
+            {/* <small>edit</small> */}
+            {/* <span onClick={() => toggleEditor("condition")}>edit</span> */}
           </label>
         </div>
 

@@ -3,7 +3,7 @@ from config import Config, TestConfig
 from app.extensions import cors, db, login_manager, mail, migrate
 from app.models import Tech
 
-def create_app(config_class=Config):
+def create_app(config_class=TestConfig):
     app = Flask(__name__)
     app.config.from_object(config_class)
     
