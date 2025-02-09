@@ -48,13 +48,18 @@ def logout():
 @bp.route('/create_machine', methods=('GEET', 'POST'))
 def create_machine():
     try:
+        all_machines = Machine.query.all()
         data = request.get_json()
         make = data.get('make')
         model = data.get('model')
         serial = data.get('serial')
         color = data.get('color')
-        style = data.get('style')
+        style = data.get('type')
         condition = data.get('condition')
+        
+        for machine in all_machines:
+            if serial.upper() in machine.serial.upper():
+                return jsonify(error="Serial already exists in database."), 409
         
         note = data.get('note')
         addMachine = Machine(make=make.capitalize(), model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition)

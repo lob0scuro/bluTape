@@ -24,3 +24,19 @@ class Config:
     CORS_SUPPORTS_CREDENTIALS = True
 
 
+class TestConfig:
+    SECRET_KEY = "dev"
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_URI')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MAIL_SERVER = "smtp.gmail.com"
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = "matts.blutape@gmail.com"
+    MAIL_PASSWORD = os.environ.get('APP_PASSWORD')
+    MAIL_DEFAULT_SENDER = "matts.blutape@gmail.com"
+    DEBUG = True
+    
+    
+    
+    
