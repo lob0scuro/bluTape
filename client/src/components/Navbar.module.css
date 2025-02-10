@@ -33,6 +33,7 @@ header.header {
   height: 6em;
   background-color: #464545;
   color: #c5c5c9;
+  box-shadow: -4px 0 23px #000;
 }
 
 @media screen and (max-width: 700px) {
@@ -40,7 +41,7 @@ header.header {
     flex-direction: column;
     justify-content: center;
     /* gap: 1.5rem; */
-    padding: 0;
+    padding: 1rem 0 0 0;
     margin: 0;
     height: 8em;
   }

@@ -1,3 +1,7 @@
+.card {
+  width: 80%;
+}
+
 .cardHeader {
   margin: 0.8rem 0 0 0;
   color: #f9f9f9;
@@ -61,10 +65,7 @@ a.trash {
   margin: 0 auto;
   padding: 0.5rem 1rem;
 }
-.addNoteArea {
-  width: 75%;
-  font-size: 16px;
-}
+
 .notesBlock ul li {
   border-bottom: 2px solid #fefefe;
   margin: 1rem 1rem 1.8rem 0;
@@ -86,10 +87,16 @@ button.deleteNote {
   align-items: center;
 }
 
+.addNoteArea {
+  width: 100%;
+  font-size: 16px;
+}
+
 .addNoteForm {
   padding-bottom: 5em;
   padding: 0;
   margin-top: 1rem;
+  width: 60%;
 }
 .addNoteForm label {
   color: #f9f9f9;
@@ -97,12 +104,14 @@ button.deleteNote {
 
 .addNoteForm input[type="submit"] {
   font-size: 1.4rem;
-  margin: 0.4rem auto 0.8rem auto;
+  margin: 0.8rem auto 0.8rem auto;
   padding: 0.3em 0.5em 0.3em 0.5em;
   font-weight: 600;
   width: fit-content;
   background-color: #0c0e3a;
   color: #f9f9f9;
+  border: none;
+  border-radius: 8px;
 }
 
 .qrBlock {
@@ -140,5 +149,9 @@ button.deleteNote {
   }
   .notesBlock ul li button {
     color: unset;
+  }
+
+  .addNoteForm {
+    width: 80%;
   }
 }

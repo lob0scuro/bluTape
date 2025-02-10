@@ -144,25 +144,21 @@ const RepairCard = () => {
       </div>
 
       {user && (
-        <div>
-          <form className={styles.addNoteForm} onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="toAdd">
-                <div>Add Note</div>
-                <textarea
-                  className={styles.addNoteArea}
-                  name="toAdd"
-                  id="toAdd"
-                  rows="10"
-                  // cols="45"
-                  value={newNote}
-                  onChange={(e) => setNewNote(e.target.value)}
-                ></textarea>
-              </label>
-            </div>
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
+        <form className={styles.addNoteForm} onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="toAdd">Add Note</label>
+            <textarea
+              className={styles.addNoteArea}
+              name="toAdd"
+              id="toAdd"
+              rows="10"
+              // cols="45"
+              value={newNote}
+              onChange={(e) => setNewNote(e.target.value)}
+            ></textarea>
+          </div>
+          <input type="submit" value="Submit" />
+        </form>
       )}
     </>
   );

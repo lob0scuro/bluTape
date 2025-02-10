@@ -49,6 +49,12 @@
   color: #f9f9f9;
 }
 
+.noDataBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
+}
+
 @media screen and (max-width: 475px) {
   .activeHeader {
     font-size: 1.5rem;
@@ -62,5 +68,9 @@
   .activeTable tbody tr td {
     font-size: 1.2rem;
     padding: 0 0.2rem;
+  }
+
+  .activeNoDataHeader {
+    font-size: 2rem;
   }
 }
