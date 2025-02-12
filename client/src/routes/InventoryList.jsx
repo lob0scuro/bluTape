@@ -37,8 +37,8 @@ const InventoryList = () => {
           )}
         </>
       ) : (
-        <h1 className={styles.inventoryHeader}>
-          All repairs have been archived
+        <h1 className={styles.inventoryNoDataHeader}>
+          All repairs have been exported
         </h1>
       )}
     </>

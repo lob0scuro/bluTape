@@ -43,6 +43,10 @@
   margin: 1em 2em 1em auto;
 }
 
+.inventoryNoDataHeader {
+  margin-top: 25%;
+}
+
 @media screen and (max-width: 475px) {
   .inventoryHeader {
     font-size: 1.5rem;
@@ -56,5 +60,9 @@
   .inventoryTable tbody tr td {
     font-size: 1.2rem;
     padding: 0 0.2rem;
+  }
+
+  .inventoryNoDataHeader {
+    font-size: 1.5rem;
   }
 }

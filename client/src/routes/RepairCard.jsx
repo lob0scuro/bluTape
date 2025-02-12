@@ -40,6 +40,10 @@ const RepairCard = () => {
   };
 
   const handleDelete = (id) => {
+    const assurance = confirm("Delete note?");
+    if (!assurance) {
+      return;
+    }
     fetch(`/api/delete_note/${id}`, {
       method: "DELETE",
       headers: {
@@ -59,7 +63,7 @@ const RepairCard = () => {
   };
 
   const renderNotes = (notes = []) => {
-    return notes.map((note) => (
+    return [...notes].reverse().map((note) => (
       <li className={styles.noteItem} key={note.id}>
         <div>
           <div>{note.content}</div>
