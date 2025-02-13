@@ -1,9 +1,9 @@
 from flask import Flask
 from config import Config, TestConfig
-from app.extensions import cors, db, login_manager, mail, migrate
+from app.extensions import cors, db, login_manager, mail, migrate, session
 from app.models import Tech
 
-def create_app(config_class=TestConfig):
+def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
     
@@ -11,6 +11,7 @@ def create_app(config_class=TestConfig):
     db.init_app(app)
     cors.init_app(app)
     login_manager.init_app(app)
+    session.init_app(app)
     mail.init_app(app)
     migrate.init_app(app, db)
     

@@ -1,5 +1,7 @@
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
+import redis
 
 load_dotenv()
 
@@ -15,9 +17,16 @@ class Config:
     MAIL_PASSWORD = os.environ.get('APP_PASSWORD')
     MAIL_DEFAULT_SENDER = "matts.blutape@gmail.com"
     DEBUG = False
+    SESSION_TYPE = 'redis'
+    SESSION_PERMANENT = True
+    SESSION_USE_SIGNER = True
+    SESSION_KEY_PREFIX = "blutape:"
+    SESSION_REDIS = redis.from_url("redis://localhost:6379")
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SAMESITE = 'None'
+    SESSION_COOKIE_SAMESITE = 'Strict'
+    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
+    
     
     PREFERRED_URL_SCHEME = 'https'
     CORS_ORIGINS = ['https://blutape.net']

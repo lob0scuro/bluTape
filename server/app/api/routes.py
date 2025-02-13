@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, session
 from app.api import bp
 from app.extensions import db, mail
 from app.models import Tech, Machine, Notes, Archive
@@ -33,6 +33,12 @@ def login(id):
         if not tech:
             return jsonify(error = "Tech not found, please check inputs and try again."), 400
         login_user(tech)
+        session['ip_address'] = request.remote_addr
+        session['user_agent'] = request.user_agent.string
+        session['first_name'] = tech.first_name
+        session['last_name'] = tech.last_name
+        session['uid'] = tech.id
+        session['is_admin'] = tech.is_admin
         return jsonify(message = f"Logged in as {tech.first_name}", tech = tech.serialize())
     except Exception as e:
         print(f"Error: {e}")
@@ -42,10 +48,11 @@ def login(id):
 @bp.route('/logout', methods=('GET', 'POST'))
 def logout():
     logout_user()
+    session.clear()
     return jsonify(message = "Logged out.")
 
 #create new machine for repair
-@bp.route('/create_machine', methods=('GEET', 'POST'))
+@bp.route('/create_machine', methods=('GET', 'POST'))
 def create_machine():
     try:
         all_machines = Machine.query.all()
