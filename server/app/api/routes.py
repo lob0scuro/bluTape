@@ -39,7 +39,7 @@ def login(id):
         session['last_name'] = tech.last_name
         session['uid'] = tech.id
         session['is_admin'] = tech.is_admin
-        return jsonify(message = f"Logged in as {tech.first_name}", tech = tech.serialize())
+        return jsonify(message = f"Logged in as {tech.first_name}", tech = {"first_name": tech.first_name, "last_name": tech.last_name, "id": tech.id, "is_admin": tech.is_admin})
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(error = "Problem with query, check inputs and try again"), 401
@@ -288,11 +288,11 @@ def send_email():
     
     if not file:
         return jsonify(error = "File is empty"), 400
-    
+    # "jesse@mattsappliancesla.net", "ethann@mattsappliancesla.net", 
     try:
         msg = Message(
             "Inventory Log",
-            recipients=["jesse@mattsappliancesla.net", "ethann@mattsappliancesla.net", "kamrin717@gmail.com"],
+            recipients=["kamrin717@gmail.com"],
             body="Please find attached the inventory log"
         )
         
