@@ -2,7 +2,7 @@ from flask import jsonify, request, session
 from app.api import bp
 from app.extensions import db, mail
 from app.models import Tech, Machine, Notes, Archive
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
 
 #register new technician
@@ -53,6 +53,7 @@ def logout():
 
 #create new machine for repair
 @bp.route('/create_machine', methods=('GET', 'POST'))
+@login_required
 def create_machine():
     try:
         all_machines = Machine.query.all()
@@ -103,6 +104,7 @@ def get_tech(id):
 
 # get all machines
 @bp.route('/get_machines', methods=['GET'])
+@login_required
 def get_machines():
     try:
         machines = Machine.query.filter_by(in_progress=True).all()
@@ -112,7 +114,7 @@ def get_machines():
         return jsonify(error = "Problem with query"), 400
 
 #get machine
-@bp.route('/get_machine/<int:id>', methods=['GET']) 
+@bp.route('/get_machine/<int:id>', methods=['GET'])
 def get_machine(id):
     machine = Machine.query.get(int(id))
     if not machine:
@@ -126,6 +128,7 @@ def get_machine(id):
 
 #update machine info
 @bp.route('/update_machine/<int:id>', methods=('GET', 'POST'))
+@login_required
 def update_macine(id):
     try:
         data = request.get_json()
@@ -153,6 +156,7 @@ def update_macine(id):
 
 # add note to machine
 @bp.route('/add_note/<int:id>', methods=('GET', 'POST'))
+@login_required
 def add_note(id):
     machine = Machine.query.get(id)
     if not machine:
@@ -163,7 +167,7 @@ def add_note(id):
         addNote = Notes(content=note, tech_id=current_user.id, machine_id=machine.id)
         db.session.add(addNote)
         db.session.commit()
-        return jsonify(message = "Success! note added to machine"), 201
+        return jsonify(message = "Note added to machine"), 201
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()
@@ -171,6 +175,7 @@ def add_note(id):
 
 # delete note from machine
 @bp.route('/delete_note/<int:id>', methods=['DELETE'])
+@login_required
 def delete_note(id):
     note = Notes.query.get(id)
     if not note:
@@ -186,6 +191,7 @@ def delete_note(id):
         
 # delete machine
 @bp.route('/delete/<int:id>', methods=['DELETE'])
+@login_required
 def delete(id):
     machine = Machine.query.get(int(id))
     if not machine:
@@ -203,6 +209,7 @@ def delete(id):
     
 # get inventory list
 @bp.route('/get_inventory', methods=('GET', 'POST'))
+@login_required
 def get_inventory():
     try:
         machines = Machine.query.filter_by(in_progress=False).all()
@@ -214,6 +221,7 @@ def get_inventory():
     
 # add machine to Inventory list
 @bp.route('/add_to_inventory/<int:id>', methods=('GET', 'POST'))
+@login_required
 def add_to_inventory(id):
     machine = Machine.query.get(id)
     if not machine:
@@ -229,6 +237,7 @@ def add_to_inventory(id):
     
 # add machine to archive list and delete from active table
 @bp.route('/archive_machines', methods=('GET', 'POST'))
+@login_required
 def archive_machines():
     try:
         data = request.get_json()
@@ -250,6 +259,7 @@ def archive_machines():
     
     
 @bp.route('/get_archives', methods=('GET', 'POST'))
+@login_required
 def get_archives():
     try:
         machines = Archive.query.order_by(Archive.id.desc()).limit(15).all()
@@ -262,6 +272,7 @@ def get_archives():
     
     
 @bp.route('/archive_by_date/<date>', methods=('GET', 'POST'))
+@login_required
 def archive_by_date(date):
     try:
         machines = Archive.query.filter_by(added_on=date).all()
@@ -275,12 +286,10 @@ def archive_by_date(date):
     
 
         
-    
 
-    
-        
 # send exported as .xlsx sheet data to email 
 @bp.route("/send_email", methods=('GET', 'POST'))
+@login_required
 def send_email():
     if "file" not in request.files:
         return jsonify(error = "No file uploaded"), 400
@@ -309,3 +318,9 @@ def send_email():
         print(f"Error: {e}")
         return jsonify(error = "Failed to send message")
     
+    
+    
+@bp.route("/check_session", methods=['GET'])
+@login_required
+def check_session():
+    return jsonify({"id": current_user.id, "first_name": current_user.first_name, "last_name": current_user.last_name, "is_admin": current_user.is_admin})

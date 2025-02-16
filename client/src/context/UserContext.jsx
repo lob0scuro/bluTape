@@ -1,10 +1,34 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const storedUser = localStorage.getItem("loggedInUser");
   const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : null);
+
+  const checkSession = async () => {
+    try {
+      const response = await fetch("/api/check_session", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("loggedInUser", JSON.stringify(data));
+        setUser(data);
+      } else {
+        localStorage.removeItem("loggedInUser");
+        setUser(null);
+      }
+    } catch (error) {
+      console.error(error);
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    checkSession();
+  }, []);
 
   const login = async (id) => {
     try {
