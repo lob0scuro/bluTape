@@ -114,7 +114,7 @@ export const printZPL = (machine) => {
 ^FO350,310^A0,35^FDStyle: ${machine.style}^FS
 ^XZ`;
   //NEED TO HOOK UP PRINTER TO ROUTER TO GET PROPER IP ADDR
-  const pritnerIP = "http://70.241.50.246:9100";
+  const pritnerIP = "100.122.131.84:9100";
 
   fetch(pritnerIP, {
     method: "POST",

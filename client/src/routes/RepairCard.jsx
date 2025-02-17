@@ -101,7 +101,7 @@ const RepairCard = () => {
             <>
               <button
                 className={styles.printLabelButton}
-                onClick={() => printZPL(machine)}
+                onClick={() => PrintLabel("#qr-block")}
               >
                 Print Label
               </button>
@@ -128,7 +128,7 @@ const RepairCard = () => {
               {/* The button to print QR label */}
               <button
                 className={styles.printLabelButton}
-                onClick={() => printZPL(machine)}
+                onClick={() => PrintLabel("#qr-block")}
               >
                 Print Label
               </button>
