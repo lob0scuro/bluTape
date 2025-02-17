@@ -4,6 +4,7 @@ from app.extensions import db, mail
 from app.models import Tech, Machine, Notes, Archive
 from flask_login import login_user, logout_user, current_user
 from flask_mail import Message
+import socket
 
 #register new technician
 @bp.route('/register', methods=('GET', 'POST'))
@@ -275,8 +276,20 @@ def archive_by_date(date):
     
 
         
+@bp.route("/print", methods=["POST"])
+def print():
+    ip = "107.222.194.133"
+    port = 9100
+    zpl = request.data.decode('utf-8')
     
-
+    try: 
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((ip, port))
+            s.sendall(zpl.encode('utf-8'))
+        return jsonify(message="Success"), 200
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify(error=e), 500
     
         
 # send exported as .xlsx sheet data to email 

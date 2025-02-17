@@ -114,9 +114,8 @@ export const printZPL = (machine) => {
 ^FO350,310^A0,35^FDStyle: ${machine.style}^FS
 ^XZ`;
   //NEED TO HOOK UP PRINTER TO ROUTER TO GET PROPER IP ADDR
-  const pritnerIP = "100.122.131.84:9100";
 
-  fetch(pritnerIP, {
+  fetch("/api/print", {
     method: "POST",
     headers: {
       "Content-Type": "text/plain",
@@ -125,12 +124,12 @@ export const printZPL = (machine) => {
   })
     .then((response) => {
       if (response.ok) {
-        console.log("success");
+        alert("Label sent to printer");
       } else {
-        console.error("There was an error");
+        alert("There was an error");
       }
     })
     .catch((error) => {
-      console.error("Error", error);
+      alert(`Error: ${error}`);
     });
 };
