@@ -2,7 +2,7 @@ import styles from "./RepairCard.module.css";
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { deleteMachine, addToInventory, fetchMachine } from "../api/Calls";
-import { PrintLabel, PrintNotes } from "../utils";
+import { PrintLabel, PrintNotes, printZPL } from "../utils";
 import { useAuth } from "../context/UserContext";
 import PrintPage from "../components/PrintPage";
 
@@ -101,7 +101,7 @@ const RepairCard = () => {
             <>
               <button
                 className={styles.printLabelButton}
-                onClick={() => PrintLabel("qr-block")}
+                onClick={() => printZPL(machine)}
               >
                 Print Label
               </button>
@@ -125,9 +125,10 @@ const RepairCard = () => {
             </>
           ) : (
             <>
+              {/* The button to print QR label */}
               <button
                 className={styles.printLabelButton}
-                onClick={() => PrintLabel("qr-block")}
+                onClick={() => printZPL(machine)}
               >
                 Print Label
               </button>
