@@ -133,10 +133,11 @@ const StartRepair = () => {
               name="model"
               id="model"
               value={model}
+              list="modelList"
               onChange={(e) => setModel(e.target.value)}
             />
           </label>
-          <datalist>{renderModels}</datalist>
+          <datalist id="modelList">{renderModels}</datalist>
         </div>
         <div>
           <label htmlFor="serial">
