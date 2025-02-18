@@ -1,7 +1,7 @@
 import styles from "./StartRepair.module.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchModels } from "../api/Calls";
+import { fetchMachines, fetchModels } from "../api/Calls";
 
 const brands = {
   Admiral: "Admiral",
@@ -47,11 +47,7 @@ const StartRepair = () => {
   }, [error]);
 
   useEffect(() => {
-    const getModels = async () => {
-      const data = await fetchModels();
-      setModels(data);
-    };
-    getModels();
+    fetchMachines("get_machines", setModels);
   }, []);
 
   const handleSubmit = (e) => {
@@ -105,8 +101,10 @@ const StartRepair = () => {
     </option>
   ));
 
-  const renderModels = Object.entries(models).map((model) => (
-    <option value={model}></option>
+  const renderModels = models.map((machine) => (
+    <option key={machine.id} value={machine.model}>
+      {machine.make}
+    </option>
   ));
 
   return (
