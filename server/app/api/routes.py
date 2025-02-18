@@ -151,7 +151,19 @@ def update_macine(id):
         print(f"Error: {e}")
         db.session.rollback()
         return jsonify(error = "Could not complete query, check inputs and try agian."), 401
-
+    
+#get machine model numbers for datalist
+@bp.route("/get_models", methods=['GET'])
+def get_models():
+    try:
+        machines = Machine.query.all()
+        if not machines:
+            print(f"Error, could not find machines in database")
+            return jsonify(error="Could not query machines"), 404
+        return jsonify(models=[machine.model for machine in machines]), 200
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify(error=f"Error: {e}")
 # add note to machine
 @bp.route('/add_note/<int:id>', methods=('GET', 'POST'))
 def add_note(id):

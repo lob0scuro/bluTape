@@ -27,6 +27,20 @@ export const fetchMachine = (id, setMachine) => {
     });
 };
 
+export const fetchModels = async () => {
+  try {
+    const response = await fetch("/api/get_models");
+    if (!response.ok) {
+      return new Error("There was an http error");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("There was an error", error);
+  }
+};
+
 export const getTechs = async () => {
   try {
     const response = await fetch("/api/get_techs");

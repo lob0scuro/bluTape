@@ -1,6 +1,7 @@
 import styles from "./StartRepair.module.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchModels } from "../api/Calls";
 
 const brands = {
   Admiral: "Admiral",
@@ -35,6 +36,7 @@ const StartRepair = () => {
   const [note, setNote] = useState("");
   const [condition, setCondition] = useState("");
   const [error, setError] = useState("");
+  const [models, setModels] = useState([]);
 
   useEffect(() => {
     if (error) {
@@ -43,6 +45,14 @@ const StartRepair = () => {
       }, 8000);
     }
   }, [error]);
+
+  useEffect(() => {
+    const getModels = async () => {
+      const data = await fetchModels();
+      setModels(data);
+    };
+    getModels();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -95,6 +105,10 @@ const StartRepair = () => {
     </option>
   ));
 
+  const renderModels = Object.entries(models).map((model) => (
+    <option value={model}></option>
+  ));
+
   return (
     <>
       {error && <p className="error-text">{error}</p>}
@@ -122,6 +136,7 @@ const StartRepair = () => {
               onChange={(e) => setModel(e.target.value)}
             />
           </label>
+          <datalist>{renderModels}</datalist>
         </div>
         <div>
           <label htmlFor="serial">
