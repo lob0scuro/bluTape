@@ -7,7 +7,10 @@ class Tech(UserMixin, db.Model):
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
     notes = db.relationship('Notes', backref="tech")
+    #col for admin users, 0=notAdmin, 1 =Admin;
     is_admin = db.Column(db.Boolean, server_default="0")
+    # col for department, 1=fridge, 2=washer, 3=dryer/range;
+    department = db.Column(db.Integer)
     
     def serialize(self):
         return {
@@ -15,6 +18,7 @@ class Tech(UserMixin, db.Model):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'is_admin': self.is_admin,
+            'department': self.department,
             'notes': [note.serialize() for note in self.notes]
         }
     

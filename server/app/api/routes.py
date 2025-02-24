@@ -326,7 +326,7 @@ def send_email():
             content_type=file.mimetype,
             data=file.read(),
         )
-        
+
         mail.send(msg)
         
         return jsonify(message = "Email sent successfully")
