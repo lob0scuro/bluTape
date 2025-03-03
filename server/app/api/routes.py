@@ -288,20 +288,43 @@ def archive_by_date(date):
     
 
         
+# @bp.route("/print", methods=["POST"])
+# def print():
+#     #ip = "107.222.194.133"
+#     ip = "12.74.54.143"
+#     port = 9100
+#     zpl = request.data.decode('utf-8')
+    
+#     try: 
+#         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+#             s.connect((ip, port))
+#             s.sendall(zpl.encode('utf-8'))
+#         return jsonify(message="Success"), 200
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return jsonify(error=e), 500
+    
 @bp.route("/print", methods=["POST"])
 def print():
-    ip = "107.222.194.133"
+    ip = "12.74.54.143"  # Router’s public IP
     port = 9100
     zpl = request.data.decode('utf-8')
-    
-    try: 
+
+    try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(5)  # Set timeout for the connection attempt
             s.connect((ip, port))
             s.sendall(zpl.encode('utf-8'))
-        return jsonify(message="Success"), 200
+            return jsonify(message="Print job sent successfully"), 200
+    except socket.timeout:
+        print(f"Connection timeout")
+        return jsonify(error="Connection timed out"), 500
+    except socket.error as e:
+        print(f"Socket Error: {e}")
+        return jsonify(error=f"Socket error: {e}"), 500
     except Exception as e:
-        print(f"Error: {e}")
-        return jsonify(error=e), 500
+        print(f"Unexpected error: {e}")
+        return jsonify(error=f"Unexpected error: {e}"), 500
     
         
 # send exported as .xlsx sheet data to email 
@@ -333,4 +356,3 @@ def send_email():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(error = "Failed to send message")
-    
