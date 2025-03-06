@@ -306,7 +306,7 @@ def archive_by_date(date):
     
 @bp.route("/print", methods=["POST"])
 def print():
-    ip = "12.74.54.143"  # Router’s public IP
+    ip = ""  
     port = 9100
     zpl = request.data.decode('utf-8')
 
