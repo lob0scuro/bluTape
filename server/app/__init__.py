@@ -19,6 +19,23 @@ def create_app(config_class=TestConfig):
     from app.api import bp as api_bp
     app.register_blueprint(api_bp)
     
+    from app.auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
+    
+    from app.dryersranges import bp as dryerrange_bp
+    app.register_blueprint(dryerrange_bp)
+    
+    from app.fridges import bp as fridges_bp
+    app.register_blueprint(fridges_bp)
+    
+    from app.washers import bp as washers_bp
+    app.register_blueprint(washers_bp)
+    
+    from app.utils import bp as utils_bp
+    app.register_blueprint(utils_bp)
+    
+    
+    
     @login_manager.user_loader
     def load_user(id):
         return Tech.query.get(int(id))
