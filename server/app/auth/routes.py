@@ -18,9 +18,10 @@ def register():
         data = request.get_json()
         first_name = data.get('first_name')
         last_name = data.get('last_name')
-        if not all(first_name, last_name):
-            return jsonify(error = "all fields required"), 400
-        newTech = Tech(first_name=first_name, last_name=last_name)
+        role = data.get("role")
+        is_admin = data.get("is_admin")
+        
+        newTech = Tech(first_name=first_name.capitalize(), last_name=last_name.capitalize(), role=int(role), is_admin=is_admin)
         db.session.add(newTech)
         db.session.commit()
         return jsonify(message = f"Succesfully create user {newTech.first_name}"), 201

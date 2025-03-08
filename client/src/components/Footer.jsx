@@ -19,6 +19,7 @@ const Footer = () => {
         <p>
           <b>bluTape</b>/ created by: Cameron Lopez
         </p>
+        <Link to="/register">Register</Link>
       </div>
     </footer>
   );

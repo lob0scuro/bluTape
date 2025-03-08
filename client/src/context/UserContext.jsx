@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
 
   const checkSession = async () => {
     try {
-      const response = await fetch("/api/check_session", {
+      const response = await fetch("/auth/check_session", {
         method: "GET",
         credentials: "include",
       });
@@ -27,7 +27,9 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    checkSession();
+    if (user) {
+      checkSession();
+    }
   }, []);
 
   const login = async (id) => {

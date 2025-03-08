@@ -1,6 +1,6 @@
 from flask import jsonify, request, session
 from app.extensions import db
-from app.models import Machine, Tech, Archive, Notes
+from app.models import MachineFridge, Tech, Archive, Notes
 from flask_login import current_user, login_required
 from app.fridges import bp
 
@@ -16,7 +16,7 @@ This blurprint handles Refrigerator data from the application
 @login_required
 def create_machine():
     try:
-        all_machines = Machine.query.all()
+        all_machines = MachineFridge.query.all()
         data = request.get_json()
         make = data.get('make')
         model = data.get('model')
@@ -30,7 +30,7 @@ def create_machine():
                 return jsonify(error="Serial already exists in database."), 409
         
         note = data.get('note')
-        addMachine = Machine(make=make.capitalize() if len(make) > 2 else make.upper(), model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition)
+        addMachine = MachineFridge(make=make.capitalize() if len(make) > 2 else make.upper(), model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition)
         db.session.add(addMachine)
         db.session.commit()
         
@@ -49,7 +49,7 @@ def create_machine():
 @login_required
 def get_machines():
     try:
-        machines = Machine.query.filter_by(in_progress=True).all()
+        machines = MachineFridge.query.filter_by(in_progress=True).all()
         return jsonify(data = [machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")
@@ -58,7 +58,7 @@ def get_machines():
 #get machine
 @bp.route('/get_machine/<int:id>', methods=['GET'])
 def get_machine(id):
-    machine = Machine.query.get(int(id))
+    machine = MachineFridge.query.get(int(id))
     if not machine:
         machine = Archive.query.get(int(id))
         if not machine:           
@@ -81,7 +81,7 @@ def update_macine(id):
         style = data.get('style')
         condition = data.get('condition')
         
-        machine = Machine.query.get(id)
+        machine = MachineFridge.query.get(id)
         machine.make = make.capitalize() if len(make) > 2 else make.upper()
         machine.model = model.upper()
         machine.serial = serial.upper()
@@ -100,7 +100,7 @@ def update_macine(id):
 @bp.route('/add_note/<int:id>', methods=('GET', 'POST'))
 @login_required
 def add_note(id):
-    machine = Machine.query.get(id)
+    machine = MachineFridge.query.get(id)
     if not machine:
         return jsonify(error = "Could not locate machine, check inputs and try again"), 400
     try:
@@ -120,7 +120,7 @@ def add_note(id):
 @bp.route('/delete/<int:id>', methods=['DELETE'])
 @login_required
 def delete(id):
-    machine = Machine.query.get(int(id))
+    machine = MachineFridge.query.get(int(id))
     if not machine:
         machine = Archive.query.get(int(id))
         if not machine:
@@ -140,7 +140,7 @@ def delete(id):
 @login_required
 def get_inventory():
     try:
-        machines = Machine.query.filter_by(in_progress=False).all()
+        machines = MachineFridge.query.filter_by(in_progress=False).all()
         return jsonify(data = [machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")
@@ -151,7 +151,7 @@ def get_inventory():
 @bp.route('/add_to_inventory/<int:id>', methods=('GET', 'POST'))
 @login_required
 def add_to_inventory(id):
-    machine = Machine.query.get(id)
+    machine = MachineFridge.query.get(id)
     if not machine:
         return jsonify(error = "Could not locate machine, check inputs and try again"), 400
     try:

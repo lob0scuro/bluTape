@@ -15,6 +15,7 @@ import RepairCard from "./routes/RepairCard";
 import Archives from "./routes/Archives";
 import RootLayout from "./layout/RootLayout";
 import ProtectedRoutes from "./layout/ProtectedRoutes";
+import Register from "./routes/Register";
 
 function App() {
   const router = createBrowserRouter(
@@ -29,6 +30,7 @@ function App() {
           <Route path="archives" element={<Archives />} />
         </Route>
         <Route path="login-page" element={<LoginPage />} />
+        <Route path="register" element={<Register />} />
         <Route path="repair-card/:id" element={<RepairCard />} />
       </Route>
     )

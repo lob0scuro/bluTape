@@ -23,7 +23,7 @@ class Tech(UserMixin, db.Model):
         return f"<Tech {self.id}: {self.first_name} {self.last_name}>"
     
 
-class Machine(db.Model):
+class MachineFridge(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(150))
     model = db.Column(db.String(150))
@@ -33,7 +33,7 @@ class Machine(db.Model):
     condition = db.Column(db.String(50), server_default="USED")
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
-    notes = db.relationship('Notes', backref="machine")
+    notes = db.relationship('Notes', backref="machinefridge")
     
     def serialize(self):
         return {
@@ -63,7 +63,7 @@ class MachineWasher(db.Model):
     condition = db.Column(db.String(15)) # either NEW or USED
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
-    notes = db.relationship("Notes", backref='machine_washer')
+    notes = db.relationship("Notes", backref='machinewasher')
     
     def serialize(self):
         return {
@@ -94,7 +94,7 @@ class MachineDryer(db.Model):
     condition = db.Column(db.String(15)) # either NEW or USED
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
-    notes = db.relationship("Notes", backref='machine_dryer')
+    notes = db.relationship("Notes", backref='machinedryer')
     
     def serialize(self):
         return {
@@ -122,13 +122,39 @@ class MachineRange(db.Model):
     serial = db.Column(db.String(150))
     color = db.Column(db.String(150))
     style = db.Column(db.String(150))
+    heat_type = db.Column(db.String(50)) # either Gas or Electric 
+    condition = db.Column(db.String(15)) # either NEW or USED
+    created_on = db.Column(db.Date, default=func.current_date())
+    in_progress = db.Column(db.Boolean, server_default="1")
+    notes = db.relationship("Notes", backref='machinerange')
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "make": self.make,
+            "model": self.model,
+            "serial": self.serial,
+            "color": self.color,
+            "style": self.style,
+            "heat_type": self.heat_type,
+            "condition": self.condition,
+            "created_on": self.created_on,
+            "in_progress": self.in_progress,
+            "notes": [note.serialize() for note in self.notes]
+        }
+     
+    def __repr__(self):
+        return f"<Range {self.id} | {self.make} {self.type} / {self.color}>"
 
 class Notes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
     created_on = db.Column(db.Date, server_default=func.current_date())
     tech_id = db.Column(db.Integer, db.ForeignKey('tech.id'))
-    machine_id = db.Column(db.Integer, db.ForeignKey('machine.id', ondelete='SET NULL'))
+    machine_fridge_id = db.Column(db.Integer, db.ForeignKey('machine_fridge.id', ondelete='SET NULL'))
+    machine_washer_id = db.Column(db.Integer, db.ForeignKey('machine_washer.id', ondelete='SET NULL'))
+    machine_dryer_id = db.Column(db.Integer, db.ForeignKey('machine_dryer.id', ondelete='SET NULL'))
+    machine_range_id = db.Column(db.Integer, db.ForeignKey('machine_range.id', ondelete='SET NULL'))
     archive_id = db.Column(db.Integer, db.ForeignKey('archive.id', ondelete="SET NULL"))
     def serialize(self):
         return {
