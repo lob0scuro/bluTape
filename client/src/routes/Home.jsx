@@ -9,9 +9,7 @@ const Home = () => {
         <Link to="/start-repair">Start Repair</Link>
         <Link to="/active-repairs">Active Repairs</Link>
         <Link to="/inventory-list">Finished Repairs</Link>
-        {["Ethan", "Jesse", "Matt", "Cameron"].includes(user.first_name) && (
-          <Link to="/archives">View Archives</Link>
-        )}
+        {user.is_admin && <Link to="/archives">View Archives</Link>}
       </div>
     </>
   );

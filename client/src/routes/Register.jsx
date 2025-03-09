@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -7,12 +8,13 @@ const Register = () => {
     role: "",
     is_admin: false,
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -32,6 +34,7 @@ const Register = () => {
       }
       const data = await response.json();
       alert(data.message);
+      navigate("/login-page");
     } catch (error) {
       alert("There was an error");
       throw new Error(error);
@@ -77,7 +80,6 @@ const Register = () => {
             name="is_admin"
             id="is_admin"
             onChange={handleChange}
-            required
           />
         </div>
         <button type="submit">Register</button>

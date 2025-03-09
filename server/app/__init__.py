@@ -16,14 +16,14 @@ def create_app(config_class=TestConfig):
     migrate.init_app(app, db)
     
     #register blueprints
-    from app.api import bp as api_bp
-    app.register_blueprint(api_bp)
-    
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
     
-    from app.dryersranges import bp as dryerrange_bp
+    from app.dryers import bp as dryerrange_bp
     app.register_blueprint(dryerrange_bp)
+    
+    from app.ranges import bp as ranges_bp
+    app.register_blueprint(ranges_bp)
     
     from app.fridges import bp as fridges_bp
     app.register_blueprint(fridges_bp)

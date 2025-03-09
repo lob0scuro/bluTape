@@ -23,7 +23,7 @@ class Tech(UserMixin, db.Model):
         return f"<Tech {self.id}: {self.first_name} {self.last_name}>"
     
 
-class MachineFridge(db.Model):
+class Fridge(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(150))
     model = db.Column(db.String(150))
@@ -33,7 +33,7 @@ class MachineFridge(db.Model):
     condition = db.Column(db.String(50), server_default="USED")
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
-    notes = db.relationship('Notes', backref="machinefridge")
+    notes = db.relationship('Notes', backref="fridge")
     
     def serialize(self):
         return {
@@ -53,7 +53,7 @@ class MachineFridge(db.Model):
         return f"<Machine {self.id}: {self.make} {self.color} {self.style}>"
     
 
-class MachineWasher(db.Model):
+class Washer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(150))
     model = db.Column(db.String(150))
@@ -63,7 +63,7 @@ class MachineWasher(db.Model):
     condition = db.Column(db.String(15)) # either NEW or USED
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
-    notes = db.relationship("Notes", backref='machinewasher')
+    notes = db.relationship("Notes", backref='washer')
     
     def serialize(self):
         return {
@@ -83,7 +83,7 @@ class MachineWasher(db.Model):
         return f"<Washer {self.id}: {self.make} {self.type} / {self.color}>"
     
     
-class MachineDryer(db.Model):
+class Dryer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(150))
     model = db.Column(db.String(150))
@@ -94,7 +94,7 @@ class MachineDryer(db.Model):
     condition = db.Column(db.String(15)) # either NEW or USED
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
-    notes = db.relationship("Notes", backref='machinedryer')
+    notes = db.relationship("Notes", backref='dryer')
     
     def serialize(self):
         return {
@@ -115,7 +115,7 @@ class MachineDryer(db.Model):
         return f"<Dryer {self.id} | {self.make} {self.type} / {self.color}>"
 
     
-class MachineRange(db.Model):
+class Range(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(150))
     model = db.Column(db.String(150))
@@ -126,7 +126,7 @@ class MachineRange(db.Model):
     condition = db.Column(db.String(15)) # either NEW or USED
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
-    notes = db.relationship("Notes", backref='machinerange')
+    notes = db.relationship("Notes", backref='range')
     
     def serialize(self):
         return {
@@ -151,10 +151,10 @@ class Notes(db.Model):
     content = db.Column(db.Text)
     created_on = db.Column(db.Date, server_default=func.current_date())
     tech_id = db.Column(db.Integer, db.ForeignKey('tech.id'))
-    machine_fridge_id = db.Column(db.Integer, db.ForeignKey('machine_fridge.id', ondelete='SET NULL'))
-    machine_washer_id = db.Column(db.Integer, db.ForeignKey('machine_washer.id', ondelete='SET NULL'))
-    machine_dryer_id = db.Column(db.Integer, db.ForeignKey('machine_dryer.id', ondelete='SET NULL'))
-    machine_range_id = db.Column(db.Integer, db.ForeignKey('machine_range.id', ondelete='SET NULL'))
+    machine_fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id', ondelete='SET NULL'))
+    machine_washer_id = db.Column(db.Integer, db.ForeignKey('washer.id', ondelete='SET NULL'))
+    machine_dryer_id = db.Column(db.Integer, db.ForeignKey('dryer.id', ondelete='SET NULL'))
+    machine_range_id = db.Column(db.Integer, db.ForeignKey('range.id', ondelete='SET NULL'))
     archive_id = db.Column(db.Integer, db.ForeignKey('archive.id', ondelete="SET NULL"))
     def serialize(self):
         return {

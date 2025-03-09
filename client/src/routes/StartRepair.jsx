@@ -1,6 +1,7 @@
 import styles from "./StartRepair.module.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FridgeForm from "../components/FridgeForm";
 
 const brands = {
   Admiral: "Admiral",
@@ -21,6 +22,7 @@ const brands = {
   Roper: "Roper",
   Samsung: "Samsung",
   Whirlpool: "Whirlpool",
+  Other: "Other",
 };
 
 const StartRepair = () => {
@@ -59,7 +61,7 @@ const StartRepair = () => {
       note,
       condition,
     };
-    fetch("/api/create_machine", {
+    fetch("/fridges/create_machine", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,7 +100,8 @@ const StartRepair = () => {
   return (
     <>
       {error && <p className="error-text">{error}</p>}
-      <form onSubmit={handleSubmit} className={styles.startRepairForm}>
+      <FridgeForm />
+      {/* <form onSubmit={handleSubmit} className={styles.startRepairForm}>
         <h2>Start Repair</h2>
         <div>
           <label htmlFor="make">Brand:&nbsp;</label>
@@ -201,7 +204,7 @@ const StartRepair = () => {
         <div>
           <input type="submit" value="Submit" />
         </div>
-      </form>
+      </form> */}
     </>
   );
 };

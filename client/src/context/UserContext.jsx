@@ -34,7 +34,7 @@ export const UserProvider = ({ children }) => {
 
   const login = async (id) => {
     try {
-      const response = await fetch(`/api/login/${id}`, {
+      const response = await fetch(`/auth/login/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export const UserProvider = ({ children }) => {
       return;
     }
     try {
-      fetch("/api/logout")
+      fetch("/auth/logout")
         .then((response) => {
           return response.json();
         })

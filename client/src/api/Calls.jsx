@@ -1,7 +1,7 @@
 import * as XLSX from "xlsx";
 
 export const fetchMachines = (route, setMachines) => {
-  fetch(`/api/${route}`)
+  fetch(`/fridges/${route}`)
     .then((response) => {
       return response.json();
     })
@@ -14,7 +14,7 @@ export const fetchMachines = (route, setMachines) => {
 };
 
 export const fetchMachine = (id, setMachine) => {
-  fetch(`/api/get_machine/${id}`)
+  fetch(`/fridges/get_machine/${id}`)
     .then((response) => {
       return response.json();
     })
@@ -29,7 +29,7 @@ export const fetchMachine = (id, setMachine) => {
 
 export const getTechs = async () => {
   try {
-    const response = await fetch("/api/get_techs");
+    const response = await fetch("/utils/get_techs");
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -43,7 +43,7 @@ export const getTechs = async () => {
 
 export const getTech = async (id) => {
   try {
-    const response = await fetch(`/api/get_tech/${id}`);
+    const response = await fetch(`/utils/get_tech/${id}`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -59,7 +59,7 @@ export const getTech = async (id) => {
 export const deleteMachine = (id) => {
   let result = confirm("Delete Machine?");
   if (result) {
-    fetch(`/api/delete/${id}`, {
+    fetch(`/fridges/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export const deleteMachine = (id) => {
 export const addToInventory = (id) => {
   let result = confirm("Add to Inventory");
   if (result) {
-    fetch(`/api/add_to_inventory/${id}`, {
+    fetch(`/fridges/add_to_inventory/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -175,7 +175,7 @@ export const exportTable = (machines, fetchMachines) => {
     const archiveData = machines.map((machine) => ({ id: machine.id }));
 
     try {
-      fetch("/api/archive_machines", {
+      fetch("/utils/archive_machines", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
