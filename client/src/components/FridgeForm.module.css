@@ -1,0 +1,27 @@
+.fridgeForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: end;
+  padding: 1rem 0;
+}
+
+label {
+  font-weight: 700;
+  margin-right: 0.3rem;
+}
+
+.noteField {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin: 1rem;
+}
+.noteField textarea {
+  width: 18rem;
+  height: 10rem;
+}
+
+button[type="submit"] {
+  align-self: center;
+}

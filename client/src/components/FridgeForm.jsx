@@ -1,4 +1,6 @@
+import styles from "./FridgeForm.module.css";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useActionState } from "react";
 
 const brands = {
@@ -29,28 +31,30 @@ const renderBrandOptions = Object.entries(brands).map(([key, value]) => (
   </option>
 ));
 
-const submitForm = async (prevState, formData) => {
-  const response = await fetch("/fridges/create_fridge", {
-    method: "POST",
-    headers: {
-      "content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-  if (!response.ok) {
-    alert("There was an issue");
-    throw new Error("Error", response.statusText);
-  }
-  const data = await response.json();
-  alert(data.message);
-  return data.machine;
-};
-
 const FridgeForm = () => {
+  const submitForm = async (prevState, formData) => {
+    const response = await fetch("/fridges/create_fridge", {
+      method: "POST",
+      headers: {
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    });
+    if (!response.ok) {
+      alert("There was an issue");
+      throw new Error("Error", response.statusText);
+    }
+    const data = await response.json();
+    alert(data.message);
+    navigate(`/repair-card/${data.machine.id}`);
+    return data.machine;
+  };
   const [state, formAction, isPending] = useActionState(submitForm);
+  const navigate = useNavigate();
+
   return (
     <>
-      <form action={formAction} method="post">
+      <form action={formAction} className={styles.fridgeForm}>
         <div>
           <label htmlFor="make">Brand: </label>
           <select name="make" id="make">
@@ -58,15 +62,15 @@ const FridgeForm = () => {
             {renderBrandOptions}
           </select>
         </div>
-        <div>
+        <div className={styles.modelField}>
           <label htmlFor="model">Model: </label>
           <input type="text" name="model" id="model" />
         </div>
-        <div>
+        <div className={styles.serialField}>
           <label htmlFor="serial">Serial: </label>
           <input type="text" name="serial" id="serial" />
         </div>
-        <div>
+        <div className={styles.colorField}>
           <label htmlFor="color">Color: </label>
           <select name="color" id="color">
             <option value="">--Select Color--</option>
@@ -77,7 +81,7 @@ const FridgeForm = () => {
             <option value="other">Other</option>
           </select>
         </div>
-        <div>
+        <div className={styles.styleField}>
           <label htmlFor="style">Style: </label>
           <select name="type" id="type">
             <option value="null">-- Select Style --</option>
@@ -89,13 +93,17 @@ const FridgeForm = () => {
             <option value="other">Other</option>
           </select>
         </div>
-        <div>
+        <div className={styles.conditionField}>
           <label htmlFor="condition">Condition: </label>
           <select name="condition" id="condition">
             <option value="">--Select Condition--</option>
             <option value="USED">USED</option>
             <option value="NEW">NEW</option>
           </select>
+        </div>
+        <div className={styles.noteField}>
+          <label htmlFor="note">Note</label>
+          <textarea name="note" id="note"></textarea>
         </div>
         <button type="submit" disabled={isPending}>
           Submit

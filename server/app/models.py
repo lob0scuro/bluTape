@@ -151,16 +151,15 @@ class Notes(db.Model):
     content = db.Column(db.Text)
     created_on = db.Column(db.Date, server_default=func.current_date())
     tech_id = db.Column(db.Integer, db.ForeignKey('tech.id'))
-    machine_fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id', ondelete='SET NULL'))
-    machine_washer_id = db.Column(db.Integer, db.ForeignKey('washer.id', ondelete='SET NULL'))
-    machine_dryer_id = db.Column(db.Integer, db.ForeignKey('dryer.id', ondelete='SET NULL'))
-    machine_range_id = db.Column(db.Integer, db.ForeignKey('range.id', ondelete='SET NULL'))
+    fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id', ondelete='SET NULL'))
+    washer_id = db.Column(db.Integer, db.ForeignKey('washer.id', ondelete='SET NULL'))
+    dryer_id = db.Column(db.Integer, db.ForeignKey('dryer.id', ondelete='SET NULL'))
+    range_id = db.Column(db.Integer, db.ForeignKey('range.id', ondelete='SET NULL'))
     archive_id = db.Column(db.Integer, db.ForeignKey('archive.id', ondelete="SET NULL"))
     def serialize(self):
         return {
             'id': self.id,
             'tech_id': self.tech_id,
-            'machine_id': self.machine_id,
             'archive_id': self.archive_id,
             'created_on': self.created_on,
             'content': self.content

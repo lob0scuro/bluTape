@@ -34,7 +34,7 @@ def create_fridge():
         db.session.add(addMachine)
         db.session.commit()
         
-        addNote = Notes(content=note, tech_id=current_user.id, machine_id=addMachine.id)
+        addNote = Notes(content=note, tech_id=current_user.id, fridge_id=addMachine.id)
         db.session.add(addNote)
         db.session.commit()
         return jsonify(message = f"Successfully added machine to database", machine=addMachine.serialize()), 201
