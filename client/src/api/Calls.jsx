@@ -14,7 +14,7 @@ export const fetchMachines = (route, setMachines) => {
 };
 
 export const fetchMachine = (id, setMachine) => {
-  fetch(`/fridges/get_machine/${id}`)
+  fetch(`/fridges/get_fridge/${id}`)
     .then((response) => {
       return response.json();
     })

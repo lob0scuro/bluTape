@@ -45,7 +45,7 @@ def login(id):
         session['last_name'] = tech.last_name
         session['uid'] = tech.id
         session['is_admin'] = tech.is_admin
-        return jsonify(message = f"Logged in as {tech.first_name}", tech = {"first_name": tech.first_name, "last_name": tech.last_name, "id": tech.id, "is_admin": tech.is_admin})
+        return jsonify(message = f"Logged in as {tech.first_name}", tech = {"first_name": tech.first_name, "last_name": tech.last_name, "id": tech.id, "is_admin": tech.is_admin, "role": tech.role})
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(error = "Problem with query, check inputs and try again"), 401
@@ -64,4 +64,4 @@ def logout():
 @bp.route("/check_session", methods=['GET'])
 @login_required
 def check_session():
-    return jsonify({"id": current_user.id, "first_name": current_user.first_name, "last_name": current_user.last_name, "is_admin": current_user.is_admin})
+    return jsonify({"id": current_user.id, "first_name": current_user.first_name, "last_name": current_user.last_name, "is_admin": current_user.is_admin, "role": current_user.role})

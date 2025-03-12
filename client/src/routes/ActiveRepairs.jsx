@@ -3,13 +3,17 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { renderData } from "../Tools";
 import { fetchMachines } from "../api/Calls";
+import { useAuth } from "../context/UserContext";
 
 const ActiveRepairs = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [machines, setMachines] = useState([]);
 
   useEffect(() => {
-    fetchMachines("get_machines", setMachines);
+    if (user.role === 0) {
+      fetchMachines("get_fridges", setMachines);
+    }
   }, [navigate]);
 
   return (

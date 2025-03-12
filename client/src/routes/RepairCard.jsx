@@ -19,7 +19,7 @@ const RepairCard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`/api/add_note/${machine.id}`, {
+    fetch(`/fridges/add_note/${machine.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -54,6 +54,7 @@ const FridgeForm = () => {
 
   return (
     <>
+      <h2 className={styles.formHeader}>Fridge Form</h2>
       <form action={formAction} className={styles.fridgeForm}>
         <div>
           <label htmlFor="make">Brand: </label>

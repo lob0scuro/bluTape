@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 const Home = () => {
   const { user } = useAuth();
+
   return (
     <>
       <div className="buttonBlock">
