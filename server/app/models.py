@@ -2,6 +2,8 @@ from app.extensions import db
 from flask_login import UserMixin
 from sqlalchemy import func
 
+#we are starting a new fresh start here
+
 class Tech(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(150))
