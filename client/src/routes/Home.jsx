@@ -1,20 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../context/UserContext";
+import React from "react";
+
 const Home = () => {
-  const { user } = useAuth();
-  return (
-    <>
-      <div className="buttonBlock">
-        <Link to="/start-repair">Start Repair</Link>
-        <Link to="/active-repairs">Active Repairs</Link>
-        <Link to="/inventory-list">Finished Repairs</Link>
-        {["Ethan", "Jesse", "Matt", "Cameron"].includes(user.first_name) && (
-          <Link to="/archives">View Archives</Link>
-        )}
-      </div>
-    </>
-  );
+  return <div>Home</div>;
 };
 
 export default Home;

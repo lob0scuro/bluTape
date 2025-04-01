@@ -1,6 +1,6 @@
 from flask import Flask
 from config import Config, TestConfig
-from app.extensions import cors, db, login_manager, mail, migrate, session
+from app.extensions import cors, db, login_manager, mail, migrate, session, bcrypt
 from app.models import Tech
 
 def create_app(config_class=TestConfig):
@@ -14,10 +14,12 @@ def create_app(config_class=TestConfig):
     # session.init_app(app)
     mail.init_app(app)
     migrate.init_app(app, db)
+    bcrypt.init_app(app)
+    
     
     #register blueprints
-    from app.api import bp as api_bp
-    app.register_blueprint(api_bp)
+    from app.auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
     
     @login_manager.user_loader
     def load_user(id):
