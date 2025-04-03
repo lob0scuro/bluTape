@@ -65,7 +65,7 @@ class Notes(db.Model):
     created_on = db.Column(db.Date, server_default=func.current_date())
     tech_id = db.Column(db.Integer, db.ForeignKey('tech.id', ondelete='SET NULL'))
     machine_id = db.Column(db.Integer, db.ForeignKey('machine.id', ondelete='SET NULL'))
-    is_archived = db.Column(db.Boolean, server_default="0")
+    archive_id = db.Column(db.Integer, db.ForeignKey('archive.id', ondelete='SET NULL'))
     def serialize(self):
         return {
             'id': self.id,
@@ -90,7 +90,7 @@ class Archive(db.Model):
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
     machine_type = db.Column(db.Integer, nullable=False) ## 0: fridge, 1:washer, 2:dryer, 3:range, 4:stackable, 5:dishwasher, 6:microwave, 7:water_heater
-    notes = db.relationship('Notes', backref="machine")
+    notes = db.relationship('Notes', backref="archive")
     
     def serialize(self):
         return {
