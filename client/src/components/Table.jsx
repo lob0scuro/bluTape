@@ -1,18 +1,20 @@
 import styles from "../style/Table.module.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const Table = ({ machines }) => {
-  const renderMachines = machines.map((machine) => (
-    <tr key={machine.id}>
-      <td className={styles.carLink}>
-        <Link to={`/card/${machine.id}`}>{machine.id}</Link>
-      </td>
-      <td>{machine.brand}</td>
-      <td>{machine.style}</td>
-      <td>{machine.model}</td>
-    </tr>
-  ));
+  const renderMachines = Array.isArray(machines)
+    ? machines.map((machine) => (
+        <tr key={machine.id}>
+          <td className={styles.cardLink}>
+            <Link to={`/card/${machine.id}/${0}`}>{machine.id}</Link>
+          </td>
+          <td>{machine.brand}</td>
+          <td>{machine.style}</td>
+          <td>{machine.model}</td>
+        </tr>
+      ))
+    : [];
 
   return (
     <table>

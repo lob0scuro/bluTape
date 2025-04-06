@@ -9,7 +9,7 @@ tableMap = {
     1: Archive
 }
 
-@bp.route("/get_active_repairs/<int:table>", methods=["GET"])
+@bp.route("/get_all_machines/<int:table>", methods=["GET"])
 @login_required
 def get_active_repairs(table):
     try:
@@ -25,7 +25,7 @@ def get_active_repairs(table):
         return jsonify(error=f"Server error: {e}"), 500
     
     
-@bp.route("/get_one_active/<int:table>/<int:id>", methods=["GET"])
+@bp.route("/get_one_machine/<int:table>/<int:id>", methods=["GET"])
 @login_required
 def get_one_machine(table, id):
     try:

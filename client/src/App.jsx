@@ -24,7 +24,7 @@ function App() {
           <Route path="start" element={<StartRepair />} />
           <Route path="active" element={<ActiveRepairs />} />
         </Route>
-        <Route path="card/:id" element={<RepairCard />} />
+        <Route path="card/:id/:typeOf" element={<RepairCard />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
       </Route>

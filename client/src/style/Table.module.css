@@ -13,3 +13,13 @@ table thead tr th {
   text-align: start;
   padding: 0.3rem 0.3rem;
 }
+
+table tbody tr td {
+  padding: 0.2rem 0.2rem;
+  border-bottom: 1px solid var(--accent);
+}
+
+.cardLink {
+  text-decoration: underline;
+  font-weight: 800;
+}
