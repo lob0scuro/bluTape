@@ -11,6 +11,7 @@ import ProtectedRoutes from "./layout/ProtectedRoutes";
 import Home from "./routes/Home";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
+import StartRepair from "./routes/StartRepair";
 
 function App() {
   const router = createBrowserRouter(
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" element={<RootLayout />}>
         <Route element={<ProtectedRoutes />}>
           <Route index element={<Home />} />
+          <Route path="start" element={<StartRepair />} />
         </Route>
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />

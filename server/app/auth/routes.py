@@ -56,23 +56,18 @@ def login():
             return jsonify(error="Invalid credentials, please try again"), 401
         
         login_user(tech)
-        return jsonify(message=f"Logged in as {tech.first_name}"), 200
+        return jsonify(message=f"Logged in as {tech.first_name}", tech=tech.serialize()), 200
     except Exception as e:
         print(f"There was an error: {e}")
         return jsonify(error=f"Server error: {e}"), 500
     
 #LOGOUT TECHNICIAN
-@bp.route("/logout", methods=["POST"])
+@bp.route("/logout", methods=["GET"])
 @login_required
 def logout():
     try:
-        data = request.get_json()
-        tech_id = data.get("tech_id")
-        tech = Tech.query.get(tech_id)
-        if not tech:
-            return jsonify(error="Tech not found"), 404
-        logout_user(tech)
-        return jsonify(error="Logged out."), 200
+        logout_user()
+        return jsonify(message="Logged out."), 200
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(f"Server error: {e}"), 500
@@ -80,7 +75,6 @@ def logout():
 
 #GET ALL TECHNICIANS
 @bp.route("/get_all_techs", methods=["GET"])
-@login_required
 def get_all_techs():
     try:
         techs = Tech.query.all()
@@ -93,7 +87,6 @@ def get_all_techs():
     
 #GET ONE TECH
 @bp.route("/get_one_tech/<int:id>", methods=["GET"])
-@login_required
 def get_one_tech(id):
     try:
         tech = Tech.query.get(id)

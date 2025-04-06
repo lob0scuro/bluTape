@@ -1,0 +1,36 @@
+from flask import request, jsonify
+from app.create import bp
+from flask_login import login_required, current_user
+from app.models import Machine, Tech, Notes, Archive
+from app.extensions import db
+
+@bp.route("/create_repair", methods=["POST"])
+@login_required
+def create_repair():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify(error="No payload in request"), 400
+        brand = data.get("brand")
+        model = data.get("model")
+        serial = data.get("serial")
+        color = data.get("color")
+        style = data.get("style")
+        condition = data.get("condition")
+        heat_type = data.get("heat_type")
+        machine_type = data.get("machine_type")
+        note = data.get("note")
+    
+        newMachine = Machine(brand=brand, model=model.upper(), serial=serial.upper(), color=color, style=style, condition=condition.upper(), heat_type=heat_type if heat_type else None, machine_type=machine_type)
+        db.session.add(newMachine)
+        db.session.commit()
+        newNote = Notes(content=note, tech_id=current_user.id, machine_id=newMachine.id)
+        db.session.add(newNote)
+        db.session.commit()
+        return jsonify(message="Machine added to database!"), 201
+    except Exception as e:
+        print(f"Error: {e}")
+        db.session.rollback()
+        return jsonify(error=f"Server Error: {e}"), 500
+            
+        

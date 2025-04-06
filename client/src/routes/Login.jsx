@@ -1,9 +1,71 @@
-import React from "react";
+import styles from "../style/Login.module.css";
+import { useActionState, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchAllTechs } from "../utils.jsx";
+import { useAuth } from "../context/UserContext.jsx";
 
 const Login = () => {
+  const [techs, setTechs] = useState([]);
+  const { setUser } = useAuth();
+
+  useEffect(() => {
+    const retrieveTechs = async () => {
+      const techList = await fetchAllTechs();
+      setTechs(techList);
+    };
+    retrieveTechs();
+  }, []);
+
+  const navigate = useNavigate();
+  const submitForm = async (prevState, formData) => {
+    const response = await fetch("/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      return { error: data.error || `Error: ${response.statusText}` };
+    }
+    localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
+    setUser(data.tech);
+    alert(data.message);
+    setTimeout(() => {}, 4000);
+    navigate("/");
+  };
+
+  const [state, formAction] = useActionState(submitForm, {
+    message: "",
+    error: "",
+  });
+
+  const renderTechOptions = techs.map((tech) => (
+    <option key={tech.id} value={tech.id}>
+      {tech.first_name} {tech.last_name}
+    </option>
+  ));
+
   return (
     <>
       <h1>Login</h1>
+      {state.message && <p style={{ color: "green" }}>{state.message}</p>}
+      {state.error && <p style={{ color: "red" }}>{state.error}</p>}
+      <form action={formAction} className={styles.loginForm}>
+        <div>
+          <label htmlFor="tech_id">Technician: </label>
+          <select name="tech_id" id="tech_id">
+            <option value="">--Select Technician--</option>
+            {renderTechOptions}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="password">Password: </label>
+          <input type="password" name="password" id="password" />
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
     </>
   );
 };

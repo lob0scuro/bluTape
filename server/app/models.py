@@ -71,9 +71,9 @@ class Notes(db.Model):
             'id': self.id,
             'tech_id': self.tech_id,
             'machine_id': self.machine_id,
+            'archive_id': self.archive_id,
             'created_on': self.created_on,
             'content': self.content,
-            'is_archived': self.is_archived
         }
     
         
