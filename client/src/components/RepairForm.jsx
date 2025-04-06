@@ -1,6 +1,27 @@
 import styles from "../style/RepairForm.module.css";
 import { useActionState } from "react";
 
+const brands = {
+  Admiral: "Admiral",
+  Amana: "Amana",
+  Avanti: "Avanti",
+  Bosch: "Bosch",
+  Crosley: "Crosley",
+  Cuisinart: "Cuisinart",
+  Danby: "Danby",
+  Fridgidaire: "Fridgidaire",
+  GE: "GE",
+  Haier: "Haier",
+  Hotpoint: "Hotpoint",
+  Kenmore: "Kenmore",
+  Kitchenaid: "Kitchenaid",
+  LG: "LG",
+  Maytag: "Maytag",
+  Roper: "Roper",
+  Samsung: "Samsung",
+  Whirlpool: "Whirlpool",
+};
+
 const RepairForm = ({ title, machineType }) => {
   const submitForm = async (prevData, formData) => {
     const inputs = Object.fromEntries(formData);
@@ -30,6 +51,13 @@ const RepairForm = ({ title, machineType }) => {
     message: "",
     error: "",
   });
+
+  const renderBrandOptions = Object.fromEntries(brands).map((key, value) => (
+    <option key={key} value={key}>
+      {value}
+    </option>
+  ));
+
   return (
     <>
       <h1 style={{ marginTop: "1rem" }}>{title}</h1>
@@ -38,6 +66,7 @@ const RepairForm = ({ title, machineType }) => {
           <label htmlFor="brand">Brand: </label>
           <select name="brand" id="brand">
             <option value="">--Select Brand--</option>
+            {renderBrandOptions}
           </select>
         </div>
         <div>

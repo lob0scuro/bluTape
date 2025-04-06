@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app.models import Machine, Tech, Notes, Archive
 from app.extensions import db
 
+
 @bp.route("/create_repair", methods=["POST"])
 @login_required
 def create_repair():
