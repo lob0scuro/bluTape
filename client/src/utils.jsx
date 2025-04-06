@@ -12,3 +12,18 @@ export const fetchAllTechs = async () => {
     console.error(error);
   }
 };
+
+export const fetchActiveRepairs = async (table) => {
+  try {
+    const response = await fetch(`/read/get_active_repairs/${table}`);
+    const data = await response.json();
+    if (!response.ok) {
+      alert(`Error: ${data.error}`);
+      return data.error;
+    }
+    return data;
+  } catch (error) {
+    alert("There was a server error");
+    return error;
+  }
+};

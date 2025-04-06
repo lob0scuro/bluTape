@@ -12,6 +12,8 @@ import Home from "./routes/Home";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
 import StartRepair from "./routes/StartRepair";
+import ActiveRepairs from "./routes/ActiveRepairs";
+import RepairCard from "./routes/RepairCard";
 
 function App() {
   const router = createBrowserRouter(
@@ -20,7 +22,9 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route index element={<Home />} />
           <Route path="start" element={<StartRepair />} />
+          <Route path="active" element={<ActiveRepairs />} />
         </Route>
+        <Route path="card/:id" element={<RepairCard />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
       </Route>

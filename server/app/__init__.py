@@ -22,6 +22,8 @@ def create_app(config_class=TestConfig):
     app.register_blueprint(auth_bp)
     from app.create import bp as create_bp
     app.register_blueprint(create_bp)
+    from app.read import bp as read_bp
+    app.register_blueprint(read_bp)
     
     @login_manager.user_loader
     def load_user(id):

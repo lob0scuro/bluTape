@@ -1,0 +1,15 @@
+@import "../index.css";
+
+table {
+  background-color: var(--fgMain);
+  width: 80vw;
+}
+
+table thead {
+  background-color: var(--bgSecondary);
+}
+
+table thead tr th {
+  text-align: start;
+  padding: 0.3rem 0.3rem;
+}

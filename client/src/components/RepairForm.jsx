@@ -22,9 +22,59 @@ const brands = {
   Whirlpool: "Whirlpool",
 };
 
+const colors = {
+  Black: "Black",
+  White: "White",
+  Stainless: "Stainless",
+  BlackStainless: "Black Stainless",
+  Blue: "Blue",
+  Cream: "Cream",
+  Red: "Red",
+};
+
+const machineStyles = [
+  {
+    TopAndBottom: "Top and Bottom",
+    SideBySide: "Side by Side",
+    FrenchDoor: "French Door",
+    BottomTop: "Bottom Top",
+    Freezer: "Freezer",
+  },
+  {
+    TopLoad: "Top Load",
+    FrontLoad: "Front Load",
+  },
+  {
+    TopLoad: "Top Load",
+    FrontLoad: "Front Load",
+  },
+  {
+    GlassTop: "Glass Top",
+    Coil: "Coil",
+  },
+];
+
+const fridgeStyles = {
+  TopAndBottom: "Top and Bottom",
+  SideBySide: "Side by Side",
+  FrenchDoor: "French Door",
+  BottomTop: "Bottom Top",
+  Freezer: "Freezer",
+};
+const washerDryerStyles = {
+  TopLoad: "Top Load",
+  FrontLoad: "Front Load",
+};
+
+const rangeStyles = {
+  GlassTop: "Glass Top",
+  Coil: "Coil",
+};
+
 const RepairForm = ({ title, machineType }) => {
   const submitForm = async (prevData, formData) => {
     const inputs = Object.fromEntries(formData);
+    inputs.machine_type = machineType;
     try {
       const response = await fetch("/create/create_repair", {
         method: "POST",
@@ -52,21 +102,25 @@ const RepairForm = ({ title, machineType }) => {
     error: "",
   });
 
-  const renderBrandOptions = Object.fromEntries(brands).map((key, value) => (
-    <option key={key} value={key}>
-      {value}
-    </option>
-  ));
+  const renderOptions = (obj) => {
+    return (
+      Object.entries(obj).map(([key, value]) => (
+        <option key={key} value={key}>
+          {value}
+        </option>
+      )) || null
+    );
+  };
 
   return (
     <>
       <h1 style={{ marginTop: "1rem" }}>{title}</h1>
-      <form className={styles.repairForm}>
+      <form className={styles.repairForm} action={formAction}>
         <div>
           <label htmlFor="brand">Brand: </label>
           <select name="brand" id="brand">
             <option value="">--Select Brand--</option>
-            {renderBrandOptions}
+            {renderOptions(brands)}
           </select>
         </div>
         <div>
@@ -81,12 +135,14 @@ const RepairForm = ({ title, machineType }) => {
           <label htmlFor="color">Color: </label>
           <select name="color" id="color">
             <option value="">--Select Color--</option>
+            {renderOptions(colors)}
           </select>
         </div>
         <div>
           <label htmlFor="style">Style: </label>
           <select name="style" id="style">
             <option value="">--Select Style--</option>
+            {renderOptions(machineStyles[machineType])}
           </select>
         </div>
         <div>
@@ -102,6 +158,8 @@ const RepairForm = ({ title, machineType }) => {
             <label htmlFor="heat_type">Heat Type: </label>
             <select name="heat_type" id="heat_type">
               <option value="">--Select Heat Type--</option>
+              <option value="Gas">Gas</option>
+              <option value="Electric">Electric</option>
             </select>
           </div>
         )}

@@ -7,7 +7,7 @@ const Home = () => {
     <>
       <div className={styles.homeScreenButtonGroup}>
         <Link to="/start">Start Repair</Link>
-        <Link>Active Repairs</Link>
+        <Link to="/active">Active Repairs</Link>
       </div>
     </>
   );
