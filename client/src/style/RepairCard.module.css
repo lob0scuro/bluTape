@@ -1,0 +1,44 @@
+@import "../index.css";
+
+.mainCardBlock {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  align-items: center;
+  width: 80vw;
+}
+
+.cardInfo {
+  list-style-type: none;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cardInfo li {
+  background-color: var(--bgMain);
+  padding: 0.2rem 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 4px;
+  box-shadow: 3px 3px 6px #333;
+}
+
+.cardInfo li small {
+  margin-left: 1rem;
+  text-align: end;
+}
+
+.machineNotes h3 {
+  text-decoration: underline;
+}
+
+.machineNotes {
+  list-style-type: circle;
+  border-radius: 8px;
+  overflow-y: auto;
+  background-color: var(--fgMain);
+  padding: 0.2rem 0.4rem;
+  box-shadow: 4px 4px 8px #333;
+}

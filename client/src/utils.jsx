@@ -1,3 +1,13 @@
+export const formatDate = (date) => {
+  const formatter = new Date(date);
+  const formattedDate = formatter.toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return formattedDate;
+};
+
 export const fetchAllTechs = async () => {
   try {
     const response = await fetch("/auth/get_all_techs");
