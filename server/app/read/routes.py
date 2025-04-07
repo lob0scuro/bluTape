@@ -9,14 +9,15 @@ tableMap = {
     1: Archive
 }
 
-@bp.route("/get_all_machines/<int:table>", methods=["GET"])
+@bp.route("/get_all_machines/<int:table>/<int:status>", methods=["GET"])
 @login_required
-def get_active_repairs(table):
+def get_active_repairs(table, status):
     try:
         model = tableMap.get(table)
         if not model:
             return jsonify("Invalid table ID"), 400
-        machines = model.query.filter_by(in_progress=True).all()
+        status = int(status)
+        machines = model.query.filter(model.in_progress == (status == 0)).all()
         if not machines:
             return jsonify(error="Could not query database, please try again."), 404
         return jsonify([machine.serialize() for machine in machines]), 200

@@ -14,6 +14,8 @@ import Login from "./routes/Login";
 import StartRepair from "./routes/StartRepair";
 import ActiveRepairs from "./routes/ActiveRepairs";
 import RepairCard from "./routes/RepairCard";
+import FinishedRepairs from "./routes/FinishedRepairs";
+import Update from "./routes/Update";
 
 function App() {
   const router = createBrowserRouter(
@@ -23,6 +25,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="start" element={<StartRepair />} />
           <Route path="active" element={<ActiveRepairs />} />
+          <Route path="finished" element={<FinishedRepairs />} />
+          <Route path="edit/:id" element={<Update />} />
         </Route>
         <Route path="card/:id/:typeOf" element={<RepairCard />} />
         <Route path="register" element={<Register />} />

@@ -1,11 +1,15 @@
 import RepairForm from "../components/RepairForm";
+import { useAuth } from "../context/UserContext";
 import styles from "../style/StartRepair.module.css";
 import React, { useState } from "react";
 
-const StartRepair = () => {
-  const [chosenForm, setChosenForm] = useState(null);
+const formTitles = ["Refrigerator", "Washer", "Dryer", "Range"];
 
-  const formTitles = ["Refrigerator", "Washer", "Dryer", "Range"];
+const StartRepair = () => {
+  const { user } = useAuth();
+  const [chosenForm, setChosenForm] = useState(
+    <RepairForm title={formTitles[user.role]} machineType={user.role} />
+  );
 
   const renderForm = (f) => {
     switch (f) {
@@ -25,7 +29,7 @@ const StartRepair = () => {
   };
   return (
     <>
-      <h1>Start Repair</h1>
+      {/* <h1>Start Repair</h1> */}
       <div className={styles.startRepairButtonGroup}>
         <button onClick={() => renderForm(0)}>Refrigerator</button>
         <button onClick={() => renderForm(1)}>Washer</button>

@@ -1,75 +1,6 @@
 import styles from "../style/RepairForm.module.css";
 import { useActionState } from "react";
-
-const brands = {
-  Admiral: "Admiral",
-  Amana: "Amana",
-  Avanti: "Avanti",
-  Bosch: "Bosch",
-  Crosley: "Crosley",
-  Cuisinart: "Cuisinart",
-  Danby: "Danby",
-  Fridgidaire: "Fridgidaire",
-  GE: "GE",
-  Haier: "Haier",
-  Hotpoint: "Hotpoint",
-  Kenmore: "Kenmore",
-  Kitchenaid: "Kitchenaid",
-  LG: "LG",
-  Maytag: "Maytag",
-  Roper: "Roper",
-  Samsung: "Samsung",
-  Whirlpool: "Whirlpool",
-};
-
-const colors = {
-  Black: "Black",
-  White: "White",
-  Stainless: "Stainless",
-  BlackStainless: "Black Stainless",
-  Blue: "Blue",
-  Cream: "Cream",
-  Red: "Red",
-};
-
-const machineStyles = [
-  {
-    TopAndBottom: "Top and Bottom",
-    SideBySide: "Side by Side",
-    FrenchDoor: "French Door",
-    BottomTop: "Bottom Top",
-    Freezer: "Freezer",
-  },
-  {
-    TopLoad: "Top Load",
-    FrontLoad: "Front Load",
-  },
-  {
-    TopLoad: "Top Load",
-    FrontLoad: "Front Load",
-  },
-  {
-    GlassTop: "Glass Top",
-    Coil: "Coil",
-  },
-];
-
-const fridgeStyles = {
-  TopAndBottom: "Top and Bottom",
-  SideBySide: "Side by Side",
-  FrenchDoor: "French Door",
-  BottomTop: "Bottom Top",
-  Freezer: "Freezer",
-};
-const washerDryerStyles = {
-  TopLoad: "Top Load",
-  FrontLoad: "Front Load",
-};
-
-const rangeStyles = {
-  GlassTop: "Glass Top",
-  Coil: "Coil",
-};
+import { brands, colors, machineStyles, renderOptions } from "../utils.jsx";
 
 const RepairForm = ({ title, machineType }) => {
   const submitForm = async (prevData, formData) => {
@@ -101,16 +32,6 @@ const RepairForm = ({ title, machineType }) => {
     message: "",
     error: "",
   });
-
-  const renderOptions = (obj) => {
-    return (
-      Object.entries(obj).map(([key, value]) => (
-        <option key={key} value={key}>
-          {value}
-        </option>
-      )) || null
-    );
-  };
 
   return (
     <>

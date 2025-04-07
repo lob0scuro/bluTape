@@ -1,14 +1,13 @@
-import styles from "../style/ActiveRepairs.module.css";
 import React, { useState, useEffect } from "react";
 import Table from "../components/Table";
 import { fetchAllMachines } from "../utils.jsx";
 
-const ActiveRepairs = () => {
+const FinishedRepairs = () => {
   const [machines, setMachines] = useState([]);
 
   useEffect(() => {
     const fetchRepairs = async () => {
-      const repairs = await fetchAllMachines(0, 0);
+      const repairs = await fetchAllMachines(0, 1);
       setMachines(repairs);
     };
     fetchRepairs();
@@ -16,10 +15,10 @@ const ActiveRepairs = () => {
 
   return (
     <>
-      <h1>Active Repairs</h1>
+      <h1>Finished Repairs</h1>
       <Table machines={machines} />
     </>
   );
 };
 
-export default ActiveRepairs;
+export default FinishedRepairs;

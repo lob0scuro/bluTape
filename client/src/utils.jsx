@@ -8,6 +8,76 @@ export const formatDate = (date) => {
   return formattedDate;
 };
 
+export const machineMap = {
+  0: "Refrigerator",
+  1: "Washer",
+  2: "Dryer",
+  3: "Range",
+};
+
+export const brands = {
+  Admiral: "Admiral",
+  Amana: "Amana",
+  Avanti: "Avanti",
+  Bosch: "Bosch",
+  Crosley: "Crosley",
+  Cuisinart: "Cuisinart",
+  Danby: "Danby",
+  Fridgidaire: "Fridgidaire",
+  GE: "GE",
+  Haier: "Haier",
+  Hotpoint: "Hotpoint",
+  Kenmore: "Kenmore",
+  Kitchenaid: "Kitchenaid",
+  LG: "LG",
+  Maytag: "Maytag",
+  Roper: "Roper",
+  Samsung: "Samsung",
+  Whirlpool: "Whirlpool",
+};
+
+export const colors = {
+  Black: "Black",
+  White: "White",
+  Stainless: "Stainless",
+  BlackStainless: "Black Stainless",
+  Blue: "Blue",
+  Cream: "Cream",
+  Red: "Red",
+};
+
+export const machineStyles = [
+  {
+    TopAndBottom: "Top and Bottom",
+    SideBySide: "Side by Side",
+    FrenchDoor: "French Door",
+    BottomTop: "Bottom Top",
+    Freezer: "Freezer",
+  },
+  {
+    TopLoad: "Top Load",
+    FrontLoad: "Front Load",
+  },
+  {
+    TopLoad: "Top Load",
+    FrontLoad: "Front Load",
+  },
+  {
+    GlassTop: "Glass Top",
+    Coil: "Coil",
+  },
+];
+
+export const renderOptions = (obj) => {
+  return (
+    Object.entries(obj).map(([key, value]) => (
+      <option key={key} value={key}>
+        {value}
+      </option>
+    )) || null
+  );
+};
+
 export const fetchAllTechs = async () => {
   try {
     const response = await fetch("/auth/get_all_techs");
@@ -23,9 +93,9 @@ export const fetchAllTechs = async () => {
   }
 };
 
-export const fetchAllMachines = async (table) => {
+export const fetchAllMachines = async (table, status) => {
   try {
-    const response = await fetch(`/read/get_all_machines/${table}`);
+    const response = await fetch(`/read/get_all_machines/${table}/${status}`);
     const data = await response.json();
     if (!response.ok) {
       alert(`Error: ${data.error}`);
@@ -49,6 +119,28 @@ export const fetchOneMachine = async (table, id) => {
     return data;
   } catch (error) {
     alert(`There was a server error`);
+    return error;
+  }
+};
+
+export const finishRepair = async (id) => {
+  const assurance = confirm("Finish repair?");
+  if (!assurance) {
+    return;
+  }
+  try {
+    const response = await fetch(`/update/add_to_inventory/${id}`, {
+      method: "PATCH",
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      alert("There was an error");
+      return data.error;
+    }
+    alert(data.message);
+    return data.message;
+  } catch (error) {
+    alert("There was an error");
     return error;
   }
 };

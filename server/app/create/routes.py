@@ -33,5 +33,27 @@ def create_repair():
         print(f"Error: {e}")
         db.session.rollback()
         return jsonify(error=f"Server Error: {e}"), 500
-            
+
+
+
+@bp.route("/add_note", methods=["POST"])
+@login_required
+#Need to recieve content and machine ID
+#Pull tech_id from current user
+def add_note():
+    try:
+        data = request.get_json()
+        if not data:
+            print("Payload error")
+            return jsonify(error="No payload in request"), 404
+        content = data.get("content")
+        machine_id = data.get("machine_id")
+        new_note = Notes(content=content, tech_id=current_user.id, machine_id=machine_id)
+        db.session.add(new_note)
+        db.session.commit()
+        return jsonify(message="New note added successfully!", new_note=new_note.serialize()), 201
+    except Exception as e:
+        print(f"Error: {e}")
+        db.session.rollback()
+        return jsonify(error=f"Server error: {e}"), 500
         

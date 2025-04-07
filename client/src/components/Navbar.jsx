@@ -12,7 +12,12 @@ const Navbar = () => {
       </Link>
       <nav>
         {user ? (
-          <NavLink to="/">Home</NavLink>
+          <div className={styles.navLinks}>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/start">Start</NavLink>
+            <NavLink to="/active">Active</NavLink>
+            <NavLink to="/finished">Finished</NavLink>
+          </div>
         ) : (
           <NavLink to="/login">Login</NavLink>
         )}

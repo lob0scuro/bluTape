@@ -19,6 +19,12 @@ a {
   text-decoration: none;
 }
 
+a.active {
+  text-decoration: underline;
+  text-underline-offset: 3.2px;
+  color: var(--fgSecondary);
+}
+
 html,
 body {
   background-color: var(--bgMain);

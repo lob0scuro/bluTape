@@ -7,3 +7,8 @@ header.header {
   padding: 1rem 1rem;
   box-shadow: -3px 0 4px #000;
 }
+
+.navLinks {
+  display: flex;
+  gap: 0.6rem;
+}
