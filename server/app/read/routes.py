@@ -19,7 +19,23 @@ def get_active_repairs(table, status):
         status = int(status)
         machines = model.query.filter(model.in_progress == (status == 0)).all()
         if not machines:
-            return jsonify(error="Could not query database, please try again."), 404
+            return jsonify(error="No finished repairs to query."), 404
+        return jsonify([machine.serialize() for machine in machines]), 200
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify(error=f"Server error: {e}"), 500
+    
+@bp.route("/get_all_machines_by_type/<int:table>/<int:status>/<int:type>", methods=["GET"])
+@login_required
+def get_all_machines_by_type(table, status, type):
+    try:
+        model = tableMap.get(table)
+        if not model:
+            return jsonify(error="Invalid table number."), 400
+        status = int(status)
+        machines = model.query.filter((model.in_progress == (status == 0)) & (model.machine_type == type)).all()
+        if not machines:
+            return jsonify(error="Could not locate machines in database, please check inputs and try again."), 404
         return jsonify([machine.serialize() for machine in machines]), 200
     except Exception as e:
         print(f"Error: {e}")

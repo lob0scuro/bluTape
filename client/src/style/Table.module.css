@@ -23,3 +23,9 @@ table tbody tr td {
   text-decoration: underline;
   font-weight: 800;
 }
+
+@media screen and (max-width: 450px) {
+  table {
+    font-size: 1.2rem;
+  }
+}

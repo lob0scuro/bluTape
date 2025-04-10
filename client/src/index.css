@@ -25,6 +25,10 @@ a.active {
   color: var(--fgSecondary);
 }
 
+h1 {
+  color: var(--bgMain);
+}
+
 html,
 body {
   background-color: var(--bgMain);
@@ -34,6 +38,7 @@ body {
 
 #root {
   height: 100dvh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;

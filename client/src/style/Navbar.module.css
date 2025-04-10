@@ -8,7 +8,32 @@ header.header {
   box-shadow: -3px 0 4px #000;
 }
 
+header.header a h1 {
+  color: var(--fgSecondary);
+}
+
 .navLinks {
   display: flex;
   gap: 0.6rem;
+}
+
+@media screen and (max-width: 450px) {
+  header.header {
+    flex-direction: column;
+    height: 7.4rem;
+    box-shadow: -5px 0 10px #000;
+  }
+
+  header.header a h1 small {
+    font-size: 1.4rem;
+  }
+
+  .navLinks {
+    gap: 1.8rem;
+    font-size: 1.3rem;
+  }
+
+  .noShow {
+    display: none;
+  }
 }

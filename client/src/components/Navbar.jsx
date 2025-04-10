@@ -11,15 +11,13 @@ const Navbar = () => {
         <h1>bluTape/{user && <small>{user.first_name}</small>}</h1>
       </Link>
       <nav>
-        {user ? (
+        {user && (
           <div className={styles.navLinks}>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/start">Start</NavLink>
             <NavLink to="/active">Active</NavLink>
             <NavLink to="/finished">Finished</NavLink>
           </div>
-        ) : (
-          <NavLink to="/login">Login</NavLink>
         )}
       </nav>
     </header>

@@ -98,12 +98,26 @@ export const fetchAllMachines = async (table, status) => {
     const response = await fetch(`/read/get_all_machines/${table}/${status}`);
     const data = await response.json();
     if (!response.ok) {
-      alert(`Error: ${data.error}`);
       return data.error;
     }
     return data;
   } catch (error) {
     alert("There was a server error");
+    return error;
+  }
+};
+
+export const fetchAllMachinesByType = async (table, status, typeOf) => {
+  try {
+    const response = await fetch(
+      `/read/get_all_machines_by_type/${table}/${status}/${typeOf}`
+    );
+    const data = await response.json();
+    if (!response.ok) {
+      return data.error;
+    }
+    return data;
+  } catch (error) {
     return error;
   }
 };
@@ -142,5 +156,27 @@ export const finishRepair = async (id) => {
   } catch (error) {
     alert("There was an error");
     return error;
+  }
+};
+
+export const deleteMachine = async (id) => {
+  const assurance = confirm("Delete Machine?");
+  if (!assurance) {
+    return;
+  }
+  try {
+    const response = await fetch(`/delete/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, error: data.error };
+    }
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, error: error.message };
   }
 };

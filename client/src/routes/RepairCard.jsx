@@ -6,7 +6,9 @@ import {
   formatDate,
   finishRepair,
   machineMap,
+  deleteMachine,
 } from "../utils.jsx";
+import toast from "react-hot-toast";
 
 const RepairCard = () => {
   const submitForm = async (prevData, formData) => {
@@ -24,6 +26,7 @@ const RepairCard = () => {
       if (!response.ok) {
         return { error: data.error || `Error: ${response.statusText}` };
       }
+      toast.success("Note added");
       setNoteList((prev) => prev + 1);
       return { message: data.message };
     } catch (error) {
@@ -49,12 +52,22 @@ const RepairCard = () => {
     fetchMachine();
   }, [noteList]);
 
+  const handleDelete = async () => {
+    const result = await deleteMachine(machine.id);
+    console.log("Delete result: ", result);
+
+    if (result?.success) {
+      toast.success(result.message || "Machine deleted!");
+      navigate("/active");
+    } else {
+      toast.error(result?.error || "Something went wrong.");
+    }
+  };
+
   return (
     <>
       {state.error && <p style={{ color: "red" }}>{state.error.toString()}</p>}
-      {state.message && (
-        <p style={{ color: "green" }}>{state.message.toString()}</p>
-      )}
+
       <div className={styles.cardButtonBlock}>
         <button>Label</button>
         <button onClick={() => navigate(`/edit/${machine.id}`)}>Edit</button>
@@ -62,7 +75,7 @@ const RepairCard = () => {
           <button onClick={() => finishRepair(machine.id)}>Finished</button>
         )}
 
-        <button>Trash</button>
+        <button onClick={() => handleDelete()}>Trash</button>
       </div>
       <div className={styles.mainCardBlock}>
         <div className={styles.infoBlock}>

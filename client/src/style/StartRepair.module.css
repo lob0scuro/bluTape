@@ -24,3 +24,9 @@
 .startRepairButtonGroup button:last-child {
   border-radius: 0 8px 8px 0;
 }
+
+@media screen and (max-width: 450px) {
+  .startRepairButtonGroup button {
+    font-size: 1rem;
+  }
+}

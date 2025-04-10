@@ -1,6 +1,8 @@
 import styles from "../style/RepairForm.module.css";
 import { useActionState } from "react";
 import { brands, colors, machineStyles, renderOptions } from "../utils.jsx";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const RepairForm = ({ title, machineType }) => {
   const submitForm = async (prevData, formData) => {
@@ -21,21 +23,25 @@ const RepairForm = ({ title, machineType }) => {
           error: data.error || `There was an error: ${response.statusText}`,
         };
       }
-      alert(data.message);
+      toast.success(data.message);
+      navigate(`/card/${data.machine.id}/${0}`);
       return { message: data.message };
     } catch (error) {
       alert("There was an unexpected error.");
       return { error: "There was an unexpected error." };
     }
   };
+
   const [state, formAction] = useActionState(submitForm, {
     message: "",
     error: "",
   });
 
+  const navigate = useNavigate();
+
   return (
     <>
-      <h1 style={{ marginTop: "1rem" }}>{title}</h1>
+      <h1 className={styles.repairHeader}>{title}</h1>
       <form className={styles.repairForm} action={formAction}>
         <div>
           <label htmlFor="brand">Brand: </label>

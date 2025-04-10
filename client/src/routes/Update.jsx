@@ -15,7 +15,7 @@ import {
 const Update = () => {
   const submitForm = async (prevData, formData) => {
     const fields = Object.fromEntries(formData);
-    assurance = confirm("Submit edits?");
+    const assurance = confirm("Submit edits?");
     if (!assurance) {
       return;
     }
@@ -47,6 +47,15 @@ const Update = () => {
     message: "",
     error: "",
   });
+  const [isEditable, setIsEditable] = useState({
+    brand: false,
+    model: false,
+    serial: false,
+    color: false,
+    style: false,
+    condition: false,
+    heat_type: false,
+  });
 
   useEffect(() => {
     const getMachine = async () => {
@@ -56,78 +65,39 @@ const Update = () => {
     getMachine();
   }, []);
 
-  console.log(machine);
-
   return (
     <>
-      <h1>Update Machine</h1>
-      {machine && (
-        <form action={formAction} className={styles.editForm}>
-          <div>
-            <label htmlFor="brand">Brand: </label>
-            <select name="brand" id="brand" defaultValue={machine.brand}>
-              {renderOptions(brands)}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="model">Model: </label>
-            <input
-              type="text"
-              name="model"
-              id="model"
-              defaultValue={machine.model}
-            />
-          </div>
-          <div>
-            <label htmlFor="serial">Serial: </label>
-            <input
-              type="text"
-              name="serial"
-              id="serial"
-              defaultValue={machine.serial}
-            />
-          </div>
-          <div>
-            <label htmlFor="color">Color: </label>
-            <select name="color" id="color" defaultValue={machine.color}>
-              {renderOptions(colors)}
-            </select>
-          </div>
-          {machine.style && (
-            <div>
-              <label htmlFor="style">Style: </label>
-              <select name="style" id="style" defaultValue={machine.style}>
-                {renderOptions(machineStyles[machine.machine_type])}
-              </select>
-            </div>
-          )}
-          <div>
-            <label htmlFor="condition">Condition: </label>
-            <select
-              name="condition"
-              id="condition"
-              defaultValue={machine.condition}
-            >
-              <option value="USED">Used</option>
-              <option value="NEW">New</option>
-            </select>
-          </div>
+      <h1>
+        {machine.brand} {machineMap[machine.machine_type]}
+      </h1>
+      <form action={formAction}>
+        <ul className={styles.machineInfo}>
+          <li>
+            Brand: <small>{machine.brand}</small>
+          </li>
+
+          <li>
+            Model: <small>{machine.model}</small>
+          </li>
+          <li>
+            Serial: <small>{machine.serial}</small>
+          </li>
+          <li>
+            Color: <small>{machine.color}</small>
+          </li>
+          <li>
+            Style: <small>{machine.style}</small>
+          </li>
+          <li>
+            Condition: <small>{machine.condition}</small>
+          </li>
           {machine.heat_type && (
-            <div>
-              <label htmlFor="heat_type">Heat Type: </label>
-              <select
-                name="heat_type"
-                id="heat_type"
-                defaultValue={machine.heat_type}
-              >
-                <option value="Gas">Gas</option>
-                <option value="Electric">Electric</option>
-              </select>
-            </div>
+            <li>
+              Heat Type: <small>{machine.heat_type}</small>
+            </li>
           )}
-          <button type="submit">Submit</button>
-        </form>
-      )}
+        </ul>
+      </form>
     </>
   );
 };

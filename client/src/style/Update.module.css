@@ -1,0 +1,25 @@
+@import "../index.css";
+
+.machineInfo {
+  list-style-type: none;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 40vw;
+}
+
+.machineInfo li {
+  background-color: var(--bgMain);
+  padding: 0.2rem 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 4px;
+  box-shadow: 3px 3px 6px #333;
+}
+
+.machineInfo li small {
+  margin-left: 1rem;
+  text-align: end;
+  font-weight: 400;
+}

@@ -26,6 +26,8 @@ def create_app(config_class=TestConfig):
     app.register_blueprint(read_bp)
     from app.update import bp as update_bp
     app.register_blueprint(update_bp)
+    from app.delete import bp as delete_bp
+    app.register_blueprint(delete_bp)
     
     @login_manager.user_loader
     def load_user(id):

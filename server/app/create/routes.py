@@ -28,7 +28,7 @@ def create_repair():
         newNote = Notes(content=note, tech_id=current_user.id, machine_id=newMachine.id)
         db.session.add(newNote)
         db.session.commit()
-        return jsonify(message="Machine added to database!"), 201
+        return jsonify(message="Machine added to database!", machine=newMachine.serialize()), 201
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()

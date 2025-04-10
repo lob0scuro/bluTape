@@ -3,6 +3,7 @@ import { useActionState, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAllTechs } from "../utils.jsx";
 import { useAuth } from "../context/UserContext.jsx";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [techs, setTechs] = useState([]);
@@ -31,7 +32,7 @@ const Login = () => {
     }
     localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
     setUser(data.tech);
-    alert(data.message);
+    toast.success(data.message);
     setTimeout(() => {}, 4000);
     navigate("/");
   };

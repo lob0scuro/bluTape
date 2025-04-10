@@ -87,7 +87,13 @@
   flex: 2;
 }
 .machineNotes li {
-  padding: 0.2rem 0.8rem;
+  padding: 0.2rem 0.8rem 1rem 0.3rem;
+  border-bottom: 3px double var(--accent);
+}
+.machineNotes li p small {
+  background-color: var(--bgSecondary);
+  padding: 0.1rem 0.33rem;
+  color: var(--fgMain);
 }
 
 .notesBlock form {
@@ -99,6 +105,7 @@
 .notesBlock form textarea {
   width: 15rem;
   height: 5rem;
+  font-size: 16px;
 }
 .notesBlock form button {
   margin-top: 1rem;
@@ -110,4 +117,27 @@
   border: none;
   font-weight: 800;
   box-shadow: 3px 3px 5px #000;
+}
+
+@media screen and (max-width: 450px) {
+  .mainCardBlock {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4rem;
+  }
+
+  .cardInfo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ul.machineNotes {
+    width: 90svw;
+    max-height: 14rem;
+    font-size: 1.2rem;
+  }
+
+  .notesBlock form button {
+    font-size: 1.5rem;
+  }
 }

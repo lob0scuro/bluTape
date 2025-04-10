@@ -20,3 +20,15 @@
   box-shadow: 1px 1px 3px #000;
   font-size: 0.9rem;
 }
+
+@media screen and (max-width: 450px) {
+  .homeScreenButtonGroup {
+    gap: 3rem;
+  }
+  .homeScreenButtonGroup a {
+    font-size: 2rem;
+  }
+  .homeScreenButtonGroup a:active {
+    font-size: 1.8rem;
+  }
+}

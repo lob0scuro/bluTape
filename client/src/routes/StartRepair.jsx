@@ -29,7 +29,6 @@ const StartRepair = () => {
   };
   return (
     <>
-      {/* <h1>Start Repair</h1> */}
       <div className={styles.startRepairButtonGroup}>
         <button onClick={() => renderForm(0)}>Refrigerator</button>
         <button onClick={() => renderForm(1)}>Washer</button>
