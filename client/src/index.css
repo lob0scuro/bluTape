@@ -1,11 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 :root {
-  --bgMain: #24374c;
+  /* --bgMain: #24374c;
   --bgSecondary: #1e4d57;
   --fgMain: #4e7d85;
   --fgSecondary: #7e95ab;
-  --accent: #e1e4ed;
+  --accent: #e1e4ed; */
+  --bg: #0f172a;
+  --bgSecondary: #1e3a8a;
+  --primaryButton: #3b82f6;
+  --secondaryLink: #2563eb;
+  --titleText: #f8fafc;
+  --secondaryText: #cbd5e1;
+  --accent: #60a5fa;
 }
 
 * {
@@ -22,18 +30,20 @@ a {
 a.active {
   text-decoration: underline;
   text-underline-offset: 3.2px;
-  color: var(--fgSecondary);
+  color: var(--secondaryText);
 }
 
 h1 {
-  color: var(--bgMain);
+  color: var(--titleText);
+  margin-top: 1rem;
 }
 
 html,
 body {
-  background-color: var(--bgMain);
+  background-color: var(--bg);
   color: var(--accent);
-  font-family: "Abel", sans-serif;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
 }
 
 #root {
@@ -50,6 +60,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--fgSecondary);
+  background-color: var(--bgSecondary);
   width: 100vw;
 }

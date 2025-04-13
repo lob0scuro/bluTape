@@ -9,11 +9,12 @@
 }
 
 .homeScreenButtonGroup a {
-  border: 1px double var(--accent);
+  border: 1px double var(--secondaryText);
   border-radius: 8px;
   padding: 0.4rem 0.8rem;
   box-shadow: 2px 3px 6px #333;
-  background-color: var(--bgMain);
+  background-color: var(--primaryButton);
+  color: var(--titleText);
 }
 
 .homeScreenButtonGroup a:active {

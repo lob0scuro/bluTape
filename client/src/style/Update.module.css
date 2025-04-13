@@ -10,7 +10,8 @@
 }
 
 .machineInfo li {
-  background-color: var(--bgMain);
+  background-color: var(--bg);
+  color: var(--titleText);
   padding: 0.2rem 0.4rem;
   display: flex;
   justify-content: space-between;

@@ -180,3 +180,22 @@ export const deleteMachine = async (id) => {
     return { success: false, error: error.message };
   }
 };
+
+export const deleteNote = async (id, setter) => {
+  try {
+    const response = await fetch(`/delete/delete_note/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      return data.error;
+    }
+    setter((prev) => prev - 1);
+    return data.message;
+  } catch (error) {
+    return error;
+  }
+};

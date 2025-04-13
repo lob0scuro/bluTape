@@ -5,15 +5,16 @@
   display: flex;
   justify-content: center;
   margin-top: 0.6rem;
-  border: 2px double var(--accent);
+  border: 2px double var(--secondaryText);
   border-radius: 8px;
   width: fit-content;
   box-shadow: 4px 4px 7px #333;
 }
 
 .activeTableButtonGroup button {
-  background-color: var(--fgMain);
-  color: var(--accent);
+  background-color: var(--primaryButton);
+  color: var(--titleText);
+  font-size: 14px;
   padding: 0.4rem 0.6rem;
   border: none;
 }

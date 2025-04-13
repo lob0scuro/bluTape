@@ -19,3 +19,17 @@ def delete(id):
         print(f"Error: {e}")
         return jsonify(error=f"Server error: {e}"), 500
         
+        
+@bp.route("/delete_note/<int:id>", methods=["DELETE"])
+def delete_note(id):
+    try:
+        note = Notes.query.get(id)
+        if not note:
+            return jsonify(error="There was an error, please try again."), 404
+        db.session.delete(note)
+        db.session.commit()
+        return jsonify(message="Note deleted."), 200
+    except Exception as e:
+        print(f"Error: {e}")
+        db.session.rollback()
+        return jsonify(error=f"Server error: {e}"), 500

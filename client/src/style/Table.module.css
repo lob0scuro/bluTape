@@ -1,12 +1,14 @@
 @import "../index.css";
 
 table {
-  background-color: var(--fgMain);
+  background-color: var(--bg);
+  color: var(--secondaryText);
   width: 80vw;
 }
 
 table thead {
-  background-color: var(--bgSecondary);
+  background-color: var(--accent);
+  color: var(--bg);
 }
 
 table thead tr th {
@@ -15,7 +17,9 @@ table thead tr th {
 }
 
 table tbody tr td {
-  padding: 0.2rem 0.2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.4rem 0.2rem;
   border-bottom: 1px solid var(--accent);
 }
 

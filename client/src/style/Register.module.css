@@ -3,27 +3,34 @@
 form.registrationForm {
   display: flex;
   flex-direction: column;
-  width: fit-content;
-  gap: 0.6rem;
-  align-items: flex-end;
+  width: 80vw;
+  gap: 0.9rem;
+  align-items: flex-start;
   margin: 2rem auto;
-  background-color: var(--bgMain);
+  background-color: var(--bg);
+  font-size: 1.4rem;
   padding: 1rem;
   border: none;
   border-radius: 4px;
   box-shadow: 4px 4px 6px #000;
 }
 
-form .position {
-  display: flex;
-  gap: 1rem;
+form.registrationForm input {
+  font-size: 16px;
+}
+
+form.registrationForm select {
+  background-color: var(--bg);
+  color: var(--titleText);
+  font-size: 1rem;
 }
 
 form.registrationForm input[type="submit"] {
   margin-top: 1rem;
   align-self: center;
-  background-color: var(--bgSecondary);
-  color: var(--highlight);
+  background-color: var(--primaryButton);
+  color: var(--titleText);
+  font-size: 1.2rem;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   border: none;

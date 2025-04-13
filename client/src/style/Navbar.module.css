@@ -9,12 +9,14 @@ header.header {
 }
 
 header.header a h1 {
-  color: var(--fgSecondary);
+  color: var(--titleText);
+  font-size: 2rem;
 }
 
 .navLinks {
   display: flex;
   gap: 0.6rem;
+  margin-top: 0.8rem;
 }
 
 @media screen and (max-width: 450px) {

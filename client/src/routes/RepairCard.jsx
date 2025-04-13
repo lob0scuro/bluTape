@@ -7,6 +7,7 @@ import {
   finishRepair,
   machineMap,
   deleteMachine,
+  deleteNote,
 } from "../utils.jsx";
 import toast from "react-hot-toast";
 
@@ -119,10 +120,17 @@ const RepairCard = () => {
             <h3>Notes</h3>
             {machine.notes?.map((note, index) => (
               <li key={index}>
-                <p>{note.content}</p>
-                <p>
-                  <small>{formatDate(note.created_on)}</small>
-                </p>
+                <div>
+                  <p>{note.content}</p>
+                  <p>
+                    <small>{formatDate(note.created_on)}</small>
+                  </p>
+                </div>
+                <div>
+                  <button onClick={() => deleteNote(note.id, setNoteList)}>
+                    x
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

@@ -49,23 +49,24 @@ const Register = () => {
           <label htmlFor="last_name">Last Name: </label>
           <input type="text" name="last_name" />
         </div>
-        <div className={styles.position}>
-          <div>
-            <label htmlFor="role">Position: </label>
-            <select name="role" id="role">
-              <option value="">--Select Position--</option>
-              <option value="0">Refrigerators</option>
-              <option value="1">Washers</option>
-              <option value="2">Dryers/Ranges</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="is_admin">Administrator: </label>
-            <input type="checkbox" name="is_admin" />
-          </div>
+        {/* <div className={styles.position}> */}
+        <div>
+          <label htmlFor="role">Position: </label>
+          <select name="role" id="role">
+            <option value="">--Select Position--</option>
+            <option value="0">Refrigerators</option>
+            <option value="1">Washers</option>
+            <option value="2">Dryers/Ranges</option>
+          </select>
         </div>
         <div>
+          <label htmlFor="is_admin">Administrator: </label>
+          <input type="checkbox" name="is_admin" />
+        </div>
+        {/* </div> */}
+        <div>
           <label htmlFor="password">Password: </label>
+          <br />
           <input type="password" name="password" id="password" />
         </div>
         <div>

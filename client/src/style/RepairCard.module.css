@@ -2,12 +2,13 @@
 
 .cardButtonBlock {
   display: flex;
-  margin: 0.6rem auto;
+  margin: 0.8rem auto;
 }
 .cardButtonBlock button {
-  font-size: 1rem;
-  background-color: var(--bgMain);
-  color: var(--accent);
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: var(--primaryButton);
+  color: var(--titleText);
   padding: 0.33rem 0.5rem;
 }
 .cardButtonBlock button:nth-child(3) {
@@ -34,6 +35,7 @@
 .infoBlock {
   flex: 3;
   height: 100%;
+  font-size: 1.2rem;
 }
 
 .cardInfo {
@@ -45,7 +47,8 @@
 }
 
 .cardInfo li {
-  background-color: var(--bgMain);
+  background-color: var(--bg);
+  color: var(--titleText);
   padding: 0.2rem 0.4rem;
   display: flex;
   justify-content: space-between;
@@ -71,6 +74,7 @@
 .machineNotes h3 {
   text-decoration: underline;
   background-color: var(--bgSecondary);
+  color: var(--titleText);
   width: 100%;
   text-align: end;
   padding: 0.3rem 0.8rem 0.3rem 0;
@@ -80,7 +84,7 @@
   list-style-type: circle;
   border-radius: 8px;
   overflow-y: auto;
-  background-color: var(--fgMain);
+  background-color: var(--accent);
   box-shadow: 4px 4px 8px #333;
   width: 100%;
   max-height: 10rem;
@@ -89,11 +93,33 @@
 .machineNotes li {
   padding: 0.2rem 0.8rem 1rem 0.3rem;
   border-bottom: 3px double var(--accent);
+  color: var(--bg);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .machineNotes li p small {
-  background-color: var(--bgSecondary);
+  background-color: var(--secondaryLink);
   padding: 0.1rem 0.33rem;
-  color: var(--fgMain);
+  color: var(--titleText);
+}
+.machineNotes li div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.machineNotes li div:last-child button {
+  background-color: #990000;
+  color: var(--secondaryText);
+  font-size: 1.5rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 30%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .notesBlock form {
@@ -110,8 +136,8 @@
 .notesBlock form button {
   margin-top: 1rem;
   align-self: center;
-  background-color: var(--bgSecondary);
-  color: var(--accent);
+  background-color: var(--primaryButton);
+  color: var(--titleText);
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
   border: none;

@@ -63,7 +63,6 @@ def login():
     
 #LOGOUT TECHNICIAN
 @bp.route("/logout", methods=["GET"])
-@login_required
 def logout():
     try:
         logout_user()
