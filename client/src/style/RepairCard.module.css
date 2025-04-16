@@ -73,7 +73,7 @@
 
 .machineNotes h3 {
   text-decoration: underline;
-  background-color: var(--bgSecondary);
+  background-color: var(--bg);
   color: var(--titleText);
   width: 100%;
   text-align: end;

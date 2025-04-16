@@ -55,7 +55,6 @@ const RepairCard = () => {
 
   const handleDelete = async () => {
     const result = await deleteMachine(machine.id);
-    console.log("Delete result: ", result);
 
     if (result?.success) {
       toast.success(result.message || "Machine deleted!");
@@ -63,6 +62,16 @@ const RepairCard = () => {
     } else {
       toast.error(result?.error || "Something went wrong.");
     }
+  };
+  const handleNoteDeletion = async (id) => {
+    const result = await deleteNote(id, setNoteList);
+    toast.success("note deleted");
+  };
+
+  const handleFinishedRepair = async (id) => {
+    const result = await finishRepair(id);
+    toast.success("Repair has been finished!");
+    navigate("/finished");
   };
 
   return (
@@ -127,9 +136,7 @@ const RepairCard = () => {
                   </p>
                 </div>
                 <div>
-                  <button onClick={() => deleteNote(note.id, setNoteList)}>
-                    x
-                  </button>
+                  <button onClick={() => handleNoteDeletion(note.id)}>x</button>
                 </div>
               </li>
             ))}

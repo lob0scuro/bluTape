@@ -47,7 +47,7 @@ const Update = () => {
     message: "",
     error: "",
   });
-  const [isEditable, setIsEditable] = useState({
+  const [editing, setEditing] = useState({
     brand: false,
     model: false,
     serial: false,
@@ -55,6 +55,16 @@ const Update = () => {
     style: false,
     condition: false,
     heat_type: false,
+  });
+
+  const [formData, setFormData] = useState({
+    brand: machine.brand,
+    model: machine.model,
+    serial: machine.serial,
+    color: machine.color,
+    style: machine.style,
+    condition: machine.condition,
+    heat_type: machine.heat_type,
   });
 
   useEffect(() => {
@@ -65,6 +75,56 @@ const Update = () => {
     getMachine();
   }, []);
 
+  useEffect(() => {
+    if (machine && Object.keys(machine).length > 0) {
+      setFormData({
+        brand: machine.brand || "",
+        model: machine.model || "",
+        serial: machine.serial || "",
+        color: machine.color || "",
+        style: machine.style || "",
+        condition: machine.condition || "",
+        heat_type: machine.heat_type || "",
+      });
+    }
+  }, [machine]);
+
+  const fieldConfig = [
+    {
+      name: "brand",
+      label: "Brand",
+      type: "select",
+      options: brands,
+    },
+    { name: "model", label: "Model", type: "text" },
+    { name: "serial", label: "Serial", type: "text" },
+    {
+      name: "color",
+      label: "Color",
+      type: "select",
+      options: colors,
+    },
+    {
+      name: "style",
+      label: "Style",
+      type: "select",
+      options: machineStyles[machine.machine_type],
+    },
+    {
+      name: "condition",
+      label: "Condition",
+      type: "select",
+      options: ["NEW", "USED"],
+    },
+    {
+      name: "heat_type",
+      label: "Heat Type",
+      type: "select",
+      options: ["Gas", "Electric"],
+      showIf: [2, 3].includes(machine.machine_type),
+    },
+  ];
+
   return (
     <>
       <h1>
@@ -72,30 +132,75 @@ const Update = () => {
       </h1>
       <form action={formAction}>
         <ul className={styles.machineInfo}>
-          <li>
-            Brand: <small>{machine.brand}</small>
-          </li>
-
-          <li>
-            Model: <small>{machine.model}</small>
-          </li>
-          <li>
-            Serial: <small>{machine.serial}</small>
-          </li>
-          <li>
-            Color: <small>{machine.color}</small>
-          </li>
-          <li>
-            Style: <small>{machine.style}</small>
-          </li>
-          <li>
-            Condition: <small>{machine.condition}</small>
-          </li>
-          {machine.heat_type && (
-            <li>
-              Heat Type: <small>{machine.heat_type}</small>
-            </li>
-          )}
+          {fieldConfig
+            .filter((field) => field.showIf === undefined || field.showIf)
+            .map(({ name, label, type, options }) => (
+              <li key={name}>
+                {editing[name] ? (
+                  <>
+                    {type === "text" ? (
+                      <>
+                        {label}:
+                        <input
+                          type="text"
+                          name={name}
+                          value={formData[name]}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              [name]: e.target.value,
+                            }))
+                          }
+                          onBlur={() =>
+                            setEditing((prev) => ({ ...prev, [name]: false }))
+                          }
+                          autoFocus
+                        />
+                      </>
+                    ) : (
+                      <>
+                        {label}:
+                        <select
+                          name={name}
+                          value={formData[name]}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              [name]: e.target.value,
+                            }))
+                          }
+                          onBlur={() =>
+                            setEditing((prev) => ({ ...prev, [name]: false }))
+                          }
+                          autoFocus
+                        >
+                          <option value="">--Select {label}</option>
+                          {Array.isArray(options)
+                            ? options.map((opt) => (
+                                <option key={opt} value={opt}>
+                                  {opt}
+                                </option>
+                              ))
+                            : Object.entries(options).map(([key, value]) => (
+                                <option key={key} value={value}>
+                                  {value}
+                                </option>
+                              ))}
+                        </select>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <span
+                    onClick={() =>
+                      setEditing((prev) => ({ ...prev, [name]: true }))
+                    }
+                  >
+                    {label}: <small>{formData[name]}</small>
+                  </span>
+                )}
+              </li>
+            ))}
         </ul>
       </form>
     </>

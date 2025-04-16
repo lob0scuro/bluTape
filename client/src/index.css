@@ -2,13 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 :root {
-  /* --bgMain: #24374c;
-  --bgSecondary: #1e4d57;
-  --fgMain: #4e7d85;
-  --fgSecondary: #7e95ab;
-  --accent: #e1e4ed; */
-  --bg: #0f172a;
-  --bgSecondary: #1e3a8a;
+  --bgSecondary: #0f172a;
+  --bg: #1e3a8a;
   --primaryButton: #3b82f6;
   --secondaryLink: #2563eb;
   --titleText: #f8fafc;

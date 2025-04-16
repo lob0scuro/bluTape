@@ -151,7 +151,7 @@ export const finishRepair = async (id) => {
       alert("There was an error");
       return data.error;
     }
-    alert(data.message);
+    // alert(data.message);
     return data.message;
   } catch (error) {
     alert("There was an error");
