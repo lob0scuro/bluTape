@@ -1,12 +1,23 @@
 @import "../index.css";
 
+.editForm {
+  margin: 0.8rem auto;
+  width: 80vw;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
 .machineInfo {
   list-style-type: none;
   font-weight: 700;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  width: 40vw;
+  align-items: flex-start;
+  gap: 1rem;
+  width: fit-content;
 }
 
 .machineInfo li {
@@ -19,8 +30,22 @@
   box-shadow: 3px 3px 6px #333;
 }
 
+.machineInfo li span {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .machineInfo li small {
   margin-left: 1rem;
   text-align: end;
   font-weight: 400;
+}
+
+.editForm button[type="submit"] {
+  background-color: var(--primaryButton);
+  color: var(--titleText);
+  padding: 0.4rem 0.9rem;
+  font-size: 1.4rem;
+  border-radius: 8px;
 }

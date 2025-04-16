@@ -1,6 +1,7 @@
 import styles from "../style/RepairCard.module.css";
 import React, { useEffect, useState, useActionState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Notes from "../components/Notes.jsx";
 import {
   fetchOneMachine,
   formatDate,
@@ -125,22 +126,7 @@ const RepairCard = () => {
           </ul>
         </div>
         <div className={styles.notesBlock}>
-          <ul className={styles.machineNotes}>
-            <h3>Notes</h3>
-            {machine.notes?.map((note, index) => (
-              <li key={index}>
-                <div>
-                  <p>{note.content}</p>
-                  <p>
-                    <small>{formatDate(note.created_on)}</small>
-                  </p>
-                </div>
-                <div>
-                  <button onClick={() => handleNoteDeletion(note.id)}>x</button>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <Notes machine={machine} deleteFn={handleNoteDeletion} />
           <form action={formAction}>
             <textarea name="content" id="content"></textarea>
             <button type="submit">Submit</button>

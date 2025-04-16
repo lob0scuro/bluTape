@@ -199,3 +199,33 @@ export const deleteNote = async (id, setter) => {
     return error;
   }
 };
+
+export const zebra = async (machine) => {
+  const zpl = `^XA
+^FO25,25^GB750,375,6^FS
+^FO200, 60^A0,35^FDbluTape/ Matt's Appliances^FS
+^FO90,105^BQN,2,8^FDLA,https://blutape.net/repair-card/${machine.id}^FS
+^FO350,130^A0,35^FDID: ${machine.id}^FS
+^FO350,175^A0,35^FDBrand: ${machine.make}^FS
+^FO350,220^A0,35^FDModel: ${machine.model}^FS
+^FO350,265^A0,35^FDSerial: ${machine.serial}^FS
+^FO350,310^A0,35^FDStyle: ${machine.style}^FS
+^XZ`;
+
+  try {
+    const response = await fetch("/utils/zebra", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(zpl),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      return "There was an issue.";
+    }
+    return data.message;
+  } catch (error) {
+    return error;
+  }
+};

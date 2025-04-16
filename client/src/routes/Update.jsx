@@ -1,8 +1,9 @@
 import styles from "../style/Update.module.css";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useActionState } from "react";
 import { useAuth } from "../context/UserContext.jsx";
+import toast from "react-hot-toast";
 import {
   brands,
   colors,
@@ -13,40 +14,11 @@ import {
 } from "../utils.jsx";
 
 const Update = () => {
-  const submitForm = async (prevData, formData) => {
-    const fields = Object.fromEntries(formData);
-    const assurance = confirm("Submit edits?");
-    if (!assurance) {
-      return;
-    }
-    try {
-      const response = await fetch(`/update/edit/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fields),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        return {
-          error: data.error || `There was an error: ${response.statusText}`,
-        };
-      }
-      return { message: data.message };
-    } catch (error) {
-      alert("There was an error");
-      return error;
-    }
-  };
-
-  const { id } = useParams();
+  const { id, typeOf } = useParams();
   const { user } = useAuth();
   const [machine, setMachine] = useState({});
-  const [state, formAction] = useActionState(submitForm, {
-    message: "",
-    error: "",
-  });
+  const navigate = useNavigate();
+
   const [editing, setEditing] = useState({
     brand: false,
     model: false,
@@ -125,12 +97,40 @@ const Update = () => {
     },
   ];
 
+  const submitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`/update/edit/${machine.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error("There was an error");
+        console.error(`Error: ${response.statusText}`);
+        return;
+      }
+      toast.success(data.message);
+      navigate(`/card/${machine.id}/${0}`);
+    } catch (error) {
+      console.error(error);
+      toast.error(error);
+      return error;
+    }
+  };
+
   return (
     <>
       <h1>
         {machine.brand} {machineMap[machine.machine_type]}
       </h1>
-      <form action={formAction}>
+      <p>
+        <b>**Click field to edit info**</b>
+      </p>
+      <form className={styles.editForm} onSubmit={submitForm}>
         <ul className={styles.machineInfo}>
           {fieldConfig
             .filter((field) => field.showIf === undefined || field.showIf)
@@ -202,6 +202,7 @@ const Update = () => {
               </li>
             ))}
         </ul>
+        <button type="submit">Submit</button>
       </form>
     </>
   );
