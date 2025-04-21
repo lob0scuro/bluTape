@@ -57,6 +57,8 @@ const Register = () => {
             <option value="0">Refrigerators</option>
             <option value="1">Washers</option>
             <option value="2">Dryers/Ranges</option>
+            <option value="3">Sales</option>
+            <option value="4">Office</option>
           </select>
         </div>
         <div>

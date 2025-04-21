@@ -12,6 +12,9 @@ const Login = () => {
   useEffect(() => {
     const retrieveTechs = async () => {
       const techList = await fetchAllTechs();
+      if (!techList) {
+        navigate("/register");
+      }
       setTechs(techList);
     };
     retrieveTechs();

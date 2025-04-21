@@ -116,6 +116,9 @@ const RepairCard = () => {
               Style: <small>{machine.style}</small>
             </li>
             <li>
+              Vendor: <small>{machine.vendor}</small>
+            </li>
+            <li>
               Condition: <small>{machine.condition}</small>
             </li>
             {machine.heat_type && (

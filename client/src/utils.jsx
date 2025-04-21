@@ -18,55 +18,112 @@ export const machineMap = {
 export const brands = {
   Admiral: "Admiral",
   Amana: "Amana",
+  "Arctic King": "Arctic King",
+  "Ascoli America": "Ascoli America",
   Avanti: "Avanti",
   Bosch: "Bosch",
+  Cafe: "Cafe",
+  "Comfort Aire": "Comfort Aire",
+  Conservator: "Conservator",
   Crosley: "Crosley",
   Cuisinart: "Cuisinart",
   Danby: "Danby",
+  Electrolux: "Electrolux",
+  Estate: "Estate",
+  "Fisher & Paykel": "Fisher & Paykel",
   Fridgidaire: "Fridgidaire",
+  "Fridgidaire Gallery": "Fridgidaire Gallery",
+  "Fridgidaire Professional": "Fridgidaire Professional",
   GE: "GE",
+  "GE Profile": "GE Profile",
   Haier: "Haier",
+  Hisense: "Hisense",
   Hotpoint: "Hotpoint",
+  "Jenn-Air": "Jenn-Air",
   Kenmore: "Kenmore",
   Kitchenaid: "Kitchenaid",
   LG: "LG",
+  "LG Signature": "LG Signature",
+  "Magic Chef": "Magic Chef",
   Maytag: "Maytag",
+  Midea: "Midea",
+  Richmond: "Richmond",
   Roper: "Roper",
   Samsung: "Samsung",
+  "Speed Queen": "Speed Queen",
+  Tappan: "Tappan",
   Whirlpool: "Whirlpool",
+  "White-Westinghouse": "White-Westinghouse",
 };
 
 export const colors = {
+  Almond: "Almond",
+  Aluminum: "Aluminum",
+  Bisque: "Bisque",
   Black: "Black",
-  White: "White",
-  Stainless: "Stainless",
-  BlackStainless: "Black Stainless",
+  "Black Stainless": "Black Stainless",
   Blue: "Blue",
+  Bronze: "Bronze",
+  Brown: "Brown",
+  Champagne: "Champagne",
+  Chrome: "Chrome",
+  Copper: "Copper",
   Cream: "Cream",
+  Gold: "Gold",
+  Green: "Green",
+  Grey: "Grey",
+  Mirror: "Mirror",
+  Nickel: "Nickel",
+  Orange: "Orange",
+  Other: "Other",
+  "Panel Ready": "Panel Ready",
+  Pink: "Pink",
+  Platinum: "Platinum",
+  Purple: "Purple",
   Red: "Red",
+  Silver: "Silver",
+  Stainless: "Stainless",
+  Teal: "Teal",
+  White: "White",
+  "White Stainless": "White Stainless",
+  Wood: "Wood",
+  Yellow: "Yellow",
 };
 
 export const machineStyles = [
   {
-    TopAndBottom: "Top and Bottom",
-    SideBySide: "Side by Side",
-    FrenchDoor: "French Door",
-    BottomTop: "Bottom Top",
-    Freezer: "Freezer",
+    "Top & Bottom": "Top and Bottom",
+    "Side by Side": "Side by Side",
+    "French Door": "French Door",
+    "Bottom Mount": "Bottom Mount",
+    Upright: "Upright",
+    Chest: "Chest",
   },
   {
-    TopLoad: "Top Load",
-    FrontLoad: "Front Load",
+    "Top Load": "Top Load",
+    "Front Load": "Front Load",
+    "All in One": "All in One",
   },
   {
-    TopLoad: "Top Load",
-    FrontLoad: "Front Load",
+    "Top Load": "Top Load",
+    "Front Load": "Front Load",
+    "All in One": "All in One",
   },
   {
-    GlassTop: "Glass Top",
+    "Glass Top": "Glass Top",
     Coil: "Coil",
   },
 ];
+
+export const vendors = {
+  Pasadena: "Pasadena",
+  "Baton Rouge": "Baton Rouge",
+  Alexandria: "Alexandria",
+  Viking: "Viking",
+  "Stines LC": "Stines LC",
+  "Stines Jenings": "Stines Jennings",
+  Scrappers: "Scrappers",
+};
 
 export const renderOptions = (obj) => {
   return (
@@ -81,14 +138,13 @@ export const renderOptions = (obj) => {
 export const fetchAllTechs = async () => {
   try {
     const response = await fetch("/auth/get_all_techs");
-    const data = await response.json();
     if (!response.ok) {
       alert("There was an error");
-      return;
+      throw new Error("There was an error.");
     }
+    const data = await response.json();
     return data;
   } catch (error) {
-    alert("There was an error");
     console.error(error);
   }
 };
@@ -96,14 +152,13 @@ export const fetchAllTechs = async () => {
 export const fetchAllMachines = async (table, status) => {
   try {
     const response = await fetch(`/read/get_all_machines/${table}/${status}`);
-    const data = await response.json();
     if (!response.ok) {
-      return data.error;
+      throw new Error("There was an error.");
     }
-    return data;
+    const data = await response.json();
+    return { success: true, data: data };
   } catch (error) {
-    alert("There was a server error");
-    return error;
+    return { success: false, error: error };
   }
 };
 
@@ -112,27 +167,27 @@ export const fetchAllMachinesByType = async (table, status, typeOf) => {
     const response = await fetch(
       `/read/get_all_machines_by_type/${table}/${status}/${typeOf}`
     );
-    const data = await response.json();
     if (!response.ok) {
-      return data.error;
+      // alert("There was an error");
+      throw new Error("There was an error.");
     }
-    return data;
+    const data = await response.json();
+    return { success: true, data: data };
   } catch (error) {
-    return error;
+    return { success: false, error: error };
   }
 };
 
 export const fetchOneMachine = async (table, id) => {
   try {
     const response = await fetch(`/read/get_one_machine/${table}/${id}`);
-    const data = await response.json();
     if (!response.ok) {
-      alert(`Error: ${data.error}`);
-      return data.error;
+      alert("There was an error");
+      throw new Error("There was an error");
     }
+    const data = await response.json();
     return data;
   } catch (error) {
-    alert(`There was a server error`);
     return error;
   }
 };
@@ -146,15 +201,13 @@ export const finishRepair = async (id) => {
     const response = await fetch(`/update/add_to_inventory/${id}`, {
       method: "PATCH",
     });
-    const data = await response.json();
     if (!response.ok) {
       alert("There was an error");
-      return data.error;
+      throw new Error("There was an error.");
     }
-    // alert(data.message);
+    const data = await response.json();
     return data.message;
   } catch (error) {
-    alert("There was an error");
     return error;
   }
 };
@@ -171,10 +224,11 @@ export const deleteMachine = async (id) => {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
     if (!response.ok) {
-      return { success: false, error: data.error };
+      alert("There was an error.");
+      throw new Error("There was an error.");
     }
+    const data = await response.json();
     return { success: true, message: data.message };
   } catch (error) {
     return { success: false, error: error.message };
@@ -189,10 +243,10 @@ export const deleteNote = async (id, setter) => {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
     if (!response.ok) {
-      return data.error;
+      throw new Error("There was an error.");
     }
+    const data = await response.json();
     setter((prev) => prev - 1);
     return data.message;
   } catch (error) {
@@ -220,10 +274,10 @@ export const zebra = async (machine) => {
       },
       body: JSON.stringify(zpl),
     });
-    const data = await response.json();
     if (!response.ok) {
-      return "There was an issue.";
+      throw new Error("There was an error.");
     }
+    const data = await response.json();
     return data.message;
   } catch (error) {
     return error;

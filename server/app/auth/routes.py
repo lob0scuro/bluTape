@@ -61,6 +61,23 @@ def login():
         print(f"There was an error: {e}")
         return jsonify(error=f"Server error: {e}"), 500
     
+#FORGOT PASSWORD
+@bp.route("/reset_password", methods=["POST"])
+def reset_password():
+    data = request.get_json()
+    if not data:
+        return jsonify(error="No payload in request"), 404
+    email = data.get("email")
+    
+    if not email:
+        return jsonify(error="field missing in payload"), 404
+    user = Tech.query.filter(email=email).first()
+    if not user:
+        return jsonify(error="Not a valid email, please try again"), 404
+    
+    #NEED TO FINISH THIS ROUTE
+    return 
+    
 #LOGOUT TECHNICIAN
 @bp.route("/logout", methods=["GET"])
 def logout():

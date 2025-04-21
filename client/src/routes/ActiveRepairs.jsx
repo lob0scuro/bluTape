@@ -4,25 +4,32 @@ import Table from "../components/Table";
 import { fetchAllMachines, fetchAllMachinesByType } from "../utils.jsx";
 import { useAuth } from "../context/UserContext.jsx";
 
-const formTitles = ["Refrigerator", "Washer", "Dryer", "Range"];
-
 const ActiveRepairs = () => {
   const { user } = useAuth();
   const [machines, setMachines] = useState([]);
-  const [chosenTable, setChosenTable] = useState();
+  const [chosenTable, setChosenTable] = useState([]);
 
   useEffect(() => {
     const fetchRepairs = async () => {
       const repairs = await fetchAllMachines(0, 0);
-      setMachines(repairs);
-      setChosenTable(repairs);
+      if (repairs.success) {
+        setMachines(repairs.data);
+        setChosenTable(repairs.data);
+      } else {
+        setMachines([]);
+        setChosenTable([]);
+      }
     };
     fetchRepairs();
   }, []);
 
   const renderTable = async (t) => {
     const table = await fetchAllMachinesByType(0, 0, t);
-    setChosenTable(table);
+    if (table.success) {
+      setChosenTable(table.data);
+    } else {
+      setChosenTable([]);
+    }
   };
 
   return (
@@ -34,8 +41,8 @@ const ActiveRepairs = () => {
         <button onClick={() => renderTable(3)}>Ranges</button>
         <button onClick={() => setChosenTable(machines)}>All</button>
       </div>
-      <h1>Active Repairs</h1>
-      <Table machines={chosenTable} />
+      <br />
+      {machines ? <Table machines={chosenTable} /> : <h3>No machines found</h3>}
     </>
   );
 };

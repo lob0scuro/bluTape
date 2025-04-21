@@ -13,9 +13,13 @@ const Notes = ({ machine, deleteFn }) => {
 
   return (
     <>
-      <button onClick={() => printFn()}>Print</button>
       <div>
-        <h3>Notes</h3>
+        <h3 className={styles.notesBlockHeader}>
+          Notes
+          <button className={styles.printButton} onClick={() => printFn()}>
+            Print
+          </button>
+        </h3>
         <ul className={styles.machineNotes} ref={contentRef}>
           {machine.notes?.map((note, index) => (
             <li key={index}>

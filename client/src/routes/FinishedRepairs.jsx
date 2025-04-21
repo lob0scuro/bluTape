@@ -13,15 +13,24 @@ const FinishedRepairs = () => {
   useEffect(() => {
     const fetchRepairs = async () => {
       const repairs = await fetchAllMachines(0, 1);
-      setMachines(repairs);
-      setChosenTable(repairs);
+      if (repairs.success) {
+        setMachines(repairs.data);
+        setChosenTable(repairs.data);
+      } else {
+        setMachines([]);
+        setChosenTable([]);
+      }
     };
     fetchRepairs();
   }, []);
 
   const renderTable = async (t) => {
     const table = await fetchAllMachinesByType(0, 1, t);
-    setChosenTable(table);
+    if (repairs.success) {
+      setChosenTable(table.data);
+    } else {
+      setChosenTable([]);
+    }
   };
 
   return (
@@ -33,7 +42,6 @@ const FinishedRepairs = () => {
         <button onClick={() => renderTable(3)}>Ranges</button>
         <button onClick={() => setChosenTable(machines)}>All</button>
       </div>
-      <h1>Finished Repairs</h1>
       {machines.length !== 0 ? (
         <div className={styles.finishedTableBlock}>
           <Table machines={chosenTable} />
@@ -42,7 +50,7 @@ const FinishedRepairs = () => {
           )}
         </div>
       ) : (
-        <h1>No Machines to show</h1>
+        <h1>No Machines found</h1>
       )}
     </>
   );

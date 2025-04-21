@@ -8,6 +8,7 @@ class Tech(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
+    email = db.Column(db.String(150), unique=True)
     is_admin = db.Column(db.Boolean, server_default="0")
     role = db.Column(db.Integer, nullable=False)
     password = db.Column(db.String(255), unique=True, nullable=False)
@@ -32,6 +33,7 @@ class Machine(db.Model):
     serial = db.Column(db.String(150))
     color = db.Column(db.String(150))
     style = db.Column(db.String(150))
+    vendor = db.Column(db.String(150))
     condition = db.Column(db.String(50), server_default="USED")
     heat_type = db.Column(db.String(50), nullable=True)
     created_on = db.Column(db.Date, default=func.current_date())
@@ -47,6 +49,7 @@ class Machine(db.Model):
             'serial': self.serial,
             'color': self.color,
             'style': self.style,
+            'vendor': self.vendor,
             'condition': self.condition,
             'heat_type': self.heat_type,
             'machine_type': self.machine_type,
@@ -110,3 +113,7 @@ class Archive(db.Model):
     
     def __repr__(self):
         return f"<Machine {self.id}: {self.brand} {self.color} {self.style}>"
+    
+
+    
+    

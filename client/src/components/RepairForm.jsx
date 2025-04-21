@@ -1,6 +1,12 @@
 import styles from "../style/RepairForm.module.css";
 import { useActionState } from "react";
-import { brands, colors, machineStyles, renderOptions } from "../utils.jsx";
+import {
+  brands,
+  colors,
+  machineStyles,
+  renderOptions,
+  vendors,
+} from "../utils.jsx";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -90,6 +96,13 @@ const RepairForm = ({ title, machineType }) => {
             </select>
           </div>
         )}
+        <div>
+          <label htmlFor="vendor">Vendor: </label>
+          <select name="vendor" id="vendor">
+            <option value="vendor">--Select Vendor--</option>
+            {renderOptions(vendors)}
+          </select>
+        </div>
         <div className={styles.noteBlock}>
           <label htmlFor="note">Note</label>
           <textarea name="note" id="note"></textarea>

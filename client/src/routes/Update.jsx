@@ -11,6 +11,7 @@ import {
   renderOptions,
   fetchOneMachine,
   machineMap,
+  vendors,
 } from "../utils.jsx";
 
 const Update = () => {
@@ -25,6 +26,7 @@ const Update = () => {
     serial: false,
     color: false,
     style: false,
+    vendor: false,
     condition: false,
     heat_type: false,
   });
@@ -35,6 +37,7 @@ const Update = () => {
     serial: machine.serial,
     color: machine.color,
     style: machine.style,
+    vendor: machine.vendor,
     condition: machine.condition,
     heat_type: machine.heat_type,
   });
@@ -55,6 +58,7 @@ const Update = () => {
         serial: machine.serial || "",
         color: machine.color || "",
         style: machine.style || "",
+        vendor: machine.vendor || "",
         condition: machine.condition || "",
         heat_type: machine.heat_type || "",
       });
@@ -81,6 +85,12 @@ const Update = () => {
       label: "Style",
       type: "select",
       options: machineStyles[machine.machine_type],
+    },
+    {
+      name: "vendor",
+      label: "Vendor",
+      type: "select",
+      options: vendors,
     },
     {
       name: "condition",
