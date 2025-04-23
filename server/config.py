@@ -45,6 +45,9 @@ class TestConfig:
     MAIL_PASSWORD = os.environ.get('APP_PASSWORD')
     MAIL_DEFAULT_SENDER = "matts.blutape@gmail.com"
     DEBUG = True
+    UPLOAD_EXTENSIONS = ['jpg', 'png', 'jpeg']
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'app', 'static', 'images')
+    UPLOAD_URL = "/static/images"
     
     
     

@@ -1,55 +1,59 @@
-import { useActionState } from "react";
 import styles from "../style/Register.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
-  const submitForm = async (prevState, formData) => {
-    const formEntries = Object.fromEntries(formData);
-    formEntries.is_admin = formEntries.is_admin === "on";
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [file, setFile] = useState(null);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMessage("");
+    const form = e.target;
+    const form_data = new FormData(form);
+    form_data.set("is_admin", form.is_admin.checked);
+    if (file) {
+      form_data.set("profile_pic", file);
+    }
     try {
       const response = await fetch("/auth/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formEntries),
+        body: form_data,
       });
       const data = await response.json();
       if (!response.ok) {
-        alert(`There was an error ${response.statusText}`);
-        return { error: data.error || `Error: ${response.statusText}` };
+        setError(data.error || "Something went wrong.");
+        return;
       }
+
+      setMessage(data.message);
       navigate("/login");
-      return { message: data.message };
     } catch (error) {
-      alert("There was an error");
-      return { error: "There was an error" };
+      setError("There was an error.");
     }
   };
 
-  const [state, formAction] = useActionState(submitForm, {
-    message: "",
-    error: "",
-  });
-
   return (
     <>
-      <h1>Register Technician</h1>
-      {state.message && <p style={{ color: "green" }}>{state.message}</p>}
-      {state.error && <p style={{ color: "red" }}>{state.error}</p>}
-      <form className={styles.registrationForm} action={formAction}>
+      <h1>Register New Tech</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {message && <p style={{ color: "green" }}>{message}</p>}
+      <form
+        className={styles.registrationForm}
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         <div>
           <label htmlFor="first_name">First Name: </label>
-          <input type="text" name="first_name" />
+          <input type="text" name="first_name" id="first_name" />
         </div>
         <div>
           <label htmlFor="last_name">Last Name: </label>
           <input type="text" name="last_name" />
         </div>
-        {/* <div className={styles.position}> */}
         <div>
           <label htmlFor="role">Position: </label>
           <select name="role" id="role">
@@ -65,7 +69,6 @@ const Register = () => {
           <label htmlFor="is_admin">Administrator: </label>
           <input type="checkbox" name="is_admin" />
         </div>
-        {/* </div> */}
         <div>
           <label htmlFor="password">Password: </label>
           <br />
@@ -74,6 +77,15 @@ const Register = () => {
         <div>
           <label htmlFor="password2">Re-Type Password: </label>
           <input type="password" name="password2" id="password2" />
+        </div>
+        <div>
+          <label htmlFor="profile_pic">Profile Picture: </label>
+          <input
+            type="file"
+            name="profile_pic"
+            accept="image/*"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
         </div>
         <input type="submit" value="Submit" />
       </form>

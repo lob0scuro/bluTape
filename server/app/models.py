@@ -1,6 +1,7 @@
 from app.extensions import db
 from flask_login import UserMixin
 from sqlalchemy import func
+from flask import url_for
 
 #we are starting a new fresh start here
 
@@ -9,6 +10,7 @@ class Tech(UserMixin, db.Model):
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True)
+    profile_pic = db.Column(db.String(255))
     is_admin = db.Column(db.Boolean, server_default="0")
     role = db.Column(db.Integer, nullable=False)
     password = db.Column(db.String(255), unique=True, nullable=False)
@@ -18,6 +20,9 @@ class Tech(UserMixin, db.Model):
             'id': self.id,
             'first_name': self.first_name,
             'last_name': self.last_name,
+            'full_name': f"{self.first_name} {self.last_name}",
+            'email': self.email,
+            'profile_pic': url_for('uploaded_file', filename=self.profile_pic.split('/')[-1] if self.profile_pic else 'profile_default.png', _external=True),
             'is_admin': self.is_admin,
             'role': self.role,
         }

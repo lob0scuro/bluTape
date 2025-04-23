@@ -1,12 +1,11 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from config import Config, TestConfig
 from app.extensions import cors, db, login_manager, mail, migrate, session, bcrypt
 from app.models import Tech
 
 def create_app(config_class=TestConfig):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='static')
     app.config.from_object(config_class)
-    
     #initialize extensions
     db.init_app(app)
     cors.init_app(app)
@@ -34,9 +33,8 @@ def create_app(config_class=TestConfig):
         return Tech.query.get(int(id))
     
     
-    #test route
-    @app.route('/test')
-    def test():
-        return "Hello World!"
+    @app.route('/images/<filename>')
+    def uploaded_file(filename):
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
     
     return app
