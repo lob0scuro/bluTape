@@ -47,4 +47,10 @@
   .activeTableButtonGroup button.activeButton {
     background-color: #728094;
   }
+  .activeTableButtonGroup button.activeButton:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+  .activeTableButtonGroup button.activeButton:last-child {
+    border-radius: 0 8px 8px 0;
+  }
 }

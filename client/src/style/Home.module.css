@@ -100,6 +100,25 @@
   }
 
   /*EDIT TECHNICIANS BLOCK - SECONDCHILD*/
+  .adminPanelButtonBlock {
+    display: flex;
+    flex-direction: column;
+  }
+  .adminPanelButtonBlock a {
+    color: var(--textPrimary);
+    border: none;
+    padding: 15px 8px;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: var(--buttonPrimary);
+    text-align: center;
+  }
+  .adminPanelButtonBlock a:first-child {
+    border-radius: 8px 8px 0 0;
+  }
+  .adminPanelButtonBlock a:last-child {
+    border-radius: 0 0 8px 8px;
+  }
 
   /*TASKBLOCK - LASTCHILD*/
   .taskBlock {

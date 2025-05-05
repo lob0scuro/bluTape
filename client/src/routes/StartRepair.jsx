@@ -7,10 +7,8 @@ const formTitles = ["Refrigerator", "Washer", "Dryer", "Range"];
 
 const StartRepair = () => {
   const { user } = useAuth();
-  const [chosenForm, setChosenForm] = useState(
-    <RepairForm title={formTitles[user.role]} machineType={user.role} />
-  );
-  const [activeButton, setActiveButton] = useState(user.role);
+  const [chosenForm, setChosenForm] = useState(null);
+  const [activeButton, setActiveButton] = useState(null);
 
   const renderForm = (f) => {
     switch (f) {
@@ -45,7 +43,7 @@ const StartRepair = () => {
           </button>
         ))}
       </div>
-      {chosenForm}
+      {!chosenForm ? <h1>Choose Form</h1> : chosenForm}
     </>
   );
 };

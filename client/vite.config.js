@@ -1,6 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
+// Change for production or when switching networks
+const serverURL = "http://192.168.100.190:5000";
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -8,27 +11,27 @@ export default defineConfig({
     proxy: {
       "/auth": {
         // target: "https://blutape.net:8000",
-        target: "http://127.0.0.1:5000",
+        target: serverURL,
         changeOrigin: true,
         secure: true,
       },
       "/create": {
-        target: "http://127.0.0.1:5000",
+        target: serverURL,
         changeOrigin: true,
         secure: true,
       },
       "/read": {
-        target: "http://127.0.0.1:5000",
+        target: serverURL,
         changeOrigin: true,
         secure: true,
       },
       "/update": {
-        target: "http://127.0.0.1:5000",
+        target: serverURL,
         changeOrigin: true,
         secure: true,
       },
       "/delete": {
-        target: "http://127.0.0.1:5000",
+        target: serverURL,
         changeOrigin: true,
         secure: true,
       },

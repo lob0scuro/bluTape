@@ -64,6 +64,12 @@
   .finishedTableButtonGroup button.activeButton {
     background-color: #728094;
   }
+  .finishedTableButtonGroup button.activeButton:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+  .finishedTableButtonGroup button.activeButton:last-child {
+    border-radius: 0 8px 8px 0;
+  }
 
   .exportButton {
     background-color: var(--buttonPrimary);

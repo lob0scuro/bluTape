@@ -10,7 +10,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Notes from "../components/Notes.jsx";
 import {
   fetchOneMachine,
   formatDate,
@@ -25,9 +24,11 @@ import {
   vendors,
 } from "../utils.jsx";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/UserContext.jsx";
 
 const RepairCard = () => {
   const { id, typeOf } = useParams();
+  const { user } = useAuth();
   const [machine, setMachine] = useState({});
   const [techs, setTechs] = useState([]);
   const [newNote, setNewNote] = useState("");
@@ -181,31 +182,29 @@ const RepairCard = () => {
 
   return (
     <>
-      <div className={styles.cardButtonBlock}>
-        <button disabled={editMachine}>Label</button>
-        <button
-          // style={
-          //   editMachine
-          //     ? { backgroundColor: "#2a2829", border: "1px solid #f9f9f9" }
-          //     : {}
-          // }
-          onClick={() => setEditMachine(!editMachine)}
-        >
-          {editMachine ? "Editing.." : "Edit"}
-        </button>
-        {machine.in_progress && (
-          <button
-            disabled={editMachine}
-            onClick={() => handleFinishedRepair(machine.id)}
-          >
-            <FontAwesomeIcon icon={faCheck} />
+      {user && (
+        <div className={styles.cardButtonBlock}>
+          <button disabled={editMachine}>Label</button>
+          {user ? (
+            <button onClick={() => setEditMachine(!editMachine)}>
+              {editMachine ? "Editing.." : "Edit"}
+            </button>
+          ) : (
+            <button onClick={() => navigate("/login")}>Login to edit</button>
+          )}
+          {machine.in_progress && (
+            <button
+              disabled={editMachine && user}
+              onClick={() => handleFinishedRepair(machine.id)}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+            </button>
+          )}
+          <button disabled={editMachine} onClick={() => handleDelete()}>
+            <FontAwesomeIcon icon={faTrash} />
           </button>
-        )}
-
-        <button disabled={editMachine} onClick={() => handleDelete()}>
-          <FontAwesomeIcon icon={faTrash} />
-        </button>
-      </div>
+        </div>
+      )}
       <div className={styles.mainCardBlock}>
         <div className={styles.infoBlock}>
           <form onSubmit={handleMachineEdit} className={styles.editMachineForm}>
@@ -347,12 +346,15 @@ const RepairCard = () => {
         <div className={styles.notesBlock}>
           <h3>
             Notes{" "}
-            <div>
-              <button className={styles.printNotesButton}>
+            <div className={styles.noPrint}>
+              <button
+                className={styles.printNotesButton}
+                onClick={() => window.print()}
+              >
                 <FontAwesomeIcon icon={faPrint} />
               </button>
               <button onClick={() => setAddingNote(!addingNote)}>
-                {addingNote ? (
+                {addingNote && user ? (
                   <FontAwesomeIcon icon={faMinus} />
                 ) : (
                   <FontAwesomeIcon icon={faPlus} />
@@ -361,7 +363,11 @@ const RepairCard = () => {
             </div>
           </h3>
           <div className={styles.noteItems}>
-            {machine.notes.length === 0 && !addingNote ? (
+            <p className={styles.onlyPrint}>
+              Model: {machine.model} // {machine.color} {machine.style} <br />
+              <br />
+            </p>
+            {machine.notes?.length === 0 && !addingNote ? (
               <p style={{ margin: "5px auto 12px auto" }}>
                 Click + to add note
               </p>
@@ -376,7 +382,10 @@ const RepairCard = () => {
                         <p>~ {tech?.first_name}</p>
                         <p>[{formatDate(note.created_on)}]</p>
                       </div>
-                      <button onClick={() => deleteNote(note.id)}>
+                      <button
+                        className={styles.noPrint}
+                        onClick={() => deleteNote(note.id)}
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </button>
                     </div>

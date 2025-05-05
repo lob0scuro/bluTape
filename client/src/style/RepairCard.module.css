@@ -163,6 +163,10 @@
   box-shadow: 3px 3px 5px #000;
 } */
 
+.onlyPrint {
+  display: none;
+}
+
 @media screen and (max-width: 450px) {
   .cardButtonBlock {
     background-color: var(--buttonSecondary);
@@ -182,7 +186,8 @@
     color: unset;
   }
   .cardButtonBlock button:disabled {
-    background-color: var(--inputBackground);
+    background-color: var(--buttonPrimary);
+    color: var(--backgroundDark);
   }
   .mainCardBlock {
     display: flex;
@@ -314,24 +319,45 @@
 }
 
 @media print {
-  .machineNotes {
-    min-height: 100vh;
-    background-color: #fff;
+  body * {
+    visibility: hidden;
+    font-size: 16pt;
   }
-  .machineNotes li {
-    border-bottom: 3px double #000;
-    padding: 1rem;
+  .onlyPrint {
+    display: block;
   }
-  .machineNotes li div p {
-    font-size: 3rem;
-    background-color: #fff;
+  .delNoteButton {
+    visibility: hidden;
+  }
+  .notesHeader {
+    visibility: hidden;
+  }
+
+  .notesBlock,
+  .notesBlock * {
+    visibility: visible;
+  }
+
+  .notesBlock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     color: #000;
   }
-  .machineNotes li div:last-child button {
-    display: none;
+  .noteItems {
+    width: 80%;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    font-size: inherit;
   }
-  .machineNotes li p small {
-    background-color: unset;
-    color: #000;
+
+  .noteItem {
+    margin-bottom: 40px;
+    align-self: flex-start;
+  }
+
+  .noPrint {
+    display: none !important;
   }
 }

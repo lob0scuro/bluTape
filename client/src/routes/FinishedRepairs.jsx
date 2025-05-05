@@ -14,7 +14,7 @@ const FinishedRepairs = () => {
   const [machines, setMachines] = useState([]);
   const { user } = useAuth();
   const [chosenTable, setChosenTable] = useState(null);
-  const [activeButton, setActiveButton] = useState();
+  const [activeButton, setActiveButton] = useState(null);
   const today = new Date();
   const currentDate = formatDate(today).replace(/ /g, "_");
 
@@ -23,7 +23,7 @@ const FinishedRepairs = () => {
       const repairs = await fetchAllMachines(0, 1);
       if (repairs.success) {
         setMachines(repairs.data);
-        setChosenTable(repairs.data);
+        renderTable(100);
       } else {
         setMachines([]);
         setChosenTable([]);
@@ -33,12 +33,19 @@ const FinishedRepairs = () => {
   }, []);
 
   const renderTable = async (t) => {
+    const all = await fetchAllMachines(0, 1);
+    if (t === 100) {
+      setChosenTable(all.data);
+      setActiveButton(t);
+      return;
+    }
     const table = await fetchAllMachinesByType(0, 1, t);
     if (table.success) {
       setChosenTable(table.data);
       setActiveButton(t);
     } else {
       setChosenTable([]);
+      setActiveButton(t);
     }
   };
 
@@ -89,9 +96,14 @@ const FinishedRepairs = () => {
         >
           Ranges
         </button>
-        <button onClick={() => setChosenTable(machines)}>All</button>
+        <button
+          className={activeButton === 100 ? styles.activeButton : ""}
+          onClick={() => renderTable(100)}
+        >
+          All
+        </button>
       </div>
-      {machines.length !== 0 ? (
+      {machines?.length !== 0 ? (
         <div className={styles.finishedTableBlock}>
           <Table machines={chosenTable} />
           {user.is_admin && (
@@ -123,7 +135,7 @@ const FinishedRepairs = () => {
           )}
         </div>
       ) : (
-        <h1>No Machines found</h1>
+        <h1>Choose another table</h1>
       )}
     </>
   );

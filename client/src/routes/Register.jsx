@@ -30,7 +30,7 @@ const Register = () => {
       }
 
       setMessage(data.message);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       setError("There was an error.");
     }
@@ -38,7 +38,7 @@ const Register = () => {
 
   return (
     <>
-      <h1>Register New Tech</h1>
+      <h1 style={{ marginTop: "40px" }}>Register New Tech</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {message && <p style={{ color: "green" }}>{message}</p>}
       <form

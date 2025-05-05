@@ -32,3 +32,88 @@
   background-color: var(--primaryButton);
   color: var(--titleText);
 }
+
+@media screen and (max-width: 450px) {
+  .selectingTech {
+    margin-block: 25px;
+    color: var(--textPrimary);
+    background-color: var(--buttonPrimary);
+    border-radius: 3px;
+    font-size: 18px;
+  }
+  .selectBlock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .selectBlock button {
+    padding: 4px 20px;
+    color: var(--textPrimary);
+    background-color: var(--buttonSecondary);
+    border-radius: 4px;
+    font-size: 18px;
+  }
+
+  .editTechForm {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 20px;
+    width: 360px;
+  }
+  .editTechForm div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: var(--backgroundDark);
+    padding: 5px 12px;
+    border-radius: 8px;
+    /* overflow-x: auto; */
+  }
+  .editTechForm div label {
+    font-weight: 400;
+    font-size: 18px;
+    width: 30%;
+  }
+  .editTechForm div input:not([type="file"]) {
+    text-align: end;
+    width: 200px;
+    padding-right: 8px;
+    overflow-x: auto;
+  }
+  .editTechForm div p {
+    font-size: 24px;
+    color: var(--textSecondary);
+    overflow-x: auto;
+  }
+  .editTechForm .imageBlock {
+    width: fit-content;
+    background-color: transparent;
+  }
+
+  .techImage {
+    border: 3px double var(--textPrimary);
+    border-radius: 15px;
+  }
+  .editTechForm input[type="file"] {
+    width: 0%;
+    align-self: center;
+    margin-right: 118px;
+  }
+  .editTechForm input[type="file"]::file-selector-button {
+    background-color: var(--buttonSecondary);
+    color: var(--textPrimary);
+    font-size: 18px;
+    padding: 8px 14px;
+    text-align: center;
+  }
+
+  .editTechForm button[type="submit"] {
+    background-color: var(--buttonPrimary);
+    color: var(--textPrimary);
+    width: fit-content;
+    font-size: 24px;
+    font-weight: 300;
+  }
+}

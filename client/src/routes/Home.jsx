@@ -11,14 +11,6 @@ const Home = () => {
   const [selected, setSelected] = useState();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getIt = async () => {
-      const gotIt = await fetchAllTechs();
-      setTechs(gotIt);
-    };
-    getIt();
-  }, []);
-
   const edit = (e) => {
     e.preventDefault();
     if (selected) {
@@ -41,28 +33,9 @@ const Home = () => {
         </div>
       </div>
       {user.is_admin && (
-        <div className={styles.editBlock}>
-          <form onSubmit={edit}>
-            <select
-              name="techs"
-              id="techs"
-              value={selected}
-              onChange={(e) => setSelected(e.target.value)}
-            >
-              <option value="">--Select Tech--</option>
-              {techs.map((tech) => (
-                <option value={tech.id} key={tech.id}>
-                  {tech.first_name}
-                </option>
-              ))}
-            </select>
-            <br />
-            <br />
-
-            <button className={styles.editTech} type="submit">
-              Edit Tech Info
-            </button>
-          </form>
+        <div className={styles.adminPanelButtonBlock}>
+          <Link to="/edit_tech">View Techs</Link>
+          <Link to="/register">Register New Tech</Link>
         </div>
       )}
       <TaskBox />

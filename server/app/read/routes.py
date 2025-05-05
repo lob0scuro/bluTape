@@ -43,7 +43,6 @@ def get_all_machines_by_type(table, status, type):
     
     
 @bp.route("/get_one_machine/<int:table>/<int:id>", methods=["GET"])
-@login_required
 def get_one_machine(table, id):
     try:
         model = tableMap.get(table)

@@ -15,7 +15,8 @@ const ActiveRepairs = () => {
       const repairs = await fetchAllMachines(0, 0);
       if (repairs.success) {
         setMachines(repairs.data);
-        setChosenTable(repairs.data);
+
+        renderTable(100);
       } else {
         setMachines([]);
         setChosenTable([]);
@@ -25,13 +26,19 @@ const ActiveRepairs = () => {
   }, []);
 
   const renderTable = async (t) => {
+    const all = await fetchAllMachines(0, 0);
+    if (t === 100) {
+      setChosenTable(all.data);
+      setActiveButton(t);
+      return;
+    }
     const table = await fetchAllMachinesByType(0, 0, t);
     if (table.success) {
       setChosenTable(table.data);
       setActiveButton(t);
     } else {
       setChosenTable([]);
-      setActiveButton(null);
+      setActiveButton(t);
     }
   };
 
@@ -62,7 +69,12 @@ const ActiveRepairs = () => {
         >
           Ranges
         </button>
-        <button onClick={() => setChosenTable(machines)}>All</button>
+        <button
+          className={activeButton === 100 ? styles.activeButton : ""}
+          onClick={() => renderTable(100)}
+        >
+          All
+        </button>
       </div>
       <br />
       {machines ? <Table machines={chosenTable} /> : <h3>No machines found</h3>}

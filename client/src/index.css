@@ -48,6 +48,7 @@ body {
   color: var(--textPrimary);
   font-family: "Inter", sans-serif;
   font-size: 14px;
+  overflow-x: hidden;
 }
 
 #root {

@@ -10,9 +10,8 @@ const Table = ({ machines }) => {
   };
 
   const renderMachines = Array.isArray(machines)
-    ? machines.map((machine) => (
+    ? machines?.map((machine) => (
         <tr key={machine.id} onClick={() => handleNavigate(machine.id)}>
-          {/* <td>{machine.id}</td> */}
           <td>{machine.brand}</td>
           <td>{machine.style}</td>
           <td className={styles.modelRow}>{machine.model}</td>
@@ -20,7 +19,7 @@ const Table = ({ machines }) => {
       ))
     : [];
 
-  if (machines.length === 0) {
+  if (machines?.length === 0) {
     return (
       <>
         <h1>No machines found</h1>

@@ -44,4 +44,10 @@
   .startRepairButtonGroup button.activeButton {
     background-color: #728094;
   }
+  .startRepairButtonGroup button.activeButton:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+  .startRepairButtonGroup button.activeButton:last-child {
+    border-radius: 0 8px 8px 0;
+  }
 }

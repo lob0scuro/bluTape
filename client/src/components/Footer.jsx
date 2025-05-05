@@ -26,11 +26,8 @@ const Footer = () => {
         <p>bluTape/</p>
         <p>Matt's Appliances, LLC</p>
       </div>
-      <div>
-        <div className={styles.directions}>
-          {user && user.is_admin && <Link to="/register">Register</Link>}
-          {user && <Link onClick={logout}>Logout</Link>}
-        </div>
+      <div className={styles.directions}>
+        {user && <Link onClick={logout}>Logout</Link>}
       </div>
     </footer>
   );
