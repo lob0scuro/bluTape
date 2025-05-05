@@ -31,6 +31,9 @@ class Config:
     PREFERRED_URL_SCHEME = 'https'
     CORS_ORIGINS = ['https://blutape.net']
     CORS_SUPPORTS_CREDENTIALS = True
+    UPLOAD_EXTENSIONS = ['jpg', 'png', 'jpeg']
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'app', 'static', 'images')
+    UPLOAD_URL = "/static/images"
 
 
 class TestConfig:
