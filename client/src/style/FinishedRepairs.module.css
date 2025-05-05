@@ -64,4 +64,18 @@
   .finishedTableButtonGroup button.activeButton {
     background-color: #728094;
   }
+
+  .exportButton {
+    background-color: var(--buttonPrimary);
+    color: var(--textPrimary);
+    width: fit-content;
+    height: 45px;
+    padding-inline: 12px;
+    border-radius: 12px;
+    font-weight: 400;
+    font-size: 18px;
+    align-self: flex-end;
+    margin-top: 44px;
+    border: none;
+  }
 }

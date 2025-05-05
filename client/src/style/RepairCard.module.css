@@ -181,6 +181,9 @@
     background: transparent;
     color: unset;
   }
+  .cardButtonBlock button:disabled {
+    background-color: var(--inputBackground);
+  }
   .mainCardBlock {
     display: flex;
     flex-direction: column;
@@ -204,6 +207,31 @@
     color: var(--textSecondary);
   }
 
+  .editMachineForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .editMachineForm input[type="text"] {
+    background-color: var(--inputBackground);
+    color: var(--backgroundDark);
+    text-align: end;
+  }
+  .editMachineForm select {
+    background-color: var(--inputBackground);
+    color: var(--backgroundDark);
+    border-radius: 8px;
+  }
+  .editMachineForm button {
+    background-color: var(--buttonPrimary);
+    color: var(--textPrimary);
+    height: 40px;
+    width: 88px;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-top: 0;
+  }
+
   .notesBlock {
     width: 345px;
     background-color: var(--backgroundDark);
@@ -220,9 +248,10 @@
   }
   .notesBlock h3 button {
     background-color: transparent;
-    border: none;
+    border: 1px solid var(--textPrimary);
     color: var(--textPrimary);
     font-size: 22px;
+    width: 50px;
   }
   .notesBlock .noteItems {
     width: 100%;

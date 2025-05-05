@@ -17,7 +17,7 @@ form.repairForm {
 }
 
 form.repairForm button {
-  margin: 1rem 0;
+  margin: 1rem 0 0 0;
   align-self: center;
   background-color: var(--primaryButton);
   color: var(--titleText);

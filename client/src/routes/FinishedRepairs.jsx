@@ -118,7 +118,7 @@ const FinishedRepairs = () => {
                 toast.success("File has been exported!");
               }}
             >
-              Export
+              Export Table
             </button>
           )}
         </div>

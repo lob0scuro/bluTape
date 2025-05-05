@@ -29,12 +29,15 @@ def edit(id):
         data = request.get_json()
         if not data:
             return jsonify(error="No payload in request."), 404
-        fields = ["brand", "model", "serial", "color", "style", "condition", "heat_type"]
+        fields = ["brand", "model", "serial", "color", "style", "vendor", "condition", "heat_type"]
         updated = False
         for field in fields:
             if field in data:
-                setattr(machine, field, data[field])
-                updated=True
+                incoming_value = data[field].strip() if isinstance(data[field], str) else data[field]
+                current_value = getattr(machine, field)
+                if incoming_value != current_value:
+                    setattr(machine, field, incoming_value)
+                    updated = True
         if updated:
             db.session.commit()
             return jsonify(message="Successfully updated machine!"), 200
@@ -42,4 +45,4 @@ def edit(id):
             return jsonify(message="No changes were made."), 200
     except Exception as e:
         print(f"Error: {e}")
-        return jsonify(f"Server error: {e}"), 500
+        return jsonify(error = f"Server error: {e}"), 500

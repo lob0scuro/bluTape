@@ -1,4 +1,6 @@
 import styles from "../style/Home.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 import React, { useEffect, useState } from "react";
 
@@ -45,7 +47,11 @@ const TaskBox = () => {
       <h3>
         Tasks{" "}
         <button onClick={() => setAddTask(!addTask)}>
-          {!addTask ? "+" : "-"}
+          {!addTask ? (
+            <FontAwesomeIcon icon={faPlus} />
+          ) : (
+            <FontAwesomeIcon icon={faMinus} />
+          )}
         </button>
       </h3>
       <div className={styles.taskItems}>
@@ -71,7 +77,7 @@ const TaskBox = () => {
                 className={styles.deleteTaskButton}
                 onClick={() => deleteTask(index)}
               >
-                X
+                <FontAwesomeIcon icon={faTrash} />
               </button>
             </p>
           ))

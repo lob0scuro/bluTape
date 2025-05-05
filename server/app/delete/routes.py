@@ -40,12 +40,14 @@ def delete_on_export():
         
         
 @bp.route("/delete_note/<int:id>", methods=["DELETE"])
+@login_required
 def delete_note(id):
     id = int(id)
     print(id)
     try:
         note = Notes.query.get(id)
         if not note:
+            print("Nothing baby")
             return jsonify(error="There was an error, please try again."), 400
         db.session.delete(note)
         db.session.commit()
