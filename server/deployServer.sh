@@ -1,10 +1,7 @@
 echo "switching to restart branch"
 git checkout restart
 
-echo "bundling app..."
-npm run build
-
 echo "deploying files to server"
-scp -r dist/* cameron@45.56.74.113:/var/www/bluTape/blutape.net/
+scp -r server/* cameron@45.56.74.113:/var/www/bluTape/app/
 
 echo "Done!"
