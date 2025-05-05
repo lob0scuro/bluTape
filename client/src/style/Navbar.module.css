@@ -5,12 +5,13 @@ header.header {
   width: 100%;
   height: 8rem;
   padding: 1rem 1rem;
-  box-shadow: -3px 0 4px #000;
+  box-shadow: -4px 0 9px #000;
+  background-color: var(--bannerBackground);
 }
 
 header.header a h1 {
-  color: var(--titleText);
-  font-size: 2rem;
+  color: var(--textPrimary);
+  font-size: 40px;
 }
 
 .navLinks {
@@ -23,12 +24,20 @@ header.header a h1 {
 @media screen and (max-width: 450px) {
   header.header {
     flex-direction: column;
-    height: 7.4rem;
+    height: 130px;
     box-shadow: -5px 0 10px #000;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  header.header a h1 {
+    color: var(--textPrimary);
+    font-size: 40px;
   }
 
   header.header a h1 small {
-    font-size: 1.4rem;
+    font-size: 24px;
+    color: var(--textSecondary);
   }
 
   .navLinks {

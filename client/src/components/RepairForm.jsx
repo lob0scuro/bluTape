@@ -47,7 +47,7 @@ const RepairForm = ({ title, machineType }) => {
 
   return (
     <>
-      <h1 className={styles.repairHeader}>{title}</h1>
+      {/* <h1 className={styles.repairHeader}>{title}</h1> */}
       <form className={styles.repairForm} action={formAction}>
         <div>
           <label htmlFor="brand">Brand: </label>

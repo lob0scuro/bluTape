@@ -1,3 +1,30 @@
+import * as XLSX from "xlsx";
+
+export const exportToExcel = async ({ data, filename }) => {
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+  XLSX.writeFile(workbook, filename);
+
+  try {
+    const response = await fetch("/delete/delete_on_export", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      return data.error || "There was an error";
+    }
+    return data.message || "Success!";
+  } catch (error) {
+    return error;
+  }
+};
+
 export const formatDate = (date) => {
   const formatter = new Date(date);
   const formattedDate = formatter.toLocaleDateString("en-us", {
@@ -6,6 +33,14 @@ export const formatDate = (date) => {
     day: "numeric",
   });
   return formattedDate;
+};
+
+export const roleMap = {
+  0: "Refrigerator",
+  1: "Washer",
+  2: "Dryer/Range",
+  3: "Sales",
+  4: "Office",
 };
 
 export const machineMap = {
@@ -146,6 +181,19 @@ export const fetchAllTechs = async () => {
     return data;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const fetchOneTech = async (id) => {
+  try {
+    const response = await fetch(`/auth/get_one_tech/${id}`);
+    if (!response.ok) {
+      throw new Error("There was an error");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
   }
 };
 

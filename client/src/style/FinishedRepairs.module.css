@@ -7,9 +7,10 @@
 }
 
 .exportButton {
-  background-color: var(--primaryButton);
-  color: var(--titleText);
-  padding: 0.2rem 0.6rem;
+  background-color: var(--buttonPrimary);
+  color: var(--textPrimary);
+  width: 65px;
+  height: 35px;
   border-radius: 6px;
   font-weight: 600;
   font-size: 1rem;
@@ -17,7 +18,7 @@
   margin-top: 1rem;
 }
 
-.finishedTableButtonGroup {
+/* .finishedTableButtonGroup {
   width: 80%;
   display: flex;
   justify-content: center;
@@ -33,11 +34,34 @@
   color: var(--titleText);
   padding: 0.4rem 0.6rem;
   border: none;
-}
+} */
 
 .finishedTableButtonGroup button:first-child {
   border-radius: 8px 0 0 8px;
 }
 .finishedTableButtonGroup button:last-child {
   border-radius: 0 8px 8px 0;
+}
+
+@media screen and (max-width: 450px) {
+  .finishedTableButtonGroup {
+    background-color: var(--buttonSecondary);
+    justify-content: space-evenly;
+    margin-top: 28px;
+    width: 340px;
+    height: 45px;
+    display: flex;
+    border-radius: 12px;
+  }
+  .finishedTableButtonGroup button {
+    font-size: 16.5px;
+    width: 100%;
+    padding-inline: 8px;
+    border: none;
+    background: transparent;
+    color: unset;
+  }
+  .finishedTableButtonGroup button.activeButton {
+    background-color: #728094;
+  }
 }

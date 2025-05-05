@@ -1,0 +1,34 @@
+.editTechForm {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 1rem;
+  width: fit-content;
+}
+
+.editTechForm div {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 1.8rem;
+}
+
+.editTechForm div label {
+  font-size: 1.5rem;
+}
+
+.editTechForm .imageBlock {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editTechForm button {
+  margin-top: 1rem;
+  align-self: center;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  background-color: var(--primaryButton);
+  color: var(--titleText);
+}

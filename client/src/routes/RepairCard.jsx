@@ -6,6 +6,7 @@ import {
   fetchOneMachine,
   formatDate,
   finishRepair,
+  fetchAllTechs,
   machineMap,
   deleteMachine,
   deleteNote,
@@ -13,46 +14,89 @@ import {
 import toast from "react-hot-toast";
 
 const RepairCard = () => {
-  const submitForm = async (prevData, formData) => {
-    const fields = Object.fromEntries(formData);
-    fields.machine_id = id;
-    try {
-      const response = await fetch("/create/add_note", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fields),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        return { error: data.error || `Error: ${response.statusText}` };
-      }
-      toast.success("Note added");
-      setNoteList((prev) => prev + 1);
-      return { message: data.message };
-    } catch (error) {
-      alert("There was an error");
-      return { error: error };
-    }
-  };
-
   const { id, typeOf } = useParams();
   const [machine, setMachine] = useState({});
-  const [state, formAction] = useActionState(submitForm, {
-    error: "",
-    message: "",
-  });
-  const [noteList, setNoteList] = useState(0);
+  const [techs, setTechs] = useState([]);
+  const [newNote, setNewNote] = useState("");
+  const [addingNote, setAddingNote] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMachine = async () => {
       const fetchedMachine = await fetchOneMachine(typeOf, id);
       setMachine(fetchedMachine);
+      // setNotes(fetchedMachine.notes || []);
     };
     fetchMachine();
-  }, [noteList]);
+    const techList = async () => {
+      const technicians = await fetchAllTechs();
+      setTechs(technicians);
+    };
+    techList();
+  }, []);
+
+  const submitNewNote = async (e) => {
+    e.preventDefault();
+    const formValues = {
+      content: newNote,
+      machine_id: machine.id,
+    };
+    try {
+      const response = await fetch("/create/add_note", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formValues),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error(data.error);
+        throw new Error(data.error);
+      }
+      toast.success(data.message);
+
+      // Add the new note to the machine state directly
+      const newNoteObj = data.new_note; // assuming your backend returns the full note object
+      setMachine((prev) => ({
+        ...prev,
+        notes: [...(prev.notes || []), newNoteObj], // Update notes directly in machine state
+      }));
+      setNewNote("");
+      return data.message;
+    } catch (error) {
+      toast.error(error.message || "Failed to add note");
+      return error;
+    }
+  };
+
+  const deleteNote = async (id) => {
+    try {
+      const response = await fetch(`delete/delete_note/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const errorMsg = "Failed to delete note";
+        throw new Error(errorMsg);
+      }
+
+      toast.success(data?.message || "Note deleted");
+
+      setMachine((prev) => ({
+        ...prev,
+        notes: prev.notes.filter((note) => note.id !== id),
+      }));
+    } catch (error) {
+      toast.error("Error in yo butt");
+      return error;
+    }
+  };
 
   const handleDelete = async () => {
     const result = await deleteMachine(machine.id);
@@ -64,10 +108,6 @@ const RepairCard = () => {
       toast.error(result?.error || "Something went wrong.");
     }
   };
-  const handleNoteDeletion = async (id) => {
-    const result = await deleteNote(id, setNoteList);
-    toast.success("note deleted");
-  };
 
   const handleFinishedRepair = async (id) => {
     const result = await finishRepair(id);
@@ -77,8 +117,6 @@ const RepairCard = () => {
 
   return (
     <>
-      {state.error && <p style={{ color: "red" }}>{state.error.toString()}</p>}
-
       <div className={styles.cardButtonBlock}>
         <button>Label</button>
         <button onClick={() => navigate(`/edit/${machine.id}`)}>Edit</button>
@@ -89,7 +127,7 @@ const RepairCard = () => {
         <button onClick={() => handleDelete()}>Trash</button>
       </div>
       <div className={styles.mainCardBlock}>
-        <div className={styles.infoBlock}>
+        {/* <div className={styles.infoBlock}>
           <ul className={styles.cardInfo}>
             <li>
               ID: <small>{machine.id}</small>
@@ -127,13 +165,42 @@ const RepairCard = () => {
               </li>
             )}
           </ul>
-        </div>
+        </div> */}
         <div className={styles.notesBlock}>
-          <Notes machine={machine} deleteFn={handleNoteDeletion} />
-          <form action={formAction}>
-            <textarea name="content" id="content"></textarea>
-            <button type="submit">Submit</button>
-          </form>
+          <h3>
+            Notes{" "}
+            <button onClick={() => setAddingNote(!addingNote)}>
+              {addingNote ? "-" : "+"}
+            </button>
+          </h3>
+          <div className={styles.noteItems}>
+            {machine.notes?.map((note) => {
+              const tech = techs.find((t) => t.id === note.tech_id);
+              return (
+                <div className={styles.noteItem} key={note.id}>
+                  <p>{note.content}</p>
+                  <div className={styles.noteItemFooter}>
+                    <div>
+                      <p>~ {tech?.first_name}</p>
+                      <p>{formatDate(note.created_on)}</p>
+                    </div>
+                    <button onClick={() => deleteNote(note.id)}>X</button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {addingNote && (
+            <form onSubmit={submitNewNote} className={styles.addNoteForm}>
+              <textarea
+                name="content"
+                id="content"
+                value={newNote}
+                onChange={(e) => setNewNote(e.target.value)}
+              ></textarea>
+              <button type="submit">Submit</button>
+            </form>
+          )}
         </div>
       </div>
     </>

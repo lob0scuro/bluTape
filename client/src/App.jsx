@@ -16,6 +16,7 @@ import ActiveRepairs from "./routes/ActiveRepairs";
 import RepairCard from "./routes/RepairCard";
 import FinishedRepairs from "./routes/FinishedRepairs";
 import Update from "./routes/Update";
+import EditTech from "./routes/EditTech";
 
 function App() {
   const router = createBrowserRouter(
@@ -27,6 +28,7 @@ function App() {
           <Route path="active" element={<ActiveRepairs />} />
           <Route path="finished" element={<FinishedRepairs />} />
           <Route path="edit/:id" element={<Update />} />
+          <Route path="edit_tech/:id" element={<EditTech />} />
         </Route>
         <Route path="card/:id/:typeOf" element={<RepairCard />} />
         <Route path="register" element={<Register />} />

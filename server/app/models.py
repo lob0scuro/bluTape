@@ -3,7 +3,20 @@ from flask_login import UserMixin
 from sqlalchemy import func
 from flask import url_for
 
-#we are starting a new fresh start here
+""""
+    Machine Type Map
+    {
+        0: refrigerators,
+        1: washers,
+        2: dryers,
+        3: ranges,
+        4: stackables,
+        5: dishwashers,
+        6: microwaves,
+        7: water_heaters,
+    }
+"""
+
 
 class Tech(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,7 +56,7 @@ class Machine(db.Model):
     heat_type = db.Column(db.String(50), nullable=True)
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
-    machine_type = db.Column(db.Integer, nullable=False) ## 0: fridge, 1:washer, 2:dryer, 3:range, 4:stackable, 5:dishwasher, 6:microwave, 7:water_heater
+    machine_type = db.Column(db.Integer, nullable=False) 
     notes = db.relationship('Notes', backref="machine")
     
     def serialize(self):

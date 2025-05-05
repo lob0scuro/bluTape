@@ -32,7 +32,6 @@ const Table = ({ machines }) => {
     <table>
       <thead>
         <tr>
-          {/* <th>ID</th> */}
           <th>Brand</th>
           <th>Style</th>
           <th>Model</th>

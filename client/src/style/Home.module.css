@@ -1,5 +1,12 @@
 @import "../index.css";
 
+.homeBlock {
+  display: flex;
+  align-items: last baseline;
+  justify-content: space-evenly;
+  width: 80vw;
+}
+
 .homeScreenButtonGroup {
   display: flex;
   flex-direction: column;
@@ -22,14 +29,156 @@
   font-size: 0.9rem;
 }
 
+.userBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.userBlock ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.userBlock ul li {
+  font-size: 1.2rem;
+  color: var(--titleText);
+}
+
+.userBlock img {
+  width: 8rem;
+  border-radius: 50%;
+}
+
+.editTech {
+  padding: 0.4rem 0.8rem;
+  width: fit-content;
+  background-color: var(--primaryButton);
+  color: var(--titleText);
+  border-radius: 4px;
+}
+
 @media screen and (max-width: 450px) {
-  .homeScreenButtonGroup {
-    gap: 3rem;
+  /*MAIN BLOCK FORM HOME SCREEN*/
+  .homeBlock {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
   }
-  .homeScreenButtonGroup a {
-    font-size: 2rem;
+  /*USER INFO BLOCK - FIRSTCHILD*/
+  .userBlock {
+    flex: 1;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  .homeScreenButtonGroup a:active {
-    font-size: 1.8rem;
+  .userBlock img {
+    width: 150px;
+    height: 150px;
+    border-radius: 28px;
+  }
+
+  .userBlockRole {
+    font-weight: 800;
+  }
+  .userBlockRole span {
+    font-weight: 100;
+    margin-left: auto;
+  }
+  .userBlockName {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  /*EDIT TECHNICIANS BLOCK - SECONDCHILD*/
+
+  /*TASKBLOCK - LASTCHILD*/
+  .taskBlock {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100px;
+    align-items: flex-start;
+    background-color: var(--backgroundDark);
+    color: var(--textPrimary);
+    border-radius: 8px;
+    margin-bottom: 40px;
+  }
+  .taskBlock h3 {
+    width: 100%;
+    color: var(--textSecondary);
+    background-color: var(--bannerBackground);
+    padding: 10px 22px 10px 8px;
+    border-radius: 8px 8px 0 0;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .taskBlock h3 button {
+    background-color: transparent;
+    color: var(--textPrimary);
+    font-size: 22px;
+    border: none;
+  }
+  .taskItems {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    text-wrap: wrap;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+  }
+  .taskItems p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+  }
+  .deleteTaskButton {
+    background-color: red;
+    color: var(--textPrimary);
+    height: 18px;
+    width: 18px;
+    border-radius: 5px;
+  }
+  .submitTaskArea {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    align-self: center;
+  }
+  .submitTaskArea textarea {
+    width: 100%;
+    height: 80px;
+    margin: 0 auto;
+    padding: 5px 0;
+    font-size: 16px;
+    resize: none;
+  }
+  .submitTaskButton {
+    font-size: 16px;
+    background-color: var(--buttonSecondary);
+    color: var(--textPrimary);
+    border: none;
+    border-radius: 4px;
+    height: 28px;
+    width: 65px;
+    margin: 0 auto 20px auto;
   }
 }

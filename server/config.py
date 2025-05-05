@@ -48,6 +48,7 @@ class TestConfig:
     UPLOAD_EXTENSIONS = ['jpg', 'png', 'jpeg']
     UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'app', 'static', 'images')
     UPLOAD_URL = "/static/images"
+    SESSION_COOKIE_SECURE = False
     
     
     

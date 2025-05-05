@@ -22,6 +22,7 @@ def register():
     try:
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
+        email = request.form.get("email")
         role = request.form.get("role")
         is_admin = request.form.get("is_admin", "false").lower() == "true"
         password = request.form.get("password")
@@ -41,7 +42,7 @@ def register():
             file.save(file_path)
             filename = secure_name
             
-        new_tech = Tech(first_name=first_name.capitalize(), last_name=last_name.capitalize(), is_admin=is_admin, role=role, password=bcrypt.generate_password_hash(password).decode("utf-8"), profile_pic=f"{current_app.config['UPLOAD_URL']}/{filename}" if filename else None)
+        new_tech = Tech(first_name=first_name.capitalize(), last_name=last_name.capitalize(), email=email, is_admin=is_admin, role=role, password=bcrypt.generate_password_hash(password).decode("utf-8"), profile_pic = f"{current_app.config['UPLOAD_URL']}/{filename}" if filename else f"{current_app.config['UPLOAD_URL']}/profile_default.png")
         
         db.session.add(new_tech)
         db.session.commit()
@@ -129,12 +130,51 @@ def get_one_tech(id):
 
 #UPDATE TECHNICIAN INFO (TBD)
 #STILL NEED TO FINISH THIS ROUTE
-@bp.route("/update_tech/<int:id>/<field>", methods=["PUT"])
-def update_tech(id, feild):
+@bp.route("/update_tech/<int:id>", methods=["PATCH"])
+def update_tech(id):
     try:
+        data = request.form  # use `request.form` for handling form data (files)
+        file = request.files.get("profile_pic")  # handle file upload if any
+        
+        # Fetch the tech record
         tech = Tech.query.get(id)
         if not tech:
-            return jsonify("Could not find tech."), 404
+            return jsonify(error="Could not find tech."), 404
+
+        # Fields to update
+        fieldList = ["first_name", "last_name", "email"]
+        updated = False
+
+        # Update fields
+        for field in fieldList:
+            if field in data:
+                setattr(tech, field, data[field])
+                updated = True
+
+        # If a file (image) is uploaded, handle it
+        if file:
+            # Validate file extension (as done in registration)
+            if '.' in file.filename:
+                ext = file.filename.rsplit('.', 1)[1].lower()
+                if ext not in current_app.config['UPLOAD_EXTENSIONS']:
+                    return jsonify(error="Invalid file type."), 400
+                
+                # Save the new file
+                secure_name = secure_filename(file.filename)
+                file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], secure_name)
+                file.save(file_path)
+                
+                # Update the profile_pic field in the database
+                tech.profile_pic = f"{current_app.config['UPLOAD_URL']}/{secure_name}"
+                updated = True
+
+        # Commit the changes if there were any
+        if updated:
+            db.session.commit()
+            return jsonify(message=f"Successfully updated {tech.first_name}"), 200
+        else:
+            return jsonify(message="No changes were made."), 200
+
     except Exception as e:
-        print(f"Error: {e}")
-        return jsonify(f"Server error: {e}"), 500
+        print(f"Server error during update tech: {e}")
+        return jsonify(error=f"Server error: {e}"), 500

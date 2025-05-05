@@ -55,6 +55,20 @@ const Register = () => {
           <input type="text" name="last_name" />
         </div>
         <div>
+          <label htmlFor="email">Email: </label>
+          <input type="email" name="email" id="email" />
+        </div>
+
+        <div>
+          <label htmlFor="password">Password: </label>
+
+          <input type="password" name="password" id="password" />
+        </div>
+        <div>
+          <label htmlFor="password2">Re-Type Password: </label>
+          <input type="password" name="password2" id="password2" />
+        </div>
+        <div className={styles.pos}>
           <label htmlFor="role">Position: </label>
           <select name="role" id="role">
             <option value="">--Select Position--</option>
@@ -65,20 +79,11 @@ const Register = () => {
             <option value="4">Office</option>
           </select>
         </div>
-        <div>
+        <div className={styles.admin}>
           <label htmlFor="is_admin">Administrator: </label>
           <input type="checkbox" name="is_admin" />
         </div>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <br />
-          <input type="password" name="password" id="password" />
-        </div>
-        <div>
-          <label htmlFor="password2">Re-Type Password: </label>
-          <input type="password" name="password2" id="password2" />
-        </div>
-        <div>
+        <div className={styles.pic}>
           <label htmlFor="profile_pic">Profile Picture: </label>
           <input
             type="file"

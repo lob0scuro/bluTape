@@ -1,6 +1,6 @@
 @import "../index.css";
 
-.startRepairButtonGroup {
+/* .startRepairButtonGroup {
   width: 80%;
   display: flex;
   justify-content: center;
@@ -8,13 +8,11 @@
   border: 2px double var(--secondarytext);
   border-radius: 8px;
   width: fit-content;
-  box-shadow: 4px 4px 7px #333;
 }
 
 .startRepairButtonGroup button {
   background-color: var(--primaryButton);
   color: var(--titleText);
-  padding: 0.4rem 0.6rem;
   border: none;
 }
 
@@ -23,10 +21,27 @@
 }
 .startRepairButtonGroup button:last-child {
   border-radius: 0 8px 8px 0;
-}
+} */
 
 @media screen and (max-width: 450px) {
+  .startRepairButtonGroup {
+    background-color: var(--buttonSecondary);
+    justify-content: space-evenly;
+    margin-top: 28px;
+    width: 340px;
+    height: 45px;
+    display: flex;
+    border-radius: 12px;
+  }
   .startRepairButtonGroup button {
-    font-size: 1rem;
+    font-size: 16.5px;
+    width: 100%;
+    padding-inline: 8px;
+    border: none;
+    background: transparent;
+    color: unset;
+  }
+  .startRepairButtonGroup button.activeButton {
+    background-color: #728094;
   }
 }

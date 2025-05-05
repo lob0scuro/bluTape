@@ -1,11 +1,10 @@
 @import "../index.css";
 
-table {
+/* table {
   background-color: var(--bg);
   color: var(--secondaryText);
   max-width: 90vw;
-}
-
+} 
 table thead {
   background-color: var(--accent);
   color: var(--bg);
@@ -28,19 +27,54 @@ table tbody tr td {
 
 table tbody tr {
   cursor: pointer;
-}
+} */
 
-.modelRow {
+/* .modelRow {
   font-size: 0.8rem;
-}
+} */
 
-.cardLink {
+/* .cardLink {
   text-decoration: underline;
   font-weight: 800;
-}
+} */
 
 @media screen and (max-width: 450px) {
   table {
-    font-size: 1.2rem;
+    font-size: 16px;
+    width: 350px;
+    max-height: 500px;
+    overflow-y: auto;
+    background-color: var(--backgroundDark);
+    align-self: center;
+    margin-top: 28px;
+  }
+  table thead {
+    background-color: var(--bannerBackground);
+  }
+  table thead tr {
+    height: 45px;
+  }
+  table thead tr th {
+    font-weight: 200;
+    text-align: start;
+    padding-inline-start: 5px;
+  }
+
+  table tbody tr {
+    height: 50px;
+  }
+  table tbody tr td:first-child {
+    width: 25%;
+  }
+  table tbody tr td:nth-child(2) {
+    width: 30%;
+  }
+  table tbody tr td:last-child {
+    overflow-x: auto;
+  }
+
+  table tbody tr td {
+    border-bottom: 1px solid var(--textPrimary);
+    font-size: 16px;
   }
 }

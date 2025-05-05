@@ -1,6 +1,6 @@
 import styles from "../style/Login.module.css";
 import { useActionState, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { fetchAllTechs } from "../utils.jsx";
 import { useAuth } from "../context/UserContext.jsx";
 import toast from "react-hot-toast";
@@ -53,22 +53,28 @@ const Login = () => {
 
   return (
     <>
-      <h1>Login</h1>
       {state.message && <p style={{ color: "green" }}>{state.message}</p>}
       {state.error && <p style={{ color: "red" }}>{state.error}</p>}
       <form action={formAction} className={styles.loginForm}>
+        <h1>Login</h1>
         <div>
-          <label htmlFor="tech_id">Technician: </label>
+          {/* <label htmlFor="tech_id">Technician: </label> */}
           <select name="tech_id" id="tech_id">
             <option value="">--Select Technician--</option>
             {renderTechOptions}
           </select>
         </div>
         <div>
-          <label htmlFor="password">Password: </label>
-          <input type="password" name="password" id="password" />
+          {/* <label htmlFor="password">Password: </label> */}
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter Password..."
+          />
         </div>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Login" />
+        <Link>Forgot Password?</Link>
       </form>
     </>
   );

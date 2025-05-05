@@ -2,13 +2,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 :root {
-  --bgSecondary: #0f172a;
+  /* --bgSecondary: #0f172a;
   --bg: #1e3a8a;
   --primaryButton: #3b82f6;
   --secondaryLink: #2563eb;
   --titleText: #f8fafc;
   --secondaryText: #cbd5e1;
-  --accent: #60a5fa;
+  --accent: #60a5fa; */
+  --background: #2a2829;
+  --backgroundDark: #1e1e1e;
+  --inputBackground: #d9d9d9;
+  --bannerBackground: #262f4c;
+  --linkText: #6d7db2;
+  --textPrimary: #f9f9f9;
+  --textSecondary: #8999af;
+  --buttonPrimary: #040b22;
+  --buttonSecondary: #8999af;
 }
 
 * {
@@ -25,20 +34,20 @@ a {
 a.active {
   text-decoration: underline;
   text-underline-offset: 3.2px;
-  color: var(--secondaryText);
+  color: var(--linkText);
 }
 
 h1 {
-  color: var(--titleText);
+  color: var(--textPrimary);
   margin-top: 1rem;
 }
 
 html,
 body {
-  background-color: var(--bg);
-  color: var(--accent);
+  background-color: var(--background);
+  color: var(--textPrimary);
   font-family: "Inter", sans-serif;
-  font-size: 0.8rem;
+  font-size: 14px;
 }
 
 #root {
@@ -46,7 +55,6 @@ body {
   min-width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .container {
@@ -55,6 +63,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--bgSecondary);
+  background-color: var(--background);
   width: 100vw;
 }
