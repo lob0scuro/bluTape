@@ -1,0 +1,11 @@
+echo "switching to restart branch"
+git checkout restart
+
+echo "creating tar archive without __pycache__ and env"
+tar --exclude='env' --exclude='__pycache__' --exclude='*.pyc' --exclude='.git' -czf deploy.tar.gz -C server .
+
+echo "deploying files to server"
+scp deploy.tar.gz cameron@45.56.74.113:/var/www/bluTape/app/
+
+echo "Done! Files sent. Unpack manually on the server with:"
+echo "  tar -xzf /var/www/bluTape/app/deploy.tar.gz -C /var/www/bluTape/app && rm /var/www/bluTape/app/deploy.tar.gz"
