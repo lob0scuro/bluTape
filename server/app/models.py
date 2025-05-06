@@ -1,7 +1,7 @@
 from app.extensions import db
 from flask_login import UserMixin
 from sqlalchemy import func
-from flask import url_for
+from flask import url_for, current_app
 
 """"
     Machine Type Map
@@ -35,7 +35,7 @@ class Tech(UserMixin, db.Model):
             'last_name': self.last_name,
             'full_name': f"{self.first_name} {self.last_name}",
             'email': self.email,
-            'profile_pic': url_for('uploaded_file', filename=self.profile_pic.split('/')[-1] if self.profile_pic else 'profile_default.png', _external=True),
+            'profile_pic': f"{current_app.config['UPLOAD_URL']}/{self.profile_pic.split('/')[-1]}" if self.profile_pic else f"{current_app.config['UPLOAD_URL']}/profile_default.png",
             'is_admin': self.is_admin,
             'role': self.role,
         }

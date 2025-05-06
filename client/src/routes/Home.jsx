@@ -1,24 +1,12 @@
 import styles from "../style/Home.module.css";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
-import { roleMap, fetchAllTechs, renderOptions } from "../utils";
+import { roleMap } from "../utils";
 import TaskBox from "../components/TaskBox";
 
 const Home = () => {
   const { user } = useAuth();
-  const [techs, setTechs] = useState([]);
-  const [selected, setSelected] = useState();
-  const navigate = useNavigate();
-
-  const edit = (e) => {
-    e.preventDefault();
-    if (selected) {
-      navigate(`/edit_tech/${selected}`);
-    } else {
-      alert("Please select a tech to edit.");
-    }
-  };
 
   return (
     <div className={styles.homeBlock}>
