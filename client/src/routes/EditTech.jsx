@@ -39,7 +39,7 @@ const EditTech = () => {
         setError(data.error || "Something went wrong.");
         return;
       }
-
+      localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
       setMessage(data.message);
       navigate("/");
     } catch (error) {

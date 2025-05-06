@@ -140,6 +140,10 @@ const RepairCard = () => {
   };
 
   const handleDelete = async () => {
+    const assurance = confirm("Delete Machine?");
+    if (!assurance) {
+      return;
+    }
     const result = await deleteMachine(machine.id);
 
     if (result?.success) {
@@ -175,6 +179,10 @@ const RepairCard = () => {
   };
 
   const handleFinishedRepair = async (id) => {
+    const assurance = confirm("Finish Repair?");
+    if (!assurance) {
+      return;
+    }
     const result = await finishRepair(id);
     toast.success(result);
     navigate("/finished");

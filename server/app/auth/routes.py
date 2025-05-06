@@ -171,7 +171,7 @@ def update_tech(id):
         # Commit the changes if there were any
         if updated:
             db.session.commit()
-            return jsonify(message=f"Successfully updated {tech.first_name}"), 200
+            return jsonify(message=f"Successfully updated {tech.first_name}", tech=tech.serialize()), 200
         else:
             return jsonify(message="No changes were made."), 200
 

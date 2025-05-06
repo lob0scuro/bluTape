@@ -241,10 +241,6 @@ export const fetchOneMachine = async (table, id) => {
 };
 
 export const finishRepair = async (id) => {
-  const assurance = confirm("Finish repair?");
-  if (!assurance) {
-    return;
-  }
   try {
     const response = await fetch(`/update/add_to_inventory/${id}`, {
       method: "PATCH",
@@ -261,10 +257,6 @@ export const finishRepair = async (id) => {
 };
 
 export const deleteMachine = async (id) => {
-  const assurance = confirm("Delete Machine?");
-  if (!assurance) {
-    return;
-  }
   try {
     const response = await fetch(`/delete/delete/${id}`, {
       method: "DELETE",
@@ -273,7 +265,6 @@ export const deleteMachine = async (id) => {
       },
     });
     if (!response.ok) {
-      alert("There was an error.");
       throw new Error("There was an error.");
     }
     const data = await response.json();

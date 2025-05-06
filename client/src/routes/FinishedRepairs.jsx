@@ -135,7 +135,7 @@ const FinishedRepairs = () => {
           )}
         </div>
       ) : (
-        <h1>Choose another table</h1>
+        <h1>No Machines Found</h1>
       )}
     </>
   );
