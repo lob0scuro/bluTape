@@ -16,7 +16,7 @@ export default defineConfig({
   // },
   // base: "/",
   server: {
-    allowedHosts: ["https://www.blutape.net", "https://blutape.net"],
+    // allowedHosts: ["https://www.blutape.net", "https://blutape.net"],
     proxy: {
       "/auth": {
         target: serverURL,
