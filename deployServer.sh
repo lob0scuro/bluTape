@@ -1,5 +1,5 @@
-echo "switching to restart branch"
-git checkout restart
+echo "switching to master branch"
+git checkout master
 
 echo "creating tar archive without __pycache__ and env"
 tar --exclude='env' --exclude='__pycache__' --exclude='*.pyc' --exclude='.git' -czf deploy.tar.gz -C server .

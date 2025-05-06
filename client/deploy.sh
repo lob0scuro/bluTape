@@ -1,5 +1,5 @@
-echo "switching to restart branch"
-git checkout restart
+echo "switching to master branch"
+git checkout master
 
 echo "bundling app..."
 npm run build
