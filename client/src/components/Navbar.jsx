@@ -19,6 +19,7 @@ const Navbar = () => {
         className={styles.hamburger}
         style={navOpen ? { color: "#8999af" } : { color: "inherit" }}
         onClick={() => setNavOpen(!navOpen)}
+        onBlur={() => setNavOpen(!navOpen)}
       />
       <nav>
         {user && (
