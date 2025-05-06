@@ -103,7 +103,7 @@ const FinishedRepairs = () => {
           All
         </button>
       </div>
-      {machines?.length !== 0 ? (
+      {machines ? (
         <div className={styles.finishedTableBlock}>
           <Table machines={chosenTable} />
           {user.is_admin && (

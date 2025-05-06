@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
-const serverURL = "https://blutape.net";
+const URL = ["http://127.0.0.1:5000", "https://blutape.net"];
+
+const serverURL = URL[0];
 
 // https://vite.dev/config/
 export default defineConfig({

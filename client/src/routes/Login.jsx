@@ -31,6 +31,7 @@ const Login = () => {
     });
     const data = await response.json();
     if (!response.ok) {
+      toast.error(data.error);
       return { error: data.error || `Error: ${response.statusText}` };
     }
     localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
@@ -53,8 +54,8 @@ const Login = () => {
 
   return (
     <>
-      {state.message && <p style={{ color: "green" }}>{state.message}</p>}
-      {state.error && <p style={{ color: "red" }}>{state.error}</p>}
+      {/* {state.message && <p style={{ color: "green" }}>{state.message}</p>} */}
+      {/* {state.error && <p style={{ color: "red" }}>{state.error}</p>} */}
       <form action={formAction} className={styles.loginForm}>
         <h1>Login</h1>
         <div>
@@ -73,7 +74,7 @@ const Login = () => {
             placeholder="Enter Password..."
           />
         </div>
-        <input type="submit" value="Login" />
+        <button type="submit">Login</button>
         <Link>Forgot Password?</Link>
       </form>
     </>

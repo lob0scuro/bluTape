@@ -59,11 +59,13 @@ form.loginForm input[type="submit"] {
     margin-bottom: 10px;
   }
 
-  .loginForm input[type="submit"] {
+  .loginForm button[type="submit"] {
     background-color: var(--buttonPrimary);
     color: unset;
-    width: 83px;
-    height: 30px;
+    /* padding: 0 24px; */
+    width: 90px;
+    height: 45px;
+    font-size: 20px;
     border-radius: 8px;
   }
 }
