@@ -46,6 +46,7 @@ const EditTech = () => {
       toast.success(data.message || "Updated Tech");
       navigate("/");
     } catch (error) {
+      toast.error(error.error || "Error when submitting form");
       setError("There was an error.");
     }
   };

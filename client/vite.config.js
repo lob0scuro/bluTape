@@ -5,16 +5,16 @@ const serverURL = "https://blutape.net";
 
 // https://vite.dev/config/
 export default defineConfig({
-  root: "./",
+  // root: "./",
   plugins: [react()],
-  mode: "production",
-  build: {
-    outDir: "../dist",
-    emptyOutDir: true,
-    assetsDir: "assets",
-    sourcemap: false,
-  },
-  base: "/",
+  // mode: "production",
+  // build: {
+  //   outDir: "../dist",
+  //   emptyOutDir: true,
+  //   assetsDir: "assets",
+  //   sourcemap: false,
+  // },
+  // base: "/",
   server: {
     allowedHosts: ["https://www.blutape.net", "https://blutape.net"],
     proxy: {
