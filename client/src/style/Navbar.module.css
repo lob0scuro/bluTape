@@ -1,5 +1,6 @@
 header.header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -23,26 +24,39 @@ header.header a h1 {
 
 @media screen and (max-width: 450px) {
   header.header {
-    flex-direction: column;
-    height: 130px;
+    /* flex-direction: column; */
+    align-items: last baseline;
+    justify-content: space-between;
+    /* height: 190px; */
     box-shadow: -5px 0 10px #000;
     width: 100%;
     z-index: 1000;
+    padding-bottom: 18px;
   }
 
   header.header a h1 {
     color: var(--textPrimary);
-    font-size: 40px;
+    font-size: 32px;
   }
 
   header.header a h1 small {
-    font-size: 24px;
+    font-size: 20px;
     color: var(--textSecondary);
+  }
+
+  .hamburger {
+    font-size: 28px;
+    /* flex-basis: 20%; */
+  }
+
+  header.header nav {
+    flex-basis: 100%;
+    justify-items: center;
   }
 
   .navLinks {
     gap: 1.8rem;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .noShow {
