@@ -5,7 +5,7 @@ const serverURL = "https://blutape.net";
 
 // https://vite.dev/config/
 export default defineConfig({
-  root: "./src",
+  root: "./",
   plugins: [react()],
   mode: "production",
   build: {

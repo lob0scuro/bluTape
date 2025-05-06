@@ -2,8 +2,10 @@ import styles from "../style/EditTech.module.css";
 import React, { useEffect, useState } from "react";
 import { renderMatches, useNavigate } from "react-router-dom";
 import { fetchOneTech, fetchAllTechs, renderOptions } from "../utils";
+import { useAuth } from "../context/UserContext";
 
 const EditTech = () => {
+  const { setUser } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -40,7 +42,8 @@ const EditTech = () => {
         return;
       }
       localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
-      setMessage(data.message);
+      setUser(data.tech);
+      toast.success(data.message || "Updated Tech");
       navigate("/");
     } catch (error) {
       setError("There was an error.");
