@@ -43,25 +43,21 @@ const Navbar = () => {
         />
       )}
       <nav>
-        {user && (
-          <>
-            {navOpen && (
-              <div className={styles.navLinks}>
-                <NavLink onClick={() => setNavOpen(false)} to="/">
-                  Home
-                </NavLink>
-                <NavLink onClick={() => setNavOpen(false)} to="/start">
-                  Start
-                </NavLink>
-                <NavLink onClick={() => setNavOpen(false)} to="/active">
-                  Active
-                </NavLink>
-                <NavLink onClick={() => setNavOpen(false)} to="/finished">
-                  Finished
-                </NavLink>
-              </div>
-            )}
-          </>
+        {user && navOpen && (
+          <div className={styles.navLinks}>
+            <NavLink onClick={() => setNavOpen(false)} to="/">
+              Home
+            </NavLink>
+            <NavLink onClick={() => setNavOpen(false)} to="/start">
+              Start
+            </NavLink>
+            <NavLink onClick={() => setNavOpen(false)} to="/active">
+              Active
+            </NavLink>
+            <NavLink onClick={() => setNavOpen(false)} to="/finished">
+              Finished
+            </NavLink>
+          </div>
         )}
         {user && (
           <div className={styles.lgScreenLinks}>
