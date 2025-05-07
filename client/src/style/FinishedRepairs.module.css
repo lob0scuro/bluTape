@@ -1,49 +1,12 @@
 @import "../index.css";
 
-.finishedTableBlock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.exportButton {
-  background-color: var(--buttonPrimary);
-  color: var(--textPrimary);
-  width: 65px;
-  height: 35px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 1rem;
-  align-self: flex-end;
-  margin-top: 1rem;
-}
-
-/* .finishedTableButtonGroup {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  margin-top: 0.6rem;
-  border: 2px double var(--accent);
-  border-radius: 8px;
-  width: fit-content;
-  box-shadow: 4px 4px 7px #333;
-}
-
-.finishedTableButtonGroup button {
-  background-color: var(--bg);
-  color: var(--titleText);
-  padding: 0.4rem 0.6rem;
-  border: none;
-} */
-
-.finishedTableButtonGroup button:first-child {
-  border-radius: 8px 0 0 8px;
-}
-.finishedTableButtonGroup button:last-child {
-  border-radius: 0 8px 8px 0;
-}
-
 @media screen and (max-width: 450px) {
+  .finishedTableBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .finishedTableButtonGroup {
     background-color: var(--buttonSecondary);
     justify-content: space-evenly;

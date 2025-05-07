@@ -1,189 +1,37 @@
 @import "../index.css";
 
-.cardButtonBlock {
-  display: flex;
-  margin: 0.8rem auto;
-}
-.cardButtonBlock button {
-  font-size: 1.2rem;
-  font-weight: 700;
-  background-color: var(--primaryButton);
-  color: var(--titleText);
-  padding: 0.33rem 0.5rem;
-}
-.cardButtonBlock button:nth-child(3) {
-  background-color: #025c1d;
-}
-.cardButtonBlock button:first-child {
-  border-radius: 10px 0 0 10px;
-}
-.cardButtonBlock button:last-child {
-  border-radius: 0 10px 10px 0;
-  background-color: #990000;
-}
-
-.mainCardBlock {
-  display: flex;
-  justify-content: space-around;
-  gap: 1rem;
-  align-items: center;
-  width: 90vw;
-  margin-top: 0.3rem;
-  margin-bottom: 1rem;
-}
-
-.infoBlock {
-  flex: 3;
-  height: 100%;
-  font-size: 1.2rem;
-}
-
-.cardInfo {
-  list-style-type: none;
-  font-weight: 700;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.cardInfo li {
-  /* background-color: var(--bg); */
-  color: var(--titleText);
-  padding: 0.2rem 0.4rem;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 4px;
-  box-shadow: 3px 3px 6px #333;
-  overflow-x: auto;
-}
-
-.cardInfo li small {
-  margin-left: 1rem;
-  text-align: end;
-  font-weight: 400;
-}
-
-.printButton {
-  background-color: var(--bg);
-  color: var(--textPrimary);
-  padding: 0.2rem 0.8rem;
-  border: none;
-  border-radius: 8px;
-}
-.notesBlockHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--secondaryLink);
-  padding: 0.5rem 0.2rem;
-  border-radius: 4px;
-  color: var(--secondaryText);
-}
-
-.notesBlock {
-  flex: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  height: 100%;
-}
-
-.machineNotes h3 {
-  text-decoration: underline;
-  background-color: var(--bg);
-  color: var(--titleText);
-  width: 100%;
-  text-align: end;
-  padding: 0.3rem 0.8rem 0.3rem 0;
-}
-
-.machineNotes {
-  list-style-type: circle;
-  border-radius: 8px;
-  overflow-y: auto;
-  background-color: var(--accent);
-  box-shadow: 4px 4px 8px #333;
-  width: 100%;
-  max-height: 10rem;
-  flex: 2;
-}
-.machineNotes li {
-  padding: 0.2rem 0.8rem 1rem 0.3rem;
-  border-bottom: 3px double var(--accent);
-  color: var(--bg);
-  font-size: 1.3rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.machineNotes li p small {
-  background-color: var(--secondaryLink);
-  padding: 0.1rem 0.33rem;
-  color: var(--titleText);
-}
-.machineNotes li div:first-child {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-.machineNotes li div:last-child button {
-  background-color: #990000;
-  color: var(--secondaryText);
-  font-size: 1.5rem;
-  padding: 0.5rem 0.5rem;
-  border-radius: 30%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* .notesBlock form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 2;
-}
-.notesBlock form textarea {
-  width: 15rem;
-  height: 5rem;
-  font-size: 16px;
-} 
-.notesBlock form button {
-  margin-top: 1rem;
-  align-self: center;
-  background-color: var(--primaryButton);
-  color: var(--titleText);
-  padding: 0.2rem 0.5rem;
-  border-radius: 6px;
-  border: none;
-  font-weight: 800;
-  box-shadow: 3px 3px 5px #000;
-} */
-
-.onlyPrint {
-  display: none;
-}
-
 @media screen and (max-width: 450px) {
+  .onlyPrint {
+    display: none;
+  }
+
   .cardButtonBlock {
     background-color: var(--buttonSecondary);
+    display: flex;
     justify-content: space-evenly;
     margin-block: 32px;
     width: 340px;
     height: 45px;
-    display: flex;
     border-radius: 12px;
   }
   .cardButtonBlock button {
     font-size: 16.5px;
+    font-weight: 800;
     width: 100%;
     padding-inline: 8px;
     border: none;
     background: transparent;
     color: unset;
+  }
+  .cardButtonBlock button:nth-child(3) {
+    background-color: #025c1d;
+  }
+  .cardButtonBlock button:first-child {
+    border-radius: 10px 0 0 10px;
+  }
+  .cardButtonBlock button:last-child {
+    border-radius: 0 10px 10px 0;
+    background-color: #990000;
   }
   .cardButtonBlock button:disabled {
     background-color: var(--buttonPrimary);
@@ -201,12 +49,21 @@
     width: 300px;
     font-size: 20px;
     margin-bottom: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
   .cardInfo li {
     background-color: var(--backgroundDark);
     box-shadow: none;
     height: 36px;
     text-wrap: nowrap;
+    color: var(--titleText);
+    padding: 0.2rem 0.4rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 4px;
+    overflow-x: auto;
   }
   .cardInfo li small {
     color: var(--textSecondary);

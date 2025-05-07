@@ -64,3 +64,24 @@ body {
   background-color: var(--background);
   width: 100vw;
 }
+
+@media screen and (min-width: 451px) {
+  #root {
+    flex-direction: row;
+    height: 100%;
+  }
+  header {
+    flex: 1;
+    height: auto;
+  }
+  .container {
+    flex: 2;
+    /* height: 100vh; */
+    min-height: 100dvh;
+    overflow-y: auto;
+  }
+
+  footer {
+    display: none;
+  }
+}

@@ -1,31 +1,5 @@
 @import "../index.css";
 
-/* .activeTableButtonGroup {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  margin-top: 0.6rem;
-  border: 2px double var(--secondaryText);
-  border-radius: 8px;
-  width: fit-content;
-  box-shadow: 4px 4px 7px #333;
-}
-
-.activeTableButtonGroup button {
-  background-color: var(--primaryButton);
-  color: var(--titleText);
-  font-size: 14px;
-  padding: 0.4rem 0.6rem;
-  border: none;
-}
-
-.activeTableButtonGroup button:first-child {
-  border-radius: 8px 0 0 8px;
-}
-.activeTableButtonGroup button:last-child {
-  border-radius: 0 8px 8px 0;
-} */
-
 @media screen and (max-width: 450px) {
   .activeTableButtonGroup {
     background-color: var(--buttonSecondary);
