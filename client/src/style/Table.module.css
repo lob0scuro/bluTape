@@ -25,6 +25,9 @@
   table tbody tr {
     height: 50px;
   }
+  table tbody tr td {
+    padding-left: 4px;
+  }
   table tbody tr td:first-child {
     width: 25%;
   }
@@ -38,5 +41,51 @@
   table tbody tr td {
     border-bottom: 1px solid var(--textPrimary);
     font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 451px) {
+  table {
+    font-size: 16px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 800px;
+    overflow-y: auto;
+    background-color: var(--backgroundDark);
+    align-self: center;
+    margin-top: 28px;
+  }
+
+  table thead {
+    background-color: var(--bannerBackground);
+  }
+  table thead tr {
+    height: 55px;
+  }
+  table thead tr th {
+    font-weight: 400;
+    text-align: start;
+    padding-inline-start: 10px;
+  }
+
+  table tbody tr {
+    height: 60px;
+  }
+  table tbody tr td {
+    padding-left: 8px;
+  }
+  table tbody tr td:first-child {
+    width: 25%;
+  }
+  table tbody tr td:nth-child(2) {
+    width: 30%;
+  }
+  table tbody tr td:last-child {
+    overflow-x: auto;
+  }
+
+  table tbody tr td {
+    border-bottom: 1px solid var(--textPrimary);
+    font-size: 18px;
   }
 }

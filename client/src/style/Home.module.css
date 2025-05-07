@@ -166,7 +166,6 @@
     width: 200px;
     height: 200px;
     border-radius: 12px;
-    border: 1px solid red;
   }
   .userBlockInfo {
     display: flex;
