@@ -6,6 +6,7 @@ import {
   fetchAllMachinesByType,
   exportToExcel,
   formatDate,
+  machineMap,
 } from "../utils.jsx";
 import { useAuth } from "../context/UserContext.jsx";
 import toast from "react-hot-toast";
@@ -112,8 +113,17 @@ const FinishedRepairs = () => {
               onClick={() => {
                 exportToExcel({
                   data: chosenTable.map(
-                    ({ id, brand, model, serial, vendor, condition }) => ({
+                    ({
+                      id,
+                      machine_type,
+                      brand,
+                      model,
+                      serial,
+                      vendor,
+                      condition,
+                    }) => ({
                       ID: id,
+                      Type: machineMap(machine_type),
                       Brand: brand,
                       Model: model,
                       Serial: serial,
@@ -124,8 +134,8 @@ const FinishedRepairs = () => {
                   filename: `Finished_Repairs_${currentDate}.xlsx`,
                 });
 
-                const isToDelete = chosenTable.map((machine) => machine.id);
-                deleteFinishedRepairs(isToDelete);
+                // const isToDelete = chosenTable.map((machine) => machine.id);
+                // deleteFinishedRepairs(isToDelete);
                 // Show a success toast after export
                 toast.success("File has been exported!");
               }}
