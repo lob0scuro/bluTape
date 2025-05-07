@@ -69,6 +69,7 @@ body {
   #root {
     flex-direction: row;
     height: 100%;
+    scroll-behavior: smooth;
   }
   header {
     flex: 1;

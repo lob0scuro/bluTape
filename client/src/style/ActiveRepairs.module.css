@@ -28,3 +28,33 @@
     border-radius: 0 8px 8px 0;
   }
 }
+
+@media screen and (min-width: 451px) {
+  .activeTableButtonGroup {
+    background-color: var(--buttonSecondary);
+    justify-content: space-evenly;
+    margin-top: 28px;
+    max-width: 600px;
+    height: 45px;
+    display: flex;
+    border-radius: 12px;
+  }
+  .activeTableButtonGroup button {
+    font-size: 16.5px;
+    width: 100%;
+    padding-inline: 14px;
+    border: none;
+    background: transparent;
+    color: unset;
+  }
+
+  .activeTableButtonGroup button.activeButton {
+    background-color: #728094;
+  }
+  .activeTableButtonGroup button.activeButton:first-child {
+    border-radius: 12px 0 0 12px;
+  }
+  .activeTableButtonGroup button.activeButton:last-child {
+    border-radius: 0 12px 12px 0;
+  }
+}
