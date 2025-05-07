@@ -1,43 +1,5 @@
 @import "../index.css";
 
-/* table {
-  background-color: var(--bg);
-  color: var(--secondaryText);
-  max-width: 90vw;
-} 
-table thead {
-  background-color: var(--accent);
-  color: var(--bg);
-}
-
-table thead tr th {
-  text-align: start;
-  padding: 0.3rem 0.3rem;
-}
-
-table tbody tr td {
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 1rem 0.2rem;
-  border-bottom: 1px solid var(--accent);
-  word-wrap: break-word;
-  word-break: break-word;
-  white-space: normal;
-}
-
-table tbody tr {
-  cursor: pointer;
-} */
-
-/* .modelRow {
-  font-size: 0.8rem;
-} */
-
-/* .cardLink {
-  text-decoration: underline;
-  font-weight: 800;
-} */
-
 @media screen and (max-width: 450px) {
   table {
     font-size: 16px;

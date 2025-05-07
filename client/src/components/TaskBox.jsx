@@ -54,6 +54,17 @@ const TaskBox = () => {
           )}
         </button>
       </h3>
+      {addTask && (
+        <div className={styles.submitTaskArea}>
+          <textarea
+            value={add}
+            onChange={(e) => setAdd(e.target.value)}
+          ></textarea>
+          <button onClick={handleSubmit} className={styles.submitTaskButton}>
+            Submit
+          </button>
+        </div>
+      )}
       <div className={styles.taskItems}>
         {tasks.length === 0 && !addTask ? (
           <p style={{ margin: "12px auto" }}>Click + to add tasks</p>
@@ -68,7 +79,6 @@ const TaskBox = () => {
               <span
                 style={{
                   textDecoration: task.completed ? "line-through" : "none",
-                  flex: 1,
                 }}
               >
                 {task.text}
@@ -83,17 +93,6 @@ const TaskBox = () => {
           ))
         )}
       </div>
-      {addTask && (
-        <div className={styles.submitTaskArea}>
-          <textarea
-            value={add}
-            onChange={(e) => setAdd(e.target.value)}
-          ></textarea>
-          <button onClick={handleSubmit} className={styles.submitTaskButton}>
-            Submit
-          </button>
-        </div>
-      )}
     </div>
   );
 };

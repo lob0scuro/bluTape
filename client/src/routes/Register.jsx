@@ -1,5 +1,6 @@
 import styles from "../style/Register.module.css";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -25,22 +26,19 @@ const Register = () => {
       });
       const data = await response.json();
       if (!response.ok) {
-        setError(data.error || "Something went wrong.");
+        toast.error(data.error || "Something went wrong.");
         return;
       }
-
-      setMessage(data.message);
+      toast.success(data.message);
       navigate("/");
     } catch (error) {
-      setError("There was an error.");
+      toast.error("There was an error.");
     }
   };
 
   return (
     <>
       <h1 style={{ marginTop: "40px" }}>Register New Tech</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
       <form
         className={styles.registrationForm}
         onSubmit={handleSubmit}

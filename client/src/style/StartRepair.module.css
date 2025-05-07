@@ -1,28 +1,5 @@
 @import "../index.css";
 
-/* .startRepairButtonGroup {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  margin-top: 0.6rem;
-  border: 2px double var(--secondarytext);
-  border-radius: 8px;
-  width: fit-content;
-}
-
-.startRepairButtonGroup button {
-  background-color: var(--primaryButton);
-  color: var(--titleText);
-  border: none;
-}
-
-.startRepairButtonGroup button:first-child {
-  border-radius: 8px 0 0 8px;
-}
-.startRepairButtonGroup button:last-child {
-  border-radius: 0 8px 8px 0;
-} */
-
 @media screen and (max-width: 450px) {
   .startRepairButtonGroup {
     background-color: var(--buttonSecondary);
@@ -49,5 +26,34 @@
   }
   .startRepairButtonGroup button.activeButton:last-child {
     border-radius: 0 8px 8px 0;
+  }
+}
+
+@media screen and (min-width: 451px) {
+  .startRepairButtonGroup {
+    background-color: var(--buttonSecondary);
+    justify-content: space-evenly;
+    margin-top: 28px;
+    width: 80%;
+    height: 45px;
+    display: flex;
+    border-radius: 12px;
+  }
+  .startRepairButtonGroup button {
+    font-size: 1.2rem;
+    width: 100%;
+    padding-inline: 8px;
+    border: none;
+    background: transparent;
+    color: unset;
+  }
+  .startRepairButtonGroup button.activeButton {
+    background-color: #728094;
+  }
+  .startRepairButtonGroup button.activeButton:first-child {
+    border-radius: 12px 0 0 12px;
+  }
+  .startRepairButtonGroup button.activeButton:last-child {
+    border-radius: 0 12px 12px 0;
   }
 }

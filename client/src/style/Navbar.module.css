@@ -1,42 +1,21 @@
-header.header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 8rem;
-  padding: 1rem 1rem;
-  box-shadow: -4px 0 9px #000;
-  background-color: var(--bannerBackground);
-}
-
-header.header a h1 {
-  color: var(--textPrimary);
-  font-size: 40px;
-}
-
-.navLinks {
-  display: flex;
-  gap: 0.6rem;
-  margin-top: 0.8rem;
-  font-size: 1rem;
-}
-
 @media screen and (max-width: 450px) {
   header.header {
-    /* flex-direction: column; */
-    align-items: last baseline;
+    background-color: var(--bannerBackground);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
     justify-content: space-between;
-    /* height: 190px; */
     box-shadow: -5px 0 10px #000;
     width: 100%;
     z-index: 1000;
-    padding-bottom: 18px;
+    padding-top: 26px;
+    height: auto;
   }
 
   header.header a h1 {
     color: var(--textPrimary);
     font-size: 32px;
+    padding-left: 14px;
   }
 
   header.header a h1 small {
@@ -46,20 +25,96 @@ header.header a h1 {
 
   .hamburger {
     font-size: 28px;
-    /* flex-basis: 20%; */
+    padding-right: 14px;
   }
 
   header.header nav {
+    align-self: end;
     flex-basis: 100%;
-    justify-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 18px;
+    padding-bottom: 10px;
   }
 
   .navLinks {
     gap: 1.8rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
   }
 
   .noShow {
     display: none;
+  }
+  .lgScreenFooter {
+    display: none;
+  }
+  .lgScreenLinks {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 451px) {
+  .hamburger {
+    display: none;
+  }
+  header.header {
+    background-color: var(--bannerBackground);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 14px;
+    border-right: 3px double var(--textPrimary);
+    box-shadow: 4px 0 12px var(--buttonPrimary);
+    /* position: relative; */
+    z-index: 1000;
+  }
+  header.header a h1 {
+    font-size: 2.4em;
+    margin-top: 1em;
+    /* text-shadow: -2px -1px 3px var(--buttonPrimary); */
+  }
+  header.header a h1 small {
+    font-size: 18px;
+    font-weight: 400;
+    text-shadow: none;
+  }
+
+  header.header nav {
+    width: 100%;
+    /* height: 100%; */
+    padding-top: 40px;
+    position: fixed;
+    right: 68%;
+    top: 15%;
+  }
+  .lgScreenLinks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 12px;
+    /* height: 100%; */
+    width: 100%;
+  }
+  .lgScreenLinks a {
+    font-size: 20px;
+  }
+
+  .lgScreenFooter {
+    width: 100%;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: start;
+  }
+  .lgScreenFooter div a {
+    color: var(--linkText);
+    font-style: italic;
   }
 }
