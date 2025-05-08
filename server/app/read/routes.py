@@ -17,7 +17,7 @@ def get_active_repairs(table, status):
         if not model:
             return jsonify("Invalid table ID"), 400
         status = int(status)
-        machines = model.query.filter(model.in_progress == (status == 0)).all()
+        machines = model.query.filter((model.in_progress == (status == 0)) & (model.in_inventory == False)).all()
         if not machines:
             return jsonify(error="No finished repairs to query."), 404
         return jsonify([machine.serialize() for machine in machines]), 200
@@ -33,7 +33,7 @@ def get_all_machines_by_type(table, status, type):
         if not model:
             return jsonify(error="Invalid table number."), 400
         status = int(status)
-        machines = model.query.filter((model.in_progress == (status == 0)) & (model.machine_type == type)).all()
+        machines = model.query.filter((model.in_progress == (status == 0)) & (model.machine_type == type) & (model.in_inventory == False)).all()
         if not machines:
             return jsonify(error="Could not locate machines in database, please check inputs and try again."), 404
         return jsonify([machine.serialize() for machine in machines]), 200

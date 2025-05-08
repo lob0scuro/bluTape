@@ -50,26 +50,6 @@ const FinishedRepairs = () => {
     }
   };
 
-  const deleteFinishedRepairs = async (ids) => {
-    try {
-      const response = await fetch("/delete/delete_on_export", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ids: ids }),
-      });
-      const data = response.json();
-      if (!response.ok) {
-        toast.error(data.error);
-        return data.error;
-      }
-      toast.success(data.mesage);
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
   return (
     <>
       <div className={styles.finishedTableButtonGroup}>
@@ -111,6 +91,7 @@ const FinishedRepairs = () => {
             <button
               className={styles.exportButton}
               onClick={() => {
+                const ids = chosenTable?.map(({ id }) => id);
                 exportToExcel({
                   data: chosenTable?.map(
                     ({
@@ -136,11 +117,9 @@ const FinishedRepairs = () => {
                     })
                   ),
                   filename: `finishedRepairs_${currentDate}.xlsx`,
+                  ids,
                 });
 
-                // const isToDelete = chosenTable.map((machine) => machine.id);
-                // deleteFinishedRepairs(isToDelete);
-                // Show a success toast after export
                 toast.success("File has been exported!");
               }}
             >

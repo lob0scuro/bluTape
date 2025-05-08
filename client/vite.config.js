@@ -1,10 +1,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
-//SWITCH URL[0] TO IP OF LAPTOP
-const URL = ["http://192.168.100.190:5000", "https://blutape.net"];
+//SWITCH URL
+const URL = [
+  "https://blutape.net",
+  "http://192.168.100.190:5000",
+  "http://192.168.1.123:5000",
+];
 
-const serverURL = URL[1];
+const serverURL = URL[0];
 
 // https://vite.dev/config/
 export default defineConfig({

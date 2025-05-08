@@ -1,6 +1,6 @@
 import * as XLSX from "xlsx";
 
-export const exportToExcel = async ({ data, filename }) => {
+export const exportToExcel = async ({ data, filename, ids }) => {
   const worksheet = XLSX.utils.json_to_sheet(data);
   const workbook = XLSX.utils.book_new();
 
@@ -8,21 +8,22 @@ export const exportToExcel = async ({ data, filename }) => {
 
   XLSX.writeFile(workbook, filename);
 
-  // try {
-  //   const response = await fetch("/delete/delete_on_export", {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const data = await response.json();
-  //   if (!response.ok) {
-  //     return data.error || "There was an error";
-  //   }
-  //   return data.message || "Success!";
-  // } catch (error) {
-  //   return error;
-  // }
+  try {
+    const response = await fetch("/update/inventory_many", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ids }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      return data.error || "There was an error";
+    }
+    return data.message || "Success!";
+  } catch (error) {
+    return error;
+  }
 };
 
 export const formatDate = (date) => {
