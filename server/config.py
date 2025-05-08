@@ -16,6 +16,7 @@ class Config:
     MAIL_USERNAME = "matts.blutape@gmail.com"
     MAIL_PASSWORD = os.environ.get('APP_PASSWORD')
     MAIL_DEFAULT_SENDER = "matts.blutape@gmail.com"
+    FLASK_ENV="production"
     DEBUG = False
     SESSION_TYPE = 'redis'
     SESSION_PERMANENT = True
@@ -47,6 +48,7 @@ class TestConfig:
     MAIL_USERNAME = "matts.blutape@gmail.com"
     MAIL_PASSWORD = os.environ.get('APP_PASSWORD')
     MAIL_DEFAULT_SENDER = "matts.blutape@gmail.com"
+    FLASK_ENV="development"
     DEBUG = True
     UPLOAD_EXTENSIONS = ['jpg', 'png', 'jpeg']
     UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'app', 'static', 'images')
