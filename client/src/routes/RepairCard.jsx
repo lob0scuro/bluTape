@@ -9,7 +9,7 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import {
   fetchOneMachine,
   formatDate,
@@ -36,6 +36,7 @@ const RepairCard = () => {
   const [editMachine, setEditMachine] = useState(false);
   const [editValue, setEditValue] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchMachine = async () => {
@@ -190,6 +191,19 @@ const RepairCard = () => {
 
   return (
     <>
+      {!user && (
+        <p style={{ fontSize: "18px", marginBottom: "2rem" }}>
+          **
+          <Link
+            to="/login"
+            state={{ from: location }}
+            style={{ color: "#6d7db2", fontSize: "22px" }}
+          >
+            Login
+          </Link>{" "}
+          to edit machine and add notes**
+        </p>
+      )}
       {user && (
         <div className={styles.cardButtonBlock}>
           <button disabled={editMachine}>Label</button>
@@ -361,13 +375,15 @@ const RepairCard = () => {
               >
                 <FontAwesomeIcon icon={faPrint} />
               </button>
-              <button onClick={() => setAddingNote(!addingNote)}>
-                {addingNote && user ? (
-                  <FontAwesomeIcon icon={faMinus} />
-                ) : (
-                  <FontAwesomeIcon icon={faPlus} />
-                )}
-              </button>
+              {user && (
+                <button onClick={() => setAddingNote(!addingNote)}>
+                  {addingNote && user ? (
+                    <FontAwesomeIcon icon={faMinus} />
+                  ) : (
+                    <FontAwesomeIcon icon={faPlus} />
+                  )}
+                </button>
+              )}
             </div>
           </h3>
           <div className={styles.noteItems}>
@@ -390,12 +406,14 @@ const RepairCard = () => {
                         <p>~ {tech?.first_name}</p>
                         <p>[{formatDate(note.created_on)}]</p>
                       </div>
-                      <button
-                        className={styles.noPrint}
-                        onClick={() => deleteNote(note.id)}
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </button>
+                      {user && (
+                        <button
+                          className={styles.noPrint}
+                          onClick={() => deleteNote(note.id)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      )}
                     </div>
                   </div>
                 );

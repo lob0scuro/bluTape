@@ -69,7 +69,7 @@ body {
   body,
   html {
     max-width: 1800px;
-    margin: 0 auto;
+    margin: 0 auto 0 0;
   }
 
   #root {

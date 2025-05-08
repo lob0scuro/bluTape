@@ -1,6 +1,6 @@
 import styles from "../style/Login.module.css";
 import { useActionState, useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { fetchAllTechs } from "../utils.jsx";
 import { useAuth } from "../context/UserContext.jsx";
 import toast from "react-hot-toast";
@@ -8,6 +8,10 @@ import toast from "react-hot-toast";
 const Login = () => {
   const [techs, setTechs] = useState([]);
   const { setUser } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     const retrieveTechs = async () => {
@@ -20,7 +24,6 @@ const Login = () => {
     retrieveTechs();
   }, []);
 
-  const navigate = useNavigate();
   const submitForm = async (prevState, formData) => {
     const response = await fetch("/auth/login", {
       method: "POST",
@@ -38,7 +41,7 @@ const Login = () => {
     setUser(data.tech);
     toast.success(data.message);
     setTimeout(() => {}, 4000);
-    navigate("/");
+    navigate(from, { replace: true });
   };
 
   const [state, formAction] = useActionState(submitForm, {
