@@ -55,6 +55,7 @@ class Machine(db.Model):
     condition = db.Column(db.String(50), server_default="USED")
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
+    in_inventory = db.Column(db.Boolean, server_default="0")
     machine_type = db.Column(db.Integer, nullable=False) 
     notes = db.relationship('Notes', backref="machine")
     
