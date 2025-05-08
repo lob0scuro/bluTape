@@ -53,7 +53,6 @@ class Machine(db.Model):
     style = db.Column(db.String(150))
     vendor = db.Column(db.String(150))
     condition = db.Column(db.String(50), server_default="USED")
-    heat_type = db.Column(db.String(50), nullable=True)
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
     machine_type = db.Column(db.Integer, nullable=False) 
@@ -69,7 +68,6 @@ class Machine(db.Model):
             'style': self.style,
             'vendor': self.vendor,
             'condition': self.condition,
-            'heat_type': self.heat_type,
             'machine_type': self.machine_type,
             'created_on': self.created_on,
             'in_progress': self.in_progress,
@@ -107,7 +105,6 @@ class Archive(db.Model):
     color = db.Column(db.String(150))
     style = db.Column(db.String(150))
     condition = db.Column(db.String(50), server_default="USED")
-    heat_type = db.Column(db.String(50), nullable=True)
     created_on = db.Column(db.Date, default=func.current_date())
     in_progress = db.Column(db.Boolean, server_default="1")
     machine_type = db.Column(db.Integer, nullable=False) ## 0: fridge, 1:washer, 2:dryer, 3:range, 4:stackable, 5:dishwasher, 6:microwave, 7:water_heater
@@ -122,7 +119,6 @@ class Archive(db.Model):
             'color': self.color,
             'style': self.style,
             'condition': self.condition,
-            'heat_type': self.heat_type,
             'machine_type': self.machine_type,
             'created_on': self.created_on,
             'in_progress': self.in_progress,

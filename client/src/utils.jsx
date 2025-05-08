@@ -48,6 +48,10 @@ export const machineMap = {
   1: "Washer",
   2: "Dryer",
   3: "Range",
+  4: "Stackable",
+  5: "Dishwasher",
+  6: "Microwave",
+  7: "Water Heater",
 };
 
 export const brands = {
@@ -145,8 +149,9 @@ export const machineStyles = [
     "All in One": "All in One",
   },
   {
-    "Glass Top": "Glass Top",
+    Gas: "Gas",
     Coil: "Coil",
+    "Glass Top": "Glass Top",
   },
 ];
 
@@ -242,7 +247,7 @@ export const fetchOneMachine = async (table, id) => {
 
 export const finishRepair = async (id) => {
   try {
-    const response = await fetch(`/update/add_to_inventory/${id}`, {
+    const response = await fetch(`/update/finish_repair/${id}`, {
       method: "PATCH",
     });
     if (!response.ok) {

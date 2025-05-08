@@ -86,16 +86,7 @@ const RepairForm = ({ title, machineType }) => {
             <option value="NEW">New</option>
           </select>
         </div>
-        {machineType !== 0 && machineType !== 1 && (
-          <div>
-            <label htmlFor="heat_type">Heat Type: </label>
-            <select name="heat_type" id="heat_type">
-              <option value="">--Select Heat Type--</option>
-              <option value="Gas">Gas</option>
-              <option value="Electric">Electric</option>
-            </select>
-          </div>
-        )}
+
         <div>
           <label htmlFor="vendor">Vendor: </label>
           <select name="vendor" id="vendor">

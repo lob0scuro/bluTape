@@ -113,6 +113,9 @@ const RepairCard = () => {
   };
 
   const deleteNote = async (id) => {
+    if (!confirm("Delete note?")) {
+      return;
+    }
     try {
       const response = await fetch(`/delete/delete_note/${id}`, {
         method: "DELETE",
@@ -343,24 +346,6 @@ const RepairCard = () => {
                   <small>{machine.condition}</small>
                 )}
               </li>
-              {machine.heat_type && (
-                <li>
-                  Heat Type:
-                  {editMachine ? (
-                    <select
-                      name="heat_type"
-                      id="heat_type"
-                      value={editValue.heat_type}
-                      onChange={handleChange}
-                    >
-                      <option value="Gas">Gas</option>
-                      <option value="Electric">Electric</option>
-                    </select>
-                  ) : (
-                    <small>{machine.heat_type}</small>
-                  )}
-                </li>
-              )}
             </ul>
             {editMachine && <button type="submit">Submit</button>}
           </form>

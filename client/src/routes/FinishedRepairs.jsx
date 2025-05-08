@@ -112,26 +112,30 @@ const FinishedRepairs = () => {
               className={styles.exportButton}
               onClick={() => {
                 exportToExcel({
-                  data: chosenTable.map(
+                  data: chosenTable?.map(
                     ({
                       id,
                       machine_type,
+                      style,
                       brand,
                       model,
                       serial,
                       vendor,
                       condition,
+                      color,
                     }) => ({
                       ID: id,
-                      Type: machineMap(machine_type),
                       Brand: brand,
+                      Category: machineMap[machine_type],
+                      Type: style,
+                      Color: color,
                       Model: model,
                       Serial: serial,
                       Vendor: vendor,
                       Condition: condition,
                     })
                   ),
-                  filename: `Finished_Repairs_${currentDate}.xlsx`,
+                  filename: `finishedRepairs_${currentDate}.xlsx`,
                 });
 
                 // const isToDelete = chosenTable.map((machine) => machine.id);

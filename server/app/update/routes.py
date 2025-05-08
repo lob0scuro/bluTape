@@ -4,7 +4,7 @@ from app.models import Machine, Tech, Notes, Archive
 from flask_login import current_user, login_required
 from app.extensions import db
 
-@bp.route("/add_to_inventory/<int:id>", methods=["PATCH"])    
+@bp.route("/finish_repair/<int:id>", methods=["PATCH"])    
 @login_required
 def add_to_inventory(id):
     try:
@@ -29,7 +29,7 @@ def edit(id):
         data = request.get_json()
         if not data:
             return jsonify(error="No payload in request."), 404
-        fields = ["brand", "model", "serial", "color", "style", "vendor", "condition", "heat_type"]
+        fields = ["brand", "model", "serial", "color", "style", "vendor", "condition"]
         updated = False
         for field in fields:
             if field in data:
