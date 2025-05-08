@@ -38,6 +38,9 @@ const TaskBox = () => {
   };
 
   const deleteTask = (index) => {
+    if (!confirm("Delete Task?")) {
+      return;
+    }
     const updated = tasks.filter((_, i) => i !== index);
     setTasks(updated);
   };
@@ -83,12 +86,14 @@ const TaskBox = () => {
               >
                 {task.text}
               </span>
-              <button
-                className={styles.deleteTaskButton}
-                onClick={() => deleteTask(index)}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
+              {task.completed && (
+                <button
+                  className={styles.deleteTaskButton}
+                  onClick={() => deleteTask(index)}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              )}
             </p>
           ))
         )}

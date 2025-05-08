@@ -7,19 +7,21 @@
     justify-content: space-between;
     box-shadow: -5px 0 10px #000;
     width: 100%;
-    z-index: 1000;
     padding-top: 26px;
     height: auto;
+    z-index: 1000;
   }
 
   header.header a h1 {
     color: var(--textPrimary);
-    font-size: 32px;
+    font-size: 30px;
     padding-left: 14px;
+    font-weight: 600;
   }
 
   header.header a h1 small {
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 100;
     color: var(--textSecondary);
   }
 
@@ -116,5 +118,6 @@
   .lgScreenFooter div a {
     color: var(--linkText);
     font-style: italic;
+    font-size: 1.4rem;
   }
 }
