@@ -41,8 +41,7 @@ const EditTech = () => {
         setError(data.error || "Something went wrong.");
         return;
       }
-      localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
-      setUser(data.tech);
+
       toast.success(data.message || "Updated Tech");
       navigate("/");
     } catch (error) {
