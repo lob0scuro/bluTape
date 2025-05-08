@@ -7,14 +7,13 @@ tar --exclude='env' --exclude='__pycache__' --exclude='*.pyc' --exclude='.git' -
 echo "deploying  flask files to server"
 scp deploy.tar.gz cameron@45.56.74.113:/var/www/bluTape/app/
 
-echo "Files sent. Unpack manually on the server with:"
-echo "  tar -xzf /var/www/bluTape/app/deploy.tar.gz -C /var/www/bluTape/app && rm /var/www/bluTape/app/deploy.tar.gz"
+echo "Files sent. Unpack manually on the server"
 
 
-echo "bundling  react files..."
+echo "bundling react files..."
 cd client && npm run build
 
-echo "deploying  react files to server"
+echo "deploying react files to server"
 scp -r dist/* cameron@45.56.74.113:/var/www/bluTape/bluTape.net/
 
 echo "Done! Go to server and run 'unloadappzip' and 'restartapp'"
