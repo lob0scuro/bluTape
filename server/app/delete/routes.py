@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from app.delete import bp
 from app.extensions import db
-from app.models import Tech, Machine, Archive, Notes
+from app.models import Tech, Machine, Notes
 from flask_login import login_required, current_user
 
 @bp.route("/delete/<int:id>", methods=["DELETE"])

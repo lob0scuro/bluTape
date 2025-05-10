@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from app.create import bp
 from flask_login import login_required, current_user
-from app.models import Machine, Tech, Notes, Archive
+from app.models import Machine, Tech, Notes
 from app.extensions import db
 
 

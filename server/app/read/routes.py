@@ -1,12 +1,12 @@
 from flask import request, jsonify
 from app.read import bp
 from app.extensions import db
-from app.models import Machine, Notes, Archive
+from app.models import Machine, Notes
 from flask_login import current_user, login_required
 
 tableMap = {
     0: Machine,
-    1: Archive
+    
 }
 
 @bp.route("/get_all_machines/<int:table>/<int:status>", methods=["GET"])

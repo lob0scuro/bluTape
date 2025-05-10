@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from app.update import bp
-from app.models import Machine, Tech, Notes, Archive
+from app.models import Machine, Tech, Notes
 from flask_login import current_user, login_required
 from app.extensions import db
 
