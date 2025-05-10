@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { renderMatches, useNavigate } from "react-router-dom";
 import { fetchOneTech, fetchAllTechs, renderOptions } from "../utils";
 import { useAuth } from "../context/UserContext";
+import toast from "react-hot-toast";
 
 const EditTech = () => {
   const { setUser } = useAuth();
