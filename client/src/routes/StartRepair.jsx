@@ -6,7 +6,6 @@ import React, { useState } from "react";
 const formTitles = ["Refrigerator", "Washer", "Dryer", "Range"];
 
 const StartRepair = () => {
-  const { user } = useAuth();
   const [chosenForm, setChosenForm] = useState(null);
   const [activeButton, setActiveButton] = useState(null);
 

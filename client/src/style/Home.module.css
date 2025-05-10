@@ -135,6 +135,17 @@
     font-size: 16px;
     resize: none;
   }
+  .timeInputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .timeInputs input {
+    /* font-size: 12px; */
+    height: 14px;
+  }
   .submitTaskButton {
     font-size: 16px;
     background-color: var(--buttonSecondary);
