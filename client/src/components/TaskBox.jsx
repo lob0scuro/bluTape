@@ -1,13 +1,15 @@
 import styles from "../style/Home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-
+import { currentDay, convertTime } from "../utils";
 import React, { useEffect, useState } from "react";
 
 const TaskBox = () => {
   const [tasks, setTasks] = useState([]);
-  const [add, setAdd] = useState("");
   const [addTask, setAddTask] = useState(false);
+  const [add, setAdd] = useState("");
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
 
   useEffect(() => {
     const savedTasks = localStorage.getItem("tasks");
@@ -25,7 +27,13 @@ const TaskBox = () => {
       setAddTask(false);
       return;
     }
-    const newTask = { text: add.trim(), completed: false };
+    const newTask = {
+      text: add.trim(),
+      date: currentDay(),
+      start: convertTime(startTime),
+      end: convertTime(endTime),
+      completed: false,
+    };
     setTasks((prev) => [...prev, newTask]);
     setAdd("");
     setAddTask(false);
@@ -48,7 +56,7 @@ const TaskBox = () => {
   return (
     <div className={styles.taskBlock}>
       <h3>
-        Tasks{" "}
+        Tasks - {currentDay()}
         <button onClick={() => setAddTask(!addTask)}>
           {!addTask ? (
             <FontAwesomeIcon icon={faPlus} />
@@ -59,6 +67,22 @@ const TaskBox = () => {
       </h3>
       {addTask && (
         <div className={styles.submitTaskArea}>
+          <div className={styles.timeInputs}>
+            <p>Start</p>
+            <input
+              type="time"
+              name="startTime"
+              id="startTime"
+              onChange={(e) => setStartTime(e.target.value)}
+            />
+            <p>End</p>
+            <input
+              type="time"
+              name="endTime"
+              id="endTime"
+              onChange={(e) => setEndTime(e.target.value)}
+            />
+          </div>
           <textarea
             value={add}
             onChange={(e) => setAdd(e.target.value)}
@@ -84,6 +108,10 @@ const TaskBox = () => {
                   textDecoration: task.completed ? "line-through" : "none",
                 }}
               >
+                {task.date}
+                <br />
+                {task.start} - {task.end}
+                <br />
                 {task.text}
               </span>
               {task.completed && (
