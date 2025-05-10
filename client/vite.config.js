@@ -8,7 +8,7 @@ const URL = [
   "http://192.168.1.123:5000",
 ];
 
-const serverURL = URL[1];
+const serverURL = URL[0];
 
 // https://vite.dev/config/
 export default defineConfig({
