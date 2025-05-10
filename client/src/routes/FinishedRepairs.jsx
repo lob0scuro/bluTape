@@ -1,5 +1,6 @@
 import styles from "../style/FinishedRepairs.module.css";
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Table from "../components/Table";
 import {
   fetchAllMachines,
@@ -18,6 +19,7 @@ const FinishedRepairs = () => {
   const [activeButton, setActiveButton] = useState(null);
   const today = new Date();
   const currentDate = formatDate(today).replace(/ /g, "_");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRepairs = async () => {
@@ -121,6 +123,7 @@ const FinishedRepairs = () => {
                 });
 
                 toast.success("File has been exported!");
+                navigate("/");
               }}
             >
               Export Table

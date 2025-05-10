@@ -23,7 +23,8 @@ const Home = () => {
       {user.is_admin && (
         <div className={styles.adminPanelButtonBlock}>
           <Link to="/edit_tech">View Techs</Link>
-          <Link to="/register">Register New Tech</Link>
+          <Link to="/register">Register</Link>
+          <Link>Exported</Link>
         </div>
       )}
       <TaskBox />

@@ -166,6 +166,12 @@ export const vendors = {
   Scrappers: "Scrappers",
 };
 
+export const conditions = {
+  NEW: "NEW",
+  USED: "USED",
+  "Scratch and Dent": "Scratch and Dent",
+};
+
 export const renderOptions = (obj) => {
   return (
     Object.entries(obj).map(([key, value]) => (

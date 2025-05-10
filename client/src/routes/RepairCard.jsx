@@ -22,6 +22,7 @@ import {
   colors,
   machineStyles,
   vendors,
+  conditions,
 } from "../utils.jsx";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/UserContext.jsx";
@@ -339,8 +340,7 @@ const RepairCard = () => {
                     name="condition"
                     id="condition"
                   >
-                    <option value="USED">USED</option>
-                    <option value="NEW">NEW</option>
+                    {renderOptions(conditions)}
                   </select>
                 ) : (
                   <small>{machine.condition}</small>

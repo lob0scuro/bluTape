@@ -6,6 +6,7 @@ import {
   machineStyles,
   renderOptions,
   vendors,
+  conditions,
 } from "../utils.jsx";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -82,8 +83,7 @@ const RepairForm = ({ title, machineType }) => {
           <label htmlFor="condition">Condition: </label>
           <select name="condition" id="condition">
             <option value="">--Select Condition--</option>
-            <option value="USED">Used</option>
-            <option value="NEW">New</option>
+            {renderOptions(conditions)}
           </select>
         </div>
 
