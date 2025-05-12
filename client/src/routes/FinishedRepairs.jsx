@@ -93,6 +93,7 @@ const FinishedRepairs = () => {
             <button
               className={styles.exportButton}
               onClick={() => {
+                if (!confirm("Export table?")) return;
                 const ids = chosenTable?.map(({ id }) => id);
                 exportToExcel({
                   data: chosenTable?.map(

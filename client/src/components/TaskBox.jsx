@@ -46,9 +46,6 @@ const TaskBox = () => {
   };
 
   const deleteTask = (index) => {
-    if (!confirm("Delete Task?")) {
-      return;
-    }
     const updated = tasks.filter((_, i) => i !== index);
     setTasks(updated);
   };
