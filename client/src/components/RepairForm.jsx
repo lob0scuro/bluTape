@@ -12,8 +12,12 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const RepairForm = ({ title, machineType }) => {
-  const submitForm = async (prevData, formData) => {
-    const inputs = Object.fromEntries(formData);
+  const navigate = useNavigate();
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const inputs = Object.fromEntries(formData.entries());
     inputs.machine_type = machineType;
     try {
       const response = await fetch("/create/create_repair", {
@@ -34,36 +38,29 @@ const RepairForm = ({ title, machineType }) => {
       navigate(`/card/${data.machine.id}/${0}`);
       return { message: data.message };
     } catch (error) {
-      alert("There was an unexpected error.");
+      toast.error(`There was an unexpected error: ${error.message}`);
       return { error: "There was an unexpected error." };
     }
   };
 
-  const [state, formAction] = useActionState(submitForm, {
-    message: "",
-    error: "",
-  });
-
-  const navigate = useNavigate();
-
   return (
     <>
       {/* <h1 className={styles.repairHeader}>{title}</h1> */}
-      <form className={styles.repairForm} action={formAction}>
+      <form className={styles.repairForm} onSubmit={submitForm}>
         <div>
           <label htmlFor="brand">Brand: </label>
-          <select name="brand" id="brand">
+          <select name="brand" id="brand" required>
             <option value="">--Select Brand--</option>
             {renderOptions(brands)}
           </select>
         </div>
         <div>
           <label htmlFor="model">Model: </label>
-          <input type="text" name="model" id="model" />
+          <input type="text" name="model" id="model" required />
         </div>
         <div>
           <label htmlFor="serial">Serial: </label>
-          <input type="text" name="serial" id="serial" />
+          <input type="text" name="serial" id="serial" required />
         </div>
         <div>
           <label htmlFor="color">Color: </label>
