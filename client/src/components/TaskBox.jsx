@@ -1,6 +1,11 @@
-import styles from "../style/Home.module.css";
+import styles from "../style/TaskBox.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faPlus,
+  faMinus,
+  faPrint,
+} from "@fortawesome/free-solid-svg-icons";
 import { currentDay, convertTime } from "../utils";
 import React, { useEffect, useState } from "react";
 
@@ -53,14 +58,21 @@ const TaskBox = () => {
   return (
     <div className={styles.taskBlock}>
       <h3>
-        Tasks - {currentDay()}
-        <button onClick={() => setAddTask(!addTask)}>
-          {!addTask ? (
-            <FontAwesomeIcon icon={faPlus} />
-          ) : (
-            <FontAwesomeIcon icon={faMinus} />
-          )}
-        </button>
+        <div>
+          Tasks ~<span>{currentDay()}</span>
+        </div>
+        <div>
+          <button>
+            <FontAwesomeIcon icon={faPrint} />
+          </button>
+          <button onClick={() => setAddTask(!addTask)}>
+            {!addTask ? (
+              <FontAwesomeIcon icon={faPlus} />
+            ) : (
+              <FontAwesomeIcon icon={faMinus} />
+            )}
+          </button>
+        </div>
       </h3>
       {addTask && (
         <div className={styles.submitTaskArea}>
@@ -90,38 +102,38 @@ const TaskBox = () => {
         </div>
       )}
       <div className={styles.taskItems}>
-        {tasks.length === 0 && !addTask ? (
-          <p style={{ margin: "12px auto" }}>Click + to add tasks</p>
-        ) : (
-          tasks.map((task, index) => (
-            <p key={index} className={styles.taskItem}>
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => toggleComplete(index)}
-              />
-              <span
-                style={{
-                  textDecoration: task.completed ? "line-through" : "none",
-                }}
-              >
-                {task.date}
-                <br />
-                {task.start} - {task.end}
-                <br />
-                {task.text}
-              </span>
-              {task.completed && (
-                <button
-                  className={styles.deleteTaskButton}
-                  onClick={() => deleteTask(index)}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              )}
-            </p>
-          ))
-        )}
+        <ul>
+          {tasks.length === 0 && !addTask ? (
+            <li style={{ margin: "12px auto 12px 12px" }}>
+              -- Click + to add tasks --
+            </li>
+          ) : (
+            tasks.map((task, index) => (
+              <li key={index} className={styles.taskItem}>
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => toggleComplete(index)}
+                />
+                <div className={styles.taskItemText}>
+                  <p>
+                    [{task.start} - {task.end}]
+                  </p>
+                  <p>{task.text}</p>
+                  <p>{task.date}</p>
+                </div>
+                {task.completed && (
+                  <button
+                    className={styles.deleteTaskButton}
+                    onClick={() => deleteTask(index)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                )}
+              </li>
+            ))
+          )}
+        </ul>
       </div>
     </div>
   );
