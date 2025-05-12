@@ -1,5 +1,5 @@
 import styles from "../style/Login.module.css";
-import { useActionState, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { fetchAllTechs } from "../utils.jsx";
 import { useAuth } from "../context/UserContext.jsx";
@@ -24,30 +24,34 @@ const Login = () => {
     retrieveTechs();
   }, []);
 
-  const submitForm = async (prevState, formData) => {
-    const response = await fetch("/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(Object.fromEntries(formData)),
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      toast.error(data.error);
-      return { error: data.error || `Error: ${response.statusText}` };
-    }
-    localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
-    setUser(data.tech);
-    toast.success(data.message);
-    setTimeout(() => {}, 4000);
-    navigate(from, { replace: true });
-  };
+  const submitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.target);
+      const inputs = Object.fromEntries(formData.entries());
 
-  const [state, formAction] = useActionState(submitForm, {
-    message: "",
-    error: "",
-  });
+      const response = await fetch("/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputs),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error(data.error);
+        return { error: data.error || `Error: ${response.statusText}` };
+      }
+      localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
+      setUser(data.tech);
+      toast.success(data.message);
+      setTimeout(() => {}, 4000);
+      navigate(from, { replace: true });
+    } catch (error) {
+      toast.error(error.message);
+      return { error: error.message };
+    }
+  };
 
   const renderTechOptions = techs.map((tech) => (
     <option key={tech.id} value={tech.id}>
@@ -57,24 +61,21 @@ const Login = () => {
 
   return (
     <>
-      {/* {state.message && <p style={{ color: "green" }}>{state.message}</p>} */}
-      {/* {state.error && <p style={{ color: "red" }}>{state.error}</p>} */}
-      <form action={formAction} className={styles.loginForm}>
+      <form onSubmit={submitForm} className={styles.loginForm}>
         <h1>Login</h1>
         <div>
-          {/* <label htmlFor="tech_id">Technician: </label> */}
           <select name="tech_id" id="tech_id">
             <option value="">--Select Technician--</option>
             {renderTechOptions}
           </select>
         </div>
         <div>
-          {/* <label htmlFor="password">Password: </label> */}
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Enter Password..."
+            required
           />
         </div>
         <button type="submit">Login</button>
