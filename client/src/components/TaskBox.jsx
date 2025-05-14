@@ -1,4 +1,5 @@
 import styles from "../style/TaskBox.module.css";
+import printStyles from "../style/PrintTasks.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
@@ -15,6 +16,7 @@ const TaskBox = () => {
   const [add, setAdd] = useState("");
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
+  const [printing, setPrinting] = useState(true);
 
   useEffect(() => {
     const savedTasks = localStorage.getItem("tasks");
@@ -55,6 +57,11 @@ const TaskBox = () => {
     setTasks(updated);
   };
 
+  const printTaskList = () => {
+    setPrinting(true);
+    window.print();
+  };
+
   return (
     <div className={styles.taskBlock}>
       <h3>
@@ -63,7 +70,7 @@ const TaskBox = () => {
         </div>
         <div>
           <button>
-            <FontAwesomeIcon icon={faPrint} />
+            <FontAwesomeIcon icon={faPrint} onClick={printTaskList} />
           </button>
           <button onClick={() => setAddTask(!addTask)}>
             {!addTask ? (
@@ -102,7 +109,7 @@ const TaskBox = () => {
         </div>
       )}
       <div className={styles.taskItems}>
-        <ul>
+        <ul className={printing && printStyles.taskItem}>
           {tasks.length === 0 && !addTask ? (
             <li style={{ margin: "12px auto 12px 12px" }}>
               -- Click + to add tasks --
