@@ -14,15 +14,20 @@ def create_repair():
             return jsonify(error="No payload in request"), 400
         brand = data.get("brand")
         model = data.get("model")
-        serial = data.get("serial")
+        serial = data.get("serial", "").strip().upper()
         color = data.get("color")
         style = data.get("style")
         vendor = data.get("vendor")
         condition = data.get("condition")
         machine_type = data.get("machine_type")
         note = data.get("note")
+        
+        existing = Machine.query.filter_by(serial=serial).first()
+        if existing:
+            return jsonify(error="Machine with this serial has already been entered into the database."), 400
+        
     
-        newMachine = Machine(brand=brand, model=model.upper(), serial=serial.upper(), color=color, style=style, vendor=vendor, condition=condition.upper(), machine_type=machine_type)
+        newMachine = Machine(brand=brand, model=model.upper(), serial=serial, color=color, style=style, vendor=vendor, condition=condition.upper(), machine_type=machine_type)
         db.session.add(newMachine)
         db.session.commit()
         newNote = Notes(content=note, tech_id=current_user.id, machine_id=newMachine.id)

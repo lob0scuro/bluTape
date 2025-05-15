@@ -46,9 +46,9 @@ class Tech(UserMixin, db.Model):
 
 class Machine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    brand = db.Column(db.String(150))
-    model = db.Column(db.String(150))
-    serial = db.Column(db.String(150))
+    brand = db.Column(db.String(150), nullable=False)
+    model = db.Column(db.String(150), nullable=False)
+    serial = db.Column(db.String(150), nullable=False, unique=True)
     color = db.Column(db.String(150))
     style = db.Column(db.String(150))
     vendor = db.Column(db.String(150))

@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react-swc";
 //SWITCH URL
 const URL = [
   "https://blutape.net",
-  "http://192.168.100.190:5000",
+  "http://192.168.100.53:5000",
   "http://192.168.1.123:5000",
 ];
 
