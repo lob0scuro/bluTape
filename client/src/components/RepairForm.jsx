@@ -28,7 +28,7 @@ const RepairForm = ({ title, machineType }) => {
       });
       const data = await response.json();
       if (!response.ok) {
-        alert(data.error);
+        toast.error(data.error);
         return {
           error: data.error || `There was an error: ${response.statusText}`,
         };
