@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 from app.auth import bp
 from app.models import Tech
 from app.extensions import db, bcrypt
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 """
 _SUMMARY_
@@ -104,9 +104,9 @@ def logout():
         return jsonify(f"Server error: {e}"), 500
     
     
-@bp.route("/current_user", methods=['GET'])
+@bp.route("/get_user", methods=['GET'])
 @login_required
-def current_user():
+def get_user():
     return jsonify(user=current_user.serialize())
         
 
