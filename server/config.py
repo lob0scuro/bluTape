@@ -19,13 +19,13 @@ class Config:
     FLASK_ENV="production"
     DEBUG = False
     SESSION_TYPE = 'redis'
-    SESSION_PERMANENT = True
+    SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
-    SESSION_KEY_PREFIX = "blutape:"
+    SESSION_KEY_PREFIX = "blutape_session:"
     SESSION_REDIS = redis.from_url("redis://localhost:6379")
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SAMESITE = 'Strict'
+    SESSION_COOKIE_SAMESITE = 'None'
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
     
     

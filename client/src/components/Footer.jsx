@@ -15,7 +15,7 @@ const Footer = () => {
       return data.error;
     }
     toast.success(data.message);
-    localStorage.removeItem("loggedInUser");
+    // localStorage.removeItem("loggedInUser");
     setUser(null);
     navigate("/login");
   };

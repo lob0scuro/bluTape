@@ -42,7 +42,7 @@ const Login = () => {
         toast.error(data.error);
         return { error: data.error || `Error: ${response.statusText}` };
       }
-      localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
+      // localStorage.setItem("loggedInUser", JSON.stringify(data.tech));
       setUser(data.tech);
       toast.success(data.message);
       setTimeout(() => {}, 4000);

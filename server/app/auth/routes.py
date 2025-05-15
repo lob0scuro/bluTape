@@ -60,7 +60,7 @@ def login():
         tech_id = data.get("tech_id")
         password = data.get("password")
         
-        if not tech_id and not password:
+        if not tech_id or not password:
             return jsonify(error="all fields are required"), 400
         
         tech = Tech.query.get(tech_id)
@@ -102,6 +102,12 @@ def logout():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(f"Server error: {e}"), 500
+    
+    
+@bp.route("/current_user", methods=['GET'])
+@login_required
+def current_user():
+    return jsonify(user=current_user.serialize())
         
 
 #GET ALL TECHNICIANS
