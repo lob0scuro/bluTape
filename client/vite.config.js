@@ -6,9 +6,10 @@ const URL = [
   "https://blutape.net", //Server play
   "http://192.168.100.53:5000", // office play
   "http://192.168.1.123:5000", // home play
+  "http://127.0.0.1:5000",
 ];
 
-const serverURL = URL[1];
+const serverURL = URL[3];
 
 // https://vite.dev/config/
 export default defineConfig({
