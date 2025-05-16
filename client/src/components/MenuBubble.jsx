@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
-  faEllipsisVertical,
+  faXmark,
+  faHouse,
   faGear,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
@@ -12,8 +13,12 @@ const MenuBubble = () => {
   const [open, setOpen] = useState(false);
   return (
     <div className="bubble">
-      <button onClick={() => setOpen(!open)}>
-        <FontAwesomeIcon icon={faEllipsisVertical} />
+      <button onClick={() => setOpen(!open)} onBlur={() => setOpen(false)}>
+        {open ? (
+          <FontAwesomeIcon icon={faXmark} style={{ color: "red" }} />
+        ) : (
+          <FontAwesomeIcon icon={faHouse} />
+        )}
       </button>
       {open && (
         <div className="bubbleLinks">
