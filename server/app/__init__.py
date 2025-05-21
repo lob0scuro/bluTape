@@ -3,7 +3,7 @@ from config import Config, TestConfig
 from app.extensions import cors, db, login_manager, mail, migrate, session, bcrypt
 from app.models import Tech
 
-def create_app(config_class=TestConfig):
+def create_app(config_class=Config):
     app = Flask(__name__, static_folder='static')
     app.config.from_object(config_class)
     #initialize extensions
