@@ -24,7 +24,7 @@ const Home = () => {
         <div className={styles.adminPanelButtonBlock}>
           <Link to="/edit_tech">View Techs</Link>
           <Link to="/register">Register</Link>
-          <Link>Exported</Link>
+          <Link to="/inventory">Exported</Link>
         </div>
       )}
       <TaskBox />

@@ -55,3 +55,13 @@ def get_one_machine(table, id):
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(f"Server Error: {e}"), 500
+    
+@bp.route("/get_inventory", methods=["GET"])
+@login_required
+def get_inventory():
+    try:
+        machines = Machine.query.filter_by(in_inventory=True).all()
+        return jsonify(machines=[machine.serialize() for machine in machines]), 200
+    except Exception as e:
+        print(f"Server Error: {e}")
+        return jsonify(error=f"Error when fetching inventory: {e}"), 500
