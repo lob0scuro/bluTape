@@ -145,8 +145,10 @@ export const machineStyles = [
     "All in One": "All in One",
   },
   {
-    "Top Load": "Top Load",
-    "Front Load": "Front Load",
+    "Top Load Gas": "Top Load Gas",
+    "Front Load Gas": "Front Load Gas",
+    "Top Load Electric": "Top Load Electric",
+    "Front Load Electric": "Front Load Electric",
     "All in One": "All in One",
   },
   {
@@ -164,6 +166,7 @@ export const vendors = {
   "Stines LC": "Stines LC",
   "Stines Jenings": "Stines Jennings",
   Scrappers: "Scrappers",
+  Unknown: "Unknown",
 };
 
 export const conditions = {
@@ -249,6 +252,19 @@ export const fetchOneMachine = async (table, id) => {
     return data;
   } catch (error) {
     return error;
+  }
+};
+
+export const fetchInventory = async () => {
+  try {
+    const response = await fetch("/read/get_inventory");
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+    return { success: true, machines: data.machines || [] };
+  } catch (error) {
+    return { success: false, error: error.message };
   }
 };
 

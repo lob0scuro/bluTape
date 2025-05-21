@@ -39,7 +39,7 @@ class Config:
 
 class TestConfig:
     SECRET_KEY = "dev"
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_URI')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = "smtp.gmail.com"
     MAIL_PORT = 465
@@ -54,6 +54,16 @@ class TestConfig:
     UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'app', 'static', 'images')
     UPLOAD_URL = "/static/images"
     SESSION_COOKIE_SECURE = False
+    
+    SESSION_TYPE = 'redis'
+    SESSION_PERMANENT = False
+    SESSION_USE_SIGNER = True
+    SESSION_KEY_PREFIX = "blutape_session:"
+    SESSION_REDIS = redis.from_url("redis://localhost:6379")
+    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_HTTPONLY = False
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
     
     
     
