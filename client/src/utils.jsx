@@ -79,6 +79,7 @@ export const brands = {
   Haier: "Haier",
   Hisense: "Hisense",
   Hotpoint: "Hotpoint",
+  Inglis: "Inglis",
   "Jenn-Air": "Jenn-Air",
   Kenmore: "Kenmore",
   Kitchenaid: "Kitchenaid",
