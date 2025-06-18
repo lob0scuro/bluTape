@@ -1,0 +1,34 @@
+.formBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 90%;
+  height: 100%;
+  position: relative;
+}
+
+.formSelector {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1rem;
+  width: 95%;
+}
+
+.formButton {
+  padding: 8px 0;
+  color: var(--textPrimary);
+  border-radius: 10px;
+  border: none;
+  font-size: 18px;
+  width: 25%;
+  background-color: var(--background);
+  text-align: center;
+}
+
+.formButtonActive {
+  background-color: var(--backgroundDark);
+  border-radius: 10px 10px 0 0;
+  font-weight: 700;
+}

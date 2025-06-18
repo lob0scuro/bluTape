@@ -1,0 +1,148 @@
+.machineCard {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.cardForm {
+  width: 100%;
+  display: flex;
+  place-content: center;
+  margin-top: 1rem;
+}
+
+ul.machineData {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+ul.machineData li {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--backgroundDark);
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.cardForm ul li input,
+.cardForm ul li select {
+  text-align: end;
+  font-size: 16px;
+  padding: 2px 1px;
+  width: 12rem;
+  border-radius: 8px;
+}
+
+.cardForm button {
+  align-self: center;
+}
+
+.noteBlock {
+  margin-top: 0.5rem;
+  width: 90%;
+}
+
+.noteBlock h3 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 10px;
+}
+.noteBlock h3 p.addNoteBtn {
+  background-color: transparent;
+  font-size: 24px;
+  color: var(--linkText);
+  padding-right: 6px;
+}
+.noteBlock ul {
+  margin-top: 10px;
+  padding: 5px;
+  list-style: none;
+  background-color: var(--backgroundDark);
+  border-radius: 8px;
+}
+
+.noteBlock ul li {
+  border-bottom: 1px solid var(--textPrimary);
+  padding-block: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.noteBlock ul li div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.noteBlock ul li div p:nth-child(2) {
+  margin-top: 10px;
+  padding-left: 10px;
+}
+.noteBlock ul li div p:last-child {
+  /* padding-left: 10px; */
+  color: var(--textSecondary);
+}
+
+.noteBlock ul li button {
+  background-color: rgb(158, 13, 13);
+  color: var(--textPrimary);
+  border: none;
+  padding: 6px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.noteBlock .noteForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.noteBlock .noteForm textarea {
+  resize: none;
+  height: 6rem;
+  border-radius: 8px;
+  font-size: 16px;
+  padding: 4px;
+}
+
+.noteBlock .noteForm button {
+  padding-block: 10px;
+  margin-top: 10px;
+}
+
+.deleteBtn {
+  width: 70%;
+  margin-top: 4rem;
+}
+
+.handleMachineButtonBlock {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 80%;
+}
+
+.handleMachineButtonBlock button {
+  background-color: var(--buttonSecondary);
+  color: var(--textPrimary);
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 800;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: -8px 8px 25px #000;
+}
+.handleMachineButtonBlock button:last-child {
+  background-color: rgb(158, 13, 13);
+}

@@ -1,0 +1,19 @@
+.btn {
+  font-size: 2rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--buttonPrimary);
+  color: var(--textPrimary);
+  box-shadow: -4px 4px 24px #000;
+}
+
+.secondaryBtn {
+  font-size: 1.5rem;
+  background-color: var(--buttonSecondary);
+  color: var(--textPrimary);
+  padding: 4px 10px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: -5px 5px 12px var(--backgroundDark);
+}

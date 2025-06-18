@@ -1,0 +1,24 @@
+.tableButtonBlock button {
+  font-size: 1.5rem;
+  background-color: var(--buttonSecondary);
+  color: var(--textPrimary);
+  padding: 10px 8px;
+  border: none;
+  margin-bottom: 1rem;
+}
+.tableButtonBlock button:active {
+  background-color: var(--background);
+}
+
+.tableButtonBlock button:first-child {
+  border-radius: 10px 0 0 10px;
+}
+.tableButtonBlock button:last-child {
+  border-radius: 0 10px 10px 0;
+  padding-inline: 18px;
+}
+
+button.tableBtnActive {
+  color: var(--buttonSecondary);
+  background-color: var(--textPrimary);
+}

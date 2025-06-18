@@ -1,0 +1,40 @@
+.tableBlock {
+  justify-items: start;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  place-content: center;
+}
+
+.noData {
+  align-self: center;
+  font-size: 1.3rem;
+}
+
+table.machineTable {
+  width: 90%;
+  height: fit-content;
+  margin: 0 auto;
+}
+
+.machineTable thead {
+  width: 100%;
+  background-color: var(--bannerBackground);
+}
+.machineTable thead tr th {
+  padding: 1rem 0;
+}
+
+.machineTable tbody {
+  background-color: var(--backgroundDark);
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+.machineTable tbody tr td {
+  border-bottom: 1px solid var(--textPrimary);
+  text-align: center;
+  padding: 1.4rem 0;
+  font-size: 16px;
+  text-wrap: wrap;
+}

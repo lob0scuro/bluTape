@@ -1,0 +1,21 @@
+.footer {
+  padding: 3.5rem 0;
+  min-height: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  justify-content: center;
+  background-color: var(--bannerBackground);
+  width: 100%;
+}
+.footer div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer div.logoutLink {
+  font-size: 18px;
+  color: var(--linkText);
+}

@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+:root {
+  --background: #2a2829;
+  --backgroundDark: #1e1e1e;
+  --inputBackground: #d9d9d9;
+  --bannerBackground: #262f4c;
+  --linkText: #6d7db2;
+  --textPrimary: #f9f9f9;
+  --textSecondary: #8999af;
+  --buttonPrimary: #040b22;
+  --buttonSecondary: #8999af;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+input,
+select {
+  background-color: var(--inputBackground);
+}
+
+html,
+body {
+  background-color: var(--background);
+  color: var(--textPrimary);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  overflow-x: hidden;
+  position: relative;
+  height: 100dvh;
+}
+
+#root {
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  width: 100vw;
+  padding: 1rem 0;
+  padding-block: 2rem;
+}

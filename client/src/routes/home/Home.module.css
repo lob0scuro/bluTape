@@ -1,0 +1,39 @@
+.homeBlock {
+  width: 90%;
+  height: 100%;
+}
+
+.date {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--linkText);
+}
+
+.activityBlock {
+  margin-top: 1rem;
+  width: 60svw;
+}
+
+.activityBlock ul {
+  list-style-type: none;
+  margin-top: 5px;
+  max-height: 12rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.activityBlock ul li {
+  background-color: var(--backgroundDark);
+  padding: 4px;
+  border: 2px solid var(--bannerBackground);
+  border-radius: 8px;
+}
+.activityBlock ul li:hover {
+  background-color: var(--bannerBackground);
+  /* color: var(--linkText); */
+}
+.activityBlock ul li:active {
+  background-color: var(--linkText);
+}

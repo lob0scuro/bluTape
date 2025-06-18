@@ -1,0 +1,122 @@
+.taskBlock {
+  width: 90%;
+  margin-top: 1rem;
+}
+.taskForm {
+  width: 100%;
+  margin-top: 1rem;
+}
+.taskForm h3 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bannerBackground);
+  padding: 4px 8px;
+}
+.taskForm h3 button {
+  padding: 4px;
+  font-size: 24px;
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--textPrimary);
+  border: none;
+}
+
+.taskForm ul {
+  list-style: none;
+  background-color: var(--backgroundDark);
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 12rem;
+  overflow-y: auto;
+}
+
+.taskForm ul li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid var(--textPrimary);
+  padding-bottom: 4px;
+}
+
+.taskForm ul li p:first-child {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.taskForm ul li p:first-child button {
+  color: var(--inputBackground);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 0.1rem 0.3rem;
+  border: none;
+  border-radius: 8px;
+}
+
+button.completeTaskBtn {
+  background-color: rgb(14, 146, 96);
+  max-height: 20px;
+  align-self: center;
+}
+button.deleteTaskBtn {
+  background-color: red;
+  max-height: 20px;
+  align-self: center;
+}
+
+.taskDate {
+  color: var(--buttonSecondary);
+}
+.formPoint {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.formPoint textarea {
+  height: 5rem;
+  border-radius: 12px;
+  padding: 5px;
+  font-size: 16px;
+  resize: none;
+}
+.formPoint button[type="submit"] {
+  margin-top: 10px;
+  background-color: var(--buttonPrimary);
+  color: var(--textPrimary);
+  font-size: 18px;
+  font-weight: 700;
+  border: 1px solid var(--textPrimary);
+  border-radius: 12px;
+  padding-block: 10px;
+}
+
+.toggleGroup {
+  display: flex;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.toggleGroup input[type="radio"] {
+  display: none;
+}
+
+.toggleGroup label {
+  padding: 2px 6px;
+  cursor: pointer;
+  background-color: var(--background);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-transform: capitalize;
+  font-size: 12px;
+}
+
+.toggleGroup input[type="radio"]:checked + label {
+  background-color: var(--linkText);
+  color: white;
+  font-weight: bold;
+}

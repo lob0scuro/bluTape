@@ -1,0 +1,64 @@
+.repairForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  gap: 2rem;
+  padding: 20px 4px;
+  margin-bottom: 1rem;
+  background-color: var(--backgroundDark);
+  border-radius: 12px;
+}
+
+.repairForm div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 90%;
+  align-self: center;
+}
+
+.repairForm div label {
+  margin-right: 0.2rem;
+  font-size: 18px;
+  align-self: flex-start;
+}
+
+.repairForm div input {
+  height: 2.8rem;
+  border-radius: 8px;
+  background-color: var(--inputBackground);
+  color: var(--backgroundDark);
+  padding: 12px;
+  text-align: start;
+  font-size: 18px;
+  width: 100%;
+}
+
+.repairForm div select {
+  height: 2.8rem;
+  width: 100%;
+  text-align: start;
+  border-radius: 8px;
+  padding-right: 8px;
+  background-color: var(--inputBackground);
+  color: var(--backgroundDark);
+  font-size: 18px;
+}
+
+.repairForm div textarea {
+  width: 100%;
+  height: 10rem;
+  text-align: start;
+  font-size: 18px;
+  border-radius: 8px;
+  resize: none;
+  padding: 5px;
+}
+
+.repairForm button {
+  align-self: center;
+  margin-top: 1rem;
+  background-color: var(--buttonSecondary);
+}
