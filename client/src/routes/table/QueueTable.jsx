@@ -1,14 +1,15 @@
 import styles from "./MachineTable.module.css";
 import Table from "../../components/Table";
-import clsx from "clsx";
 import { useState } from "react";
+import clsx from "clsx";
 
-const ExportedTable = () => {
+const QueueTable = () => {
   const [mType, setMType] = useState(0);
 
   const set = (n) => {
     setMType(n);
   };
+
   return (
     <>
       <div className={styles.tableButtonBlock}>
@@ -58,9 +59,9 @@ const ExportedTable = () => {
           All
         </button>
       </div>
-      <Table type_id={mType} exported />
+      <Table type_id={mType} />
     </>
   );
 };
 
-export default ExportedTable;
+export default QueueTable;

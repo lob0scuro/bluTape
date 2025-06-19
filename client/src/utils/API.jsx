@@ -104,9 +104,9 @@ export const fetchMachineNotes = async (id) => {
   }
 };
 
-export const exportMachine = async (id) => {
+export const changeMachineStatus = async (endpoint, id) => {
   try {
-    const response = await fetch(`/update/change_exported_status/${id}`, {
+    const response = await fetch(`/update/${endpoint}/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

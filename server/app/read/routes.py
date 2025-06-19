@@ -23,11 +23,12 @@ def get_machines_by_type(type_id):
         if type_id == 0:
             machines = Machine.query.filter_by(is_exported=False)
         else:
-            machines = Machine.query.filter(and_(Machine.is_exported==False, Machine.type_id==type_id)).all()
+            machines = Machine.query.filter(and_(Machine.is_exported==False, Machine.is_clean==False, Machine.type_id==type_id)).all()
         return jsonify(machines=[machine.serialize() for machine in machines])
     except Exception as e:
         print(f"Error when querying by machine type: {e}")
         return jsonify(error=f"Error when querying by machine type: {e}"), 500
+    
     
 @bp.route("/get_exported_machines_by_type/<int:type_id>", methods=['GET'])
 def get_exported_machines(type_id):

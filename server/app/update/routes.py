@@ -20,7 +20,7 @@ def update_user(id):
                 
         if updated:
             db.session.commit()
-            return jsonify(message=f"{user.first_name} info has been updated!", user=user.serialize()), 200
+            return jsonify(message=f"{user.first_name} info has been updated!"), 200
         else:
             return jsonify(message="no changes were made"), 200
     except Exception as e:
@@ -48,17 +48,31 @@ def update_machine(id):
                     updated = True
         if updated:
             db.session.commit()
-            return jsonify(message="Machine updated!", machine=machine.serialize()), 200
+            return jsonify(message="Machine updated!"), 200
         else:
             return jsonify(message="No changes were made."), 200
     except Exception as e:
         print(f"Error when updating machine: {e}")
         db.session.rollback()
         return jsonify(f"Error when updating machine: {e}"), 500
+
+#MACHINE GETS MOVED FROM QUEUE TO AWAITING EXPORT
+@bp.route("/update_cleaned_status/<int:id>", methods=['PATCH'])
+def update_cleaned_status(id):
+    try:
+        machine = Machine.query.get(id)
+        if not machine:
+            print("Could not find machine.")
+            return jsonify(error="Could not find machine."), 400
+        machine.is_clean = not machine.is_clean
+        db.session.commit()
+        return jsonify(message="Machine clean status has been successfully updated!"), 200
+    except Exception as e:
+        print(f"Error when updating cleaned status on machine: {e}")
+        return jsonify(eror=f"Error when updating cleaned status on machine: {e}"), 500
     
-    
-    
-@bp.route("/change_exported_status/<int:id>", methods=["PATCH"])
+#MACHINE GETS EXPORTED
+@bp.route("/update_export_status/<int:id>", methods=["PATCH"])
 def change_exported_status(id):
     try:
         machine = Machine.query.get(id)
@@ -67,13 +81,13 @@ def change_exported_status(id):
             return jsonify(error="Could not find machine."), 400
         machine.is_exported = not machine.is_exported
         db.session.commit()
-        return jsonify(message="Machine status updated successfully!"), 200
+        return jsonify(message="Machine export status updated successfully!"), 200
     except Exception as e:
         print(f"Error when exporting machine: {e}")
         return jsonify(error=f"Error when exporting machine: {e}"), 500
-
-
-@bp.route("/export_machines", methods=["PATCH"])
+    
+#MANY MACHINES GET EXPORTED
+@bp.route("/export_many_machines", methods=["PATCH"])
 def export_machines():
     try:
         data = request.get_json()

@@ -43,16 +43,16 @@ const Register = () => {
           <label htmlFor="position">Position</label>
           <select name="position" id="position">
             <option value="">--select position--</option>
-            {[
-              "Technician",
-              "Cleaner",
-              "Sales",
-              "Driver",
-              "Office",
-              "Service",
-            ].map((val) => (
+            {Object.entries({
+              Technician: "Technician",
+              Cleaner: "Cleaner",
+              Sales: "Sales",
+              Driver: "Driver",
+              Office: "Office",
+              Service: "Service",
+            }).map(([val, label]) => (
               <option value={val} key={val}>
-                {val}
+                {label}
               </option>
             ))}
           </select>

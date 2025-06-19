@@ -36,11 +36,13 @@ const Navbar = () => {
           <NavLink to="/" onClick={() => setOpen(false)}>
             Home
           </NavLink>
-          <NavLink to="/add" onClick={() => setOpen(false)}>
-            Wrap-Up{" "}
-          </NavLink>
-          <NavLink to="/machines" onClick={() => setOpen(false)}>
-            Finished
+          {user.position === "Technician" && (
+            <NavLink to="/add" onClick={() => setOpen(false)}>
+              Wrap-Up{" "}
+            </NavLink>
+          )}
+          <NavLink to="/queue" onClick={() => setOpen(false)}>
+            Queued
           </NavLink>
           <a
             href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSCvrr6XOeZ4rUCAl5t2sQDyuMINIFxVcVxWA7xb5hNrJtoUQZidzqEjg2PNE1UoqxSk7x-Fsj6yDpa/pubhtml?gid=122600756&single=true"
@@ -53,7 +55,7 @@ const Navbar = () => {
             <>
               <NavLink
                 className={styles.adminNavLinks}
-                to="/exported"
+                to="/export"
                 onClick={() => setOpen(false)}
               >
                 <small>Export List</small>

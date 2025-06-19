@@ -6,7 +6,7 @@ import {
   fetchMachine,
   fetchMachineNotes,
   submitForm,
-  exportMachine,
+  changeMachineStatus,
 } from "../../utils/API";
 import toast from "react-hot-toast";
 import Button from "../../components/Button";
@@ -96,7 +96,7 @@ const Card = () => {
   const handleMachineForm = async (e) => {
     e.preventDefault();
     const inputs = formValues;
-    const { success, message, machine, error } = await submitForm({
+    const { success, message, error } = await submitForm({
       endpoint: `/update/update_machine/${id}`,
       method: "PATCH",
       inputs: inputs,
@@ -139,7 +139,7 @@ const Card = () => {
       return;
     }
     toast.success(message);
-    navigate("/machines");
+    navigate("/queue");
   };
 
   const handleNoteDelete = async (note_id) => {
@@ -158,16 +158,14 @@ const Card = () => {
     setRefreshTrigger((prev) => prev + 1);
   };
 
-  const handleMachineExport = async () => {
-    if (!confirm("Change export status?")) {
+  const handleMachineStatus = async (endpoint) => {
+    if (!confirm("Update queue status?")) return;
+    const sendUpdate = await changeMachineStatus(endpoint, id);
+    if (!sendUpdate.success) {
+      toast.error(sendUpdate.error);
       return;
     }
-    const exporting = await exportMachine(id);
-    if (!exporting.success) {
-      toast.error(exporting.error);
-      return;
-    }
-    toast.success(exporting.message);
+    toast.success(sendUpdate.message);
     setRefreshTrigger((prev) => prev + 1);
   };
 
@@ -177,7 +175,7 @@ const Card = () => {
 
   return (
     <div className={styles.machineCard}>
-      {user && (
+      {user && ["Technician", "Office"].includes(user.position) && (
         <Button
           title={editing ? "Cancel Edit" : "Edit Machine"}
           isSecondary
@@ -341,12 +339,27 @@ const Card = () => {
         </ul>
       </div>
       <div className={styles.handleMachineButtonBlock}>
-        {user && user.first_name === "Cameron" && (
-          <button onClick={handleMachineExport}>
+        {user && user.first_name === "Cameron" && machine.is_cleaned ? (
+          <button onClick={() => handleMachineStatus("/update_export_status")}>
             {machine.is_exported ? "Undo Export" : "Export Machine"}
           </button>
+        ) : (
+          <p>Awaiting cleaning</p>
         )}
-        {user && <button onClick={handleMachineDelete}>Delete Machine</button>}
+        {user && ["Cleaner", "Office"].includes(user.position) && (
+          <button onClick={() => handleMachineStatus("/update_cleaned_status")}>
+            {machine.is_clean ? "Undo Cleaning" : "Finish Cleaning"}
+          </button>
+        )}
+
+        {user && ["Technician", "Office"].includes(user.position) && (
+          <button
+            onClick={handleMachineDelete}
+            className={styles.deleteMachineBtn}
+          >
+            Delete Machine
+          </button>
+        )}
       </div>
     </div>
   );

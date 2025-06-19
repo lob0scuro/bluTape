@@ -17,8 +17,9 @@ import Login from "./routes/auth/Login";
 import Register from "./routes/auth/Register";
 import AddMachine from "./routes/add/AddMachine";
 import Card from "./routes/card/Card";
-import MachineTable from "./routes/table/MachineTable";
-import ExportedTable from "./routes/table/ExportedTable";
+import QueueTable from "./routes/table/QueueTable";
+import ExportTable from "./routes/table/ExportTable";
+import InventoryTable from "./routes/table/InventoryTable";
 import { useAuth } from "./context/UserContext";
 
 const App = () => {
@@ -37,8 +38,9 @@ const App = () => {
         <Route element={<ProtectedRoutes />}>
           <Route index element={user ? userPositions[user.position] : null} />
           <Route path="add" element={<AddMachine />} />
-          <Route path="machines" element={<MachineTable />} />
-          <Route path="exported" element={<ExportedTable />} />
+          <Route path="queue" element={<QueueTable />} />
+          <Route path="export" element={<ExportTable />} />
+          <Route path="inventory" element={<InventoryTable />} />
           <Route path="admin-panel" element={<AdminPanel />} />
         </Route>
         <Route path="login" element={<Login />} />
