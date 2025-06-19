@@ -1,9 +1,43 @@
-import React from "react";
+import styles from "./Home.module.css";
+import { useEffect, useState } from "react";
+import { fetchMachines } from "../../utils/API";
+import toast from "react-hot-toast";
+import { currentDay } from "../../utils/Tools";
+import { useNavigate } from "react-router-dom";
+import TaskBox from "../../components/TaskBox";
 
 const CleanerHome = () => {
+  const [machines, setMachines] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const get = async () => {
+      const got = await fetchMachines("/get_queued_machines", 0);
+      if (!got.success) {
+        toast.error(got.error);
+        setMachines([]);
+        return;
+      }
+      setMachines(got.machines);
+    };
+    get();
+  }, []);
+
   return (
-    <div>
-      <h1>Hello Cleaner</h1>
+    <div className={styles.homeBlock}>
+      <p className={styles.date}>{currentDay()}</p>
+      <div className={styles.activityBlock}>
+        <h3>Queue</h3>
+        <ul className={styles.activityList}>
+          {machines.map(({ id, brand, model }) => (
+            <li key={id} onClick={() => navigate(`/card/${id}`)}>
+              {brand} - {model}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={styles.taskBlock}>
+        <TaskBox />
+      </div>
     </div>
   );
 };

@@ -36,14 +36,11 @@ const Navbar = () => {
           <NavLink to="/" onClick={() => setOpen(false)}>
             Home
           </NavLink>
-          {user.position === "Technician" && (
+          {["Technician", "Office"].includes(user.position) && (
             <NavLink to="/add" onClick={() => setOpen(false)}>
               Wrap-Up{" "}
             </NavLink>
           )}
-          <NavLink to="/queue" onClick={() => setOpen(false)}>
-            Queued
-          </NavLink>
           <a
             href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSCvrr6XOeZ4rUCAl5t2sQDyuMINIFxVcVxWA7xb5hNrJtoUQZidzqEjg2PNE1UoqxSk7x-Fsj6yDpa/pubhtml?gid=122600756&single=true"
             target="_blank"
@@ -51,15 +48,36 @@ const Navbar = () => {
           >
             View Schedule
           </a>
-          {user.is_admin && (
+          <h4>Tables</h4>
+          <NavLink
+            className={styles.adminNavLinks}
+            to="/queue"
+            onClick={() => setOpen(false)}
+          >
+            Queued
+          </NavLink>
+          {(user.is_admin ||
+            ["Office", "Service", "Sales"].includes(user.position)) && (
             <>
               <NavLink
                 className={styles.adminNavLinks}
                 to="/export"
                 onClick={() => setOpen(false)}
               >
-                <small>Export List</small>
+                <small>Pending Export</small>
               </NavLink>
+              <NavLink
+                className={styles.adminNavLinks}
+                to="/inventory"
+                onClick={() => setOpen(false)}
+              >
+                <small>Inventory</small>
+              </NavLink>
+            </>
+          )}
+          {user.is_admin && (
+            <>
+              <h4>Admins</h4>
               <NavLink
                 className={styles.adminNavLinks}
                 to="/admin-panel"

@@ -5,24 +5,16 @@ import toast from "react-hot-toast";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
-const Table = ({ type_id, exported }) => {
+const Table = ({ endpoint, type_id }) => {
   const [machines, setMachines] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     const get = async () => {
-      if (exported) {
-        const got = await fetchExportedMachines(type_id);
-        if (!got.success) {
-          toast.error(got.error);
-        }
-        setMachines(got.machines);
-      } else {
-        const got = await fetchMachines(type_id);
-        if (!got.success) {
-          toast.error(got.error);
-        }
-        setMachines(got.machines);
+      const got = await fetchMachines(endpoint, type_id);
+      if (!got.success) {
+        toast.error(got.error);
       }
+      setMachines(got.machines);
     };
     get();
   }, [type_id]);

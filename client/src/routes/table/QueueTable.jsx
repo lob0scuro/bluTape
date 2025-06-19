@@ -59,7 +59,7 @@ const QueueTable = () => {
           All
         </button>
       </div>
-      <Table type_id={mType} />
+      <Table endpoint="/get_queued_machines" type_id={mType} />
     </>
   );
 };

@@ -30,9 +30,7 @@ const TechHome = () => {
 
   return (
     <div className={styles.homeBlock}>
-      <div>
-        <p className={styles.date}>{currentDay()}</p>
-      </div>
+      <p className={styles.date}>{currentDay()}</p>
       <div className={styles.activityBlock}>
         <h3>Recent Activity:</h3>
         <ul className={styles.activityList}>

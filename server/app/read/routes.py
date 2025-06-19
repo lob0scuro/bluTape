@@ -15,32 +15,47 @@ def get_machine(id):
     except Exception as e:
         print(f"Error when querying for machine: {e}")
         return jsonify(error=f"Error when querying for machine: {e}"), 500
+    
 
-    
-@bp.route("/get_machines_by_type/<int:type_id>", methods=['GET'])
-def get_machines_by_type(type_id):
+@bp.route("/get_queued_machines/<int:type_id>", methods=['GET'])
+def get_queued_machines(type_id):
     try:
         if type_id == 0:
-            machines = Machine.query.filter_by(is_exported=False)
+            machines = Machine.query.filter(and_(Machine.is_clean == False, Machine.is_exported == False)).order_by(Machine.repaired_on.asc()).all()
         else:
-            machines = Machine.query.filter(and_(Machine.is_exported==False, Machine.is_clean==False, Machine.type_id==type_id)).all()
+            machines = Machine.query.filter(and_(Machine.is_exported==False, Machine.is_clean==False, Machine.type_id==type_id)).order_by(Machine.repaired_on.asc()).all()
         return jsonify(machines=[machine.serialize() for machine in machines])
     except Exception as e:
-        print(f"Error when querying by machine type: {e}")
-        return jsonify(error=f"Error when querying by machine type: {e}"), 500
+        print(f"Error when querying machine queue: {e}")
+        return jsonify(error=f"Error when querying machine queue: {e}"), 500
     
-    
-@bp.route("/get_exported_machines_by_type/<int:type_id>", methods=['GET'])
-def get_exported_machines(type_id):
+@bp.route("/get_export_list/<int:type_id>", methods=['GET'])
+def get_export_list(type_id):
     try:
         if type_id == 0:
-            machines = Machine.query.filter_by(is_exported=True)
+            machines = Machine.query.filter(and_(Machine.is_clean == True, Machine.is_exported == False)).order_by(Machine.repaired_on.asc()).all()
         else:
-            machines = Machine.query.filter(and_(Machine.is_exported==True, Machine.type_id==type_id)).all()
+            machines = Machine.query.filter(and_(Machine.is_exported==True, Machine.is_clean==False, Machine.type_id==type_id)).order_by(Machine.repaired_on.asc()).all()
         return jsonify(machines=[machine.serialize() for machine in machines])
     except Exception as e:
-        print(f"Error when querying by machine type: {e}")
-        return jsonify(error=f"Error when querying by machine type: {e}"), 500
+        print(f"Error when querying export list: {e}")
+        return jsonify(error=f"Error when querying export list: {e}"), 500
+    
+@bp.route("/get_inventory_list/<int:type_id>", methods=['GET'])
+def get_inventory_list(type_id):
+    try:
+        if type_id == 0:
+            machines = Machine.query.filter(and_(Machine.is_clean == True, Machine.is_exported == True)).order_by(Machine.repaired_on.asc()).all()
+        else:
+            machines = Machine.query.filter(and_(Machine.is_exported==True, Machine.is_clean==True, Machine.type_id==type_id)).order_by(Machine.repaired_on.asc()).all()
+        return jsonify(machines=[machine.serialize() for machine in machines])
+    except Exception as e:
+        print(f"Error when querying inventory list: {e}")
+        return jsonify(error=f"Error when querying inventory list: {e}"), 500
+    
+#/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+    
+
     
 @bp.route("/get_machine_notes/<int:machine_id>", methods=["GET"])
 def get_machine_notes(machine_id):

@@ -184,6 +184,26 @@ const Card = () => {
       )}
       <form className={styles.cardForm} onSubmit={handleMachineForm}>
         <ul className={styles.machineData}>
+          <li
+            style={{
+              alignSelf: "center",
+              width: "100%",
+              justifyContent: "center",
+              color: "var(--textSecondary)",
+              fontSize: "1rem",
+              fontWeight: "800",
+            }}
+          >
+            {!machine.is_clean && !machine.is_exported && (
+              <p>{machine.machine_type} queued - pending clean</p>
+            )}
+            {machine.is_clean && !machine.is_exported && (
+              <p>{machine.machine_type} cleaned - pending export</p>
+            )}
+            {machine.is_clean && machine.is_exported && (
+              <p>{machine.machine_type} inventoried</p>
+            )}
+          </li>
           <li>
             <p>Brand:</p>
             {editing ? (
@@ -339,12 +359,10 @@ const Card = () => {
         </ul>
       </div>
       <div className={styles.handleMachineButtonBlock}>
-        {user && user.first_name === "Cameron" && machine.is_cleaned ? (
+        {user && user.first_name === "Cameron" && machine.is_clean && (
           <button onClick={() => handleMachineStatus("/update_export_status")}>
             {machine.is_exported ? "Undo Export" : "Export Machine"}
           </button>
-        ) : (
-          <p>Awaiting cleaning</p>
         )}
         {user && ["Cleaner", "Office"].includes(user.position) && (
           <button onClick={() => handleMachineStatus("/update_cleaned_status")}>

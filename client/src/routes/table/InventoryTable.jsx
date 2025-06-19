@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styles from "./MachineTable.module.css";
+import clsx from "clsx";
+import Table from "../../components/Table";
 
 const InventoryTable = () => {
   const [mType, setMType] = useState(0);
@@ -56,7 +58,7 @@ const InventoryTable = () => {
           All
         </button>
       </div>
-      <Table type_id={mType} exported />
+      <Table endpoint="/get_inventory_list" type_id={mType} />
     </>
   );
 };

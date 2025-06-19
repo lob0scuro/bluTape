@@ -2,8 +2,11 @@ from flask import jsonify, request
 from app.update import bp
 from app.extensions import db
 from app.models import User, Machine, Task
+from datetime import date
+from flask_login import current_user, login_required
 
 @bp.route("/update_user/<int:id>", methods=['PATCH'])
+@login_required
 def update_user(id):
     try:
         data = request.form
@@ -29,6 +32,7 @@ def update_user(id):
         return jsonify(error=f"Error when updating user: {e}"), 500
     
 @bp.route("/update_machine/<int:id>", methods=['PATCH'])
+@login_required
 def update_machine(id):
     try:
         machine = Machine.query.get(id)
@@ -58,6 +62,7 @@ def update_machine(id):
 
 #MACHINE GETS MOVED FROM QUEUE TO AWAITING EXPORT
 @bp.route("/update_cleaned_status/<int:id>", methods=['PATCH'])
+@login_required
 def update_cleaned_status(id):
     try:
         machine = Machine.query.get(id)
@@ -65,6 +70,8 @@ def update_cleaned_status(id):
             print("Could not find machine.")
             return jsonify(error="Could not find machine."), 400
         machine.is_clean = not machine.is_clean
+        machine.cleaned_on = date.today() if machine.is_clean else None
+        machine.cleaned_by = current_user.id if machine.is_clean else None
         db.session.commit()
         return jsonify(message="Machine clean status has been successfully updated!"), 200
     except Exception as e:
@@ -73,6 +80,7 @@ def update_cleaned_status(id):
     
 #MACHINE GETS EXPORTED
 @bp.route("/update_export_status/<int:id>", methods=["PATCH"])
+@login_required
 def change_exported_status(id):
     try:
         machine = Machine.query.get(id)
@@ -88,6 +96,7 @@ def change_exported_status(id):
     
 #MANY MACHINES GET EXPORTED
 @bp.route("/export_many_machines", methods=["PATCH"])
+@login_required
 def export_machines():
     try:
         data = request.get_json()
@@ -108,6 +117,7 @@ def export_machines():
     
 
 @bp.route("/change_task_status/<int:id>", methods=['PATCH'])
+@login_required
 def change_task_status(id):
     try:
         task = Task.query.get(id)

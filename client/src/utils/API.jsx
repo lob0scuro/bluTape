@@ -63,9 +63,9 @@ export const fetchMachine = async (id) => {
   }
 };
 
-export const fetchMachines = async (type_id) => {
+export const fetchMachines = async (endpoint, type_id) => {
   try {
-    const response = await fetch(`/read/get_machines_by_type/${type_id}`);
+    const response = await fetch(`/read/${endpoint}/${type_id}`);
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error);

@@ -58,7 +58,7 @@ const ExportTable = () => {
           All
         </button>
       </div>
-      <Table type_id={mType} exported />
+      <Table endpoint="/get_export_list" type_id={mType} />
     </>
   );
 };
