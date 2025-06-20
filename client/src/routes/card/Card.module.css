@@ -36,6 +36,8 @@ ul.machineData li {
   padding: 2px 1px;
   width: 12rem;
   border-radius: 8px;
+  color: var(--backgroundDark);
+  background-color: var(--inputBackground);
 }
 
 .cardForm button {

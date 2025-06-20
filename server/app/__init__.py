@@ -1,6 +1,6 @@
 from flask import Flask
 from config import Config
-from .extensions import db, migrate, bcrypt, cors, login_manager
+from .extensions import db, migrate, bcrypt, cors, login_manager, session
 from .models import User
 
 def create_app(config_class=Config):
@@ -12,7 +12,9 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     cors.init_app(app)
-    login_manager.init_app(app)    
+    login_manager.init_app(app) 
+    session.init_app(app) 
+      
     
     #BLUEPRINTS
     from app.auth import bp as auth_bp

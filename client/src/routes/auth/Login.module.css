@@ -23,6 +23,7 @@
   font-size: 18px;
   padding: 8px;
   background-color: var(--inputBackground);
+  color: var(--backgroundDark);
 }
 
 .loginForm div input {
