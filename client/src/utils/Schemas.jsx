@@ -115,7 +115,6 @@ export const vendors = {
   Pasadena: "Pasadena",
   "Baton Rouge": "Baton Rouge",
   Alexandria: "Alexandria",
-  Viking: "Viking",
   "Stines LC": "Stines LC",
   "Stines Jenings": "Stines Jennings",
   Scrappers: "Scrappers",
