@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, session
 from app.auth import bp
 from app.extensions import db, bcrypt
 from app.models import User
@@ -44,7 +44,9 @@ def login(id):
         password = data.get("password")
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify(error="Invalid credentials, please check inputs and try again."), 401
-        login_user(user)
+        login_user(user, remember=True)
+        session["user"] = f"{user.first_name} {user.last_name[0]}"
+        session["device"] = request.headers.get("User-Agent")
         return jsonify(message=f"Logged in as {user.first_name}", user=user.serialize())
     except Exception as e:
         print(f"Login error: {e}")
@@ -64,8 +66,7 @@ def logout():
 
 @bp.route("/refresh_user", methods=['GET'])
 def refresh_user():
-    if current_user == None:
+    if current_user.is_authenticated:
         user = User.query.get(current_user.id)
-        return jsonify(user=user.serialize() if user else None)
-    else:
-        return jsonify(user=None)
+        return jsonify(user=user.serialize() if user else None), 200
+    return jsonify(user=None), 401

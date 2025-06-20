@@ -16,7 +16,7 @@ class Config:
     SESSION_REDIS = redis.from_url("redis://localhost:6379")
     SESSION_COOKIE_SAMESITE = "Lax"
     SESSION_PERMANENT = True
-    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = False
     SESSION_COOKIE_HTTPONLY = True
     SESSION_USE_SIGNER = True
     SESSION_KEY_PREFIX = "blu:"

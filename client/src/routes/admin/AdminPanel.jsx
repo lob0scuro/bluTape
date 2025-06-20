@@ -5,7 +5,7 @@ import InProgress from "../helpers/InProgress";
 const AdminPanel = () => {
   return (
     <>
-      <h3>Finished Today</h3>
+      <InProgress page="Admin Panel" />
     </>
   );
 };

@@ -28,6 +28,14 @@ const Login = () => {
     try {
       const formData = new FormData(e.target);
       const inputs = Object.fromEntries(formData.entries());
+      if (inputs.id === "") {
+        toast.error("Please select a user to login");
+        return;
+      }
+      if (inputs.password.trim() === "") {
+        toast.error("Enter password to login");
+        return;
+      }
       const loggingIn = await login(inputs);
       if (!loggingIn.success) {
         throw new Error(loggingIn.error);

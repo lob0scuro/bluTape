@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { fetchUserTasks, submitForm } from "../utils/API";
 import toast from "react-hot-toast";
 import clsx from "clsx";
-import Button from "./Button";
 import { formatDate } from "../utils/Tools";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faCircle, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const TaskBox = ({ id }) => {
   const [tasks, setTasks] = useState([]);
@@ -124,7 +125,11 @@ const TaskBox = ({ id }) => {
                     is_complete ? styles.deleteTaskBtn : styles.completeTaskBtn
                   )}
                 >
-                  {is_complete ? "delete" : "complete"}
+                  {is_complete ? (
+                    <FontAwesomeIcon icon={faTrash} />
+                  ) : (
+                    <FontAwesomeIcon icon={faCheck} />
+                  )}
                 </button>
               </p>
               <p className={styles.taskDate}>[{formatDate(created_on)}] </p>

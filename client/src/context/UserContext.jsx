@@ -3,9 +3,8 @@ import { useContext, createContext, useState, useEffect } from "react";
 const authContext = createContext();
 
 export const UserContext = ({ children }) => {
-  const tempAuth = localStorage.getItem("user");
-  const [user, setUser] = useState(tempAuth ? JSON.parse(tempAuth) : null);
-  const [loading, setLoading] = useState();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -18,11 +17,9 @@ export const UserContext = ({ children }) => {
           throw new Error("User not authenticated");
         }
         if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
           setUser(data.user);
         }
       } catch (error) {
-        localStorage.removeItem("user");
         setUser(null);
       }
       setLoading(false);
@@ -43,7 +40,6 @@ export const UserContext = ({ children }) => {
       if (!response.ok) {
         throw new Error(data.error);
       }
-      localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
       return { success: true, message: data.message, user: data.user };
     } catch (error) {
@@ -58,7 +54,6 @@ export const UserContext = ({ children }) => {
       if (!response.ok) {
         throw new Error(data.error);
       }
-      localStorage.removeItem("user");
       setUser(null);
       return { success: true, message: data.message };
     } catch (error) {

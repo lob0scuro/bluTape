@@ -54,7 +54,7 @@ const Navbar = () => {
             to="/queue"
             onClick={() => setOpen(false)}
           >
-            Queued
+            <small>Queue</small>
           </NavLink>
           {(user.is_admin ||
             ["Office", "Service", "Sales"].includes(user.position)) && (
@@ -77,7 +77,7 @@ const Navbar = () => {
           )}
           {user.is_admin && (
             <>
-              <h4>Admins</h4>
+              <h4>Admin</h4>
               <NavLink
                 className={styles.adminNavLinks}
                 to="/admin-panel"
