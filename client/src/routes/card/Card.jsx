@@ -170,7 +170,7 @@ const Card = () => {
   };
 
   if (!machine) {
-    return <p>Could not find machine</p>;
+    return <p>Looking for machine...</p>;
   }
 
   return (
@@ -334,14 +334,14 @@ const Card = () => {
           )}
         </h3>
         <ul>
-          {notes.map(({ id, content, created_on, created_by, user_id }) => (
+          {notes?.map(({ id, content, created_on, created_by, user_id }) => (
             <li key={id}>
               <div>
                 <p>{content}</p>
                 <p>~ {created_by}</p>
                 <p>[{formatDate(created_on)}]</p>
               </div>
-              {user_id === user.id && (
+              {user_id === user?.id && (
                 <button onClick={() => handleNoteDelete(id)}>x</button>
               )}
             </li>
@@ -366,7 +366,7 @@ const Card = () => {
             {machine.is_exported ? "Undo Export" : "Export Machine"}
           </button>
         )}
-        {(user.is_admin ||
+        {(user?.is_admin ||
           (user &&
             ["Cleaner", "Office"].includes(user.position) &&
             !machine.is_exported)) && (
