@@ -1,3 +1,4 @@
+import styles from "./UpdateUserInfo.module.css";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
@@ -65,7 +66,7 @@ const UpdateUserInfo = () => {
   return (
     <>
       <h1>Update User</h1>
-      <form onSubmit={submitForm}>
+      <form onSubmit={submitForm} className={styles.updateUserForm}>
         <div>
           <label htmlFor="first_name">First Name</label>
           <input

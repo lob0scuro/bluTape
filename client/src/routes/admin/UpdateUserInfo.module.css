@@ -1,0 +1,29 @@
+form.updateUserForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90svw;
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+form.updateUserForm div {
+  display: flex;
+  flex-direction: column;
+}
+
+form.updateUserForm div input {
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 4px 6px;
+}
+
+form.updateUserForm div select {
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 2px;
+}
+
+form.updateUserForm button {
+  margin-top: 1rem;
+}
