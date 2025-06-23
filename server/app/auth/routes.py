@@ -91,9 +91,9 @@ def request_reset_password():
             to=[user.email],
         )
         msg.send()
-        return jsonify(message="If that email exists in our database, a reset link has been sent!"), 200
+        return jsonify(message="A reset link has been sent to your email!"), 200
     else:
-        return jsonify(message="User not found"), 200
+        return jsonify(error="No user found with this email address"), 404
 
 
 @bp.route("/reset_password", methods=["POST"])
