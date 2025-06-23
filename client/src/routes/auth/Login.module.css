@@ -37,3 +37,9 @@
 .loginForm button {
   margin-top: 1.4rem;
 }
+
+.resetLink {
+  text-decoration: underline;
+  margin-top: 2rem;
+  color: var(--linkText);
+}

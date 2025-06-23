@@ -1,7 +1,8 @@
 from app.extensions import db
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Text, Boolean, Date, Enum, ForeignKey, func
-
+from itsdangerous import URLSafeTimedSerializer
+from flask import current_app
 
 roleEnum = Enum("Technician", "Cleaner", "Sales", "Office", "Driver", "Service", name="positions")
 
@@ -32,7 +33,6 @@ class User(db.Model, UserMixin):
             "wrap_ups": [machine.serialize() for machine in self.wrap_ups],
             "tasks": [task.serialize() for task in self.tasks]
         }
-    
 
     
     

@@ -3,7 +3,7 @@ import Button from "../../components/Button";
 import { fetchUsers } from "../../utils/API";
 import styles from "./Login.module.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/UserContext";
 
 const Login = () => {
@@ -69,6 +69,9 @@ const Login = () => {
         </div>
         <Button title="Submit" type="submit" />
       </form>
+      <Link className={styles.resetLink} to="/request-password-reset">
+        Forgot Password?
+      </Link>
     </>
   );
 };

@@ -1,8 +1,10 @@
-from flask import jsonify, request, session
+from flask import jsonify, request, session, url_for, render_template_string
 from app.auth import bp
-from app.extensions import db, bcrypt
+from app.extensions import db, bcrypt, serializer
 from app.models import User
 from flask_login import login_user, logout_user, current_user
+from flask_mailman import EmailMessage
+from itsdangerous import BadSignature, SignatureExpired
 
 
 @bp.route("/register", methods=['POST'])
@@ -70,3 +72,56 @@ def refresh_user():
         user = User.query.get(current_user.id)
         return jsonify(user=user.serialize() if user else None), 200
     return jsonify(user=None), 401
+
+
+@bp.route("/request_password_reset", methods=['POST'])
+def request_reset_password():
+    data = request.get_json()
+    email = data.get("email")
+    
+    user = User.query.filter_by(email=email).first()
+    
+    if user:
+        token = serializer.dumps(user.email, salt="password-reset-salt")
+        reset_url = f"http://192.168.1.110:5173/reset-password/{token}"
+        
+        msg = EmailMessage(
+            subject="Reset your password",
+            body=f"Click here to reset your password: {reset_url}",
+            to=[user.email],
+        )
+        msg.send()
+        return jsonify(message="If that email exists in our database, a reset link has been sent!"), 200
+    else:
+        return jsonify(message="User not found"), 200
+
+
+@bp.route("/reset_password", methods=["POST"])
+def reset_password():
+    data = request.get_json()
+    token = data.get("token")
+    new_password = data.get("password")
+    check_new_password = data.get("password-check")
+    
+    if new_password != check_new_password:
+        return jsonify(error="Passwords do not match, check inputs and try again"), 400
+    
+    try:
+        email = serializer.loads(token, salt="password-reset-salt", max_age=3600)
+    except SignatureExpired:
+        return jsonify(error="Reset link has expired."), 400
+    except BadSignature:
+        return jsonify(error="Invalid reset token"), 400
+    
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify(error="User not found"), 404
+    
+    try:
+        user.password = bcrypt.generate_password_hash(new_password).decode("utf8")
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        return jsonify(error=f"Error when updating password: {e}"), 500
+    
+    return jsonify(message="Password updated successfully!"), 200

@@ -21,6 +21,8 @@ import QueueTable from "./routes/table/QueueTable";
 import ExportTable from "./routes/table/ExportTable";
 import InventoryTable from "./routes/table/InventoryTable";
 import { useAuth } from "./context/UserContext";
+import RequestPasswordReset from "./routes/auth/RequestPasswordReset";
+import ResetPassword from "./routes/auth/ResetPassword";
 
 const App = () => {
   const { user } = useAuth();
@@ -45,6 +47,11 @@ const App = () => {
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route
+          path="/request-password-reset"
+          element={<RequestPasswordReset />}
+        />
+        <Route path="reset-password/:token" element={<ResetPassword />} />
         <Route path="card/:id" element={<Card />} />
       </Route>
     )

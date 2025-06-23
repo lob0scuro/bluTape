@@ -26,3 +26,11 @@ class Config:
     CORS_ORIGINS = ['https://blutape.net']
     CORS_SUPPORTS_CREDENTIALS = True
     
+    MAIL_SERVER = "smtp.gmail.com"
+    MAIL_PORT = 587
+    MAIL_USERNAME = "cameron@mattsappliancesla.net"
+    MAIL_PASSWORD = environ.get("APP_PASSWORD")
+    MAIL_USE_TLS = True
+    MAIL_DEFAULT_SENDER = "cameron@mattsappliancesla.net"
+    
+    
