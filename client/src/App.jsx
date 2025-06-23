@@ -20,9 +20,10 @@ import Card from "./routes/card/Card";
 import QueueTable from "./routes/table/QueueTable";
 import ExportTable from "./routes/table/ExportTable";
 import InventoryTable from "./routes/table/InventoryTable";
-import { useAuth } from "./context/UserContext";
 import RequestPasswordReset from "./routes/auth/RequestPasswordReset";
 import ResetPassword from "./routes/auth/ResetPassword";
+import UpdateUserInfo from "./routes/admin/UpdateUserInfo";
+import { useAuth } from "./context/UserContext";
 
 const App = () => {
   const { user } = useAuth();
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="export" element={<ExportTable />} />
           <Route path="inventory" element={<InventoryTable />} />
           <Route path="admin-panel" element={<AdminPanel />} />
+          <Route path="update-user/:user_id" element={<UpdateUserInfo />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

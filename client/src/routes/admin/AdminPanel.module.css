@@ -1,0 +1,13 @@
+.updateUserSelect {
+  display: flex;
+  flex-direction: column;
+}
+
+.updateUserSelect select {
+  font-size: 20px;
+  height: 28px;
+  padding: 2px 6px;
+  background-color: var(--inputBackground);
+  color: var(--backgroundDark);
+  margin-top: 0.6rem;
+}

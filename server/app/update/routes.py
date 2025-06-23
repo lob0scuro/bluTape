@@ -9,7 +9,7 @@ from flask_login import current_user, login_required
 @login_required
 def update_user(id):
     try:
-        data = request.form
+        data = request.get_json()
         user = User.query.get(id)
         if not user:
             return jsonify(error="Could not find user."), 400

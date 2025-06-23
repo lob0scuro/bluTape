@@ -83,7 +83,7 @@ def request_reset_password():
     
     if user:
         token = serializer.dumps(user.email, salt="password-reset-salt")
-        reset_url = f"http://192.168.1.110:5173/reset-password/{token}"
+        reset_url = f"https://blutape.net/reset-password/{token}"
         
         msg = EmailMessage(
             subject="Reset your password",

@@ -1,6 +1,6 @@
 export const fetchUser = async (id) => {
   try {
-    const response = await fetch(`read/get_user/${id}`);
+    const response = await fetch(`/read/get_user/${id}`);
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error);
