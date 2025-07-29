@@ -1,6 +1,6 @@
 import styles from "./Home.module.css";
 import { useEffect, useState } from "react";
-import { fetchMachines } from "../../utils/API";
+import { fetchAllMachines } from "../../utils/API";
 import toast from "react-hot-toast";
 import { currentDay } from "../../utils/Tools";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const CleanerHome = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const get = async () => {
-      const got = await fetchMachines("/get_queued_machines", 0);
+      const got = await fetchAllMachines("queued", 0);
       if (!got.success) {
         toast.error(got.error);
         setMachines([]);
