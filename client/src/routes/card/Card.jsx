@@ -6,7 +6,7 @@ import {
   fetchMachine,
   fetchMachineNotes,
   submitForm,
-  changeMachineStatus,
+  changeStatus,
 } from "../../utils/API";
 import toast from "react-hot-toast";
 import Button from "../../components/Button";
@@ -158,9 +158,9 @@ const Card = () => {
     setRefreshTrigger((prev) => prev + 1);
   };
 
-  const handleMachineStatus = async (endpoint) => {
-    if (!confirm("Update queue status?")) return;
-    const sendUpdate = await changeMachineStatus(endpoint, id);
+  const handleMachineStatus = async (id, status, value) => {
+    if (!confirm("Update status?")) return;
+    const sendUpdate = await changeStatus(id, status, value);
     if (!sendUpdate.success) {
       toast.error(sendUpdate.error);
       return;
@@ -361,8 +361,16 @@ const Card = () => {
         </ul>
       </div>
       <div className={styles.handleMachineButtonBlock}>
-        {user && user.first_name === "Cameron" && machine.is_clean && (
-          <button onClick={() => handleMachineStatus("/update_export_status")}>
+        {user && user?.is_admin && machine.is_clean && (
+          <button
+            onClick={() =>
+              handleMachineStatus(
+                machine.id,
+                "is_exported",
+                machine.is_exported ? false : true
+              )
+            }
+          >
             {machine.is_exported ? "Undo Export" : "Export Machine"}
           </button>
         )}
@@ -370,7 +378,15 @@ const Card = () => {
           (user &&
             ["Cleaner", "Office"].includes(user.position) &&
             !machine.is_exported)) && (
-          <button onClick={() => handleMachineStatus("/update_cleaned_status")}>
+          <button
+            onClick={() =>
+              handleMachineStatus(
+                machine.id,
+                "is_clean",
+                machine.is_clean ? false : true
+              )
+            }
+          >
             {machine.is_clean ? "Undo Cleaning" : "Finish Cleaning"}
           </button>
         )}

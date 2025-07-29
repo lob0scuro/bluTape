@@ -1,6 +1,6 @@
 import styles from "./Table.module.css";
 import React, { useEffect, useState } from "react";
-import { fetchMachines, fetchAllMachines } from "../utils/API";
+import { fetchAllMachines } from "../utils/API";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";

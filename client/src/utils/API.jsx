@@ -78,34 +78,6 @@ export const fetchAllMachines = async (status, type_id) => {
   }
 };
 
-export const fetchMachines = async (endpoint, type_id) => {
-  try {
-    const response = await fetch(`/read/${endpoint}/${type_id}`);
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error);
-    }
-    return { success: true, machines: data.machines };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-};
-
-export const fetchExportedMachines = async (type_id) => {
-  try {
-    const response = await fetch(
-      `/read/get_exported_machines_by_type/${type_id}`
-    );
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error);
-    }
-    return { success: true, machines: data.machines };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-};
-
 export const fetchMachineNotes = async (id) => {
   try {
     const response = await fetch(`/read/get_machine_notes/${id}`);
@@ -119,13 +91,14 @@ export const fetchMachineNotes = async (id) => {
   }
 };
 
-export const changeMachineStatus = async (endpoint, id) => {
+export const changeStatus = async (id, status, value) => {
   try {
-    const response = await fetch(`/update/${endpoint}/${id}`, {
+    const response = await fetch(`/update/change_status/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ status: status, value: value }),
     });
     const data = await response.json();
     if (!response.ok) {

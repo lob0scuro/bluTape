@@ -59,40 +59,48 @@ def update_machine(id):
         print(f"Error when updating machine: {e}")
         db.session.rollback()
         return jsonify(f"Error when updating machine: {e}"), 500
-
-#MACHINE GETS MOVED FROM QUEUE TO AWAITING EXPORT
-@bp.route("/update_cleaned_status/<int:id>", methods=['PATCH'])
-@login_required
-def update_cleaned_status(id):
-    try:
-        machine = Machine.query.get(id)
-        if not machine:
-            print("Could not find machine.")
-            return jsonify(error="Could not find machine."), 400
-        machine.is_clean = not machine.is_clean
-        machine.cleaned_on = date.today() if machine.is_clean else None
-        machine.cleaned_by = current_user.id if machine.is_clean else None
-        db.session.commit()
-        return jsonify(message="Machine clean status has been successfully updated!"), 200
-    except Exception as e:
-        print(f"Error when updating cleaned status on machine: {e}")
-        return jsonify(eror=f"Error when updating cleaned status on machine: {e}"), 500
     
-#MACHINE GETS EXPORTED
-@bp.route("/update_export_status/<int:id>", methods=["PATCH"])
+    
+#UPDATE MACHINE STATUS -> SEND FROM QUEUE TABLE TO EXPORT TABLE
+@bp.route("/change_status/<int:id>", methods=['PATCH'])
 @login_required
-def change_exported_status(id):
+def change_status(id):
     try:
+        data = request.get_json()
+        if not data:
+            return jsonify(error="No payload in request."), 400
+        statusField = data.get("status")
+        if statusField not in ["is_clean", "is_exported"]:
+            return jsonify(error="Invalid status field."), 400
         machine = Machine.query.get(id)
         if not machine:
-            print("Could not find machine.")
             return jsonify(error="Could not find machine."), 400
-        machine.is_exported = not machine.is_exported
+        
+        if "value" in data:
+            new_value = bool(data["value"])
+        else:
+            current_value = getattr(machine, statusField)
+            new_value = not current_value
+        setattr(machine, statusField, new_value)
+        
+        if statusField == "is_clean":
+            if new_value:
+                machine.cleaned_on = date.today()
+                machine.cleaned_by = current_user.id
+            else:
+                machine.cleaned_on = None
+                machine.cleaned_by = None
+        elif statusField == "is_exported":
+            pass
+        
         db.session.commit()
-        return jsonify(message="Machine export status updated successfully!"), 200
+        return jsonify(message=f"Machine {statusField} status updated successfully!"), 200
     except Exception as e:
-        print(f"Error when exporting machine: {e}")
-        return jsonify(error=f"Error when exporting machine: {e}"), 500
+        print(f"Error when updating machine status: {e}")
+        db.session.rollback()
+        return jsonify(error=f"Error when updating machine status: {e}"), 500
+        
+
     
 #MANY MACHINES GET EXPORTED
 @bp.route("/export_many_machines", methods=["PATCH"])
