@@ -1,5 +1,5 @@
-echo "switching to v2 branch"
-git checkout v2
+echo "switching to master branch"
+git checkout master
 
 echo "creating tar archive without __pycache__ and env"
 tar --exclude='env' --exclude='__pycache__' --exclude='*.pyc' --exclude='.git' -czf deploy.tar.gz -C server .
