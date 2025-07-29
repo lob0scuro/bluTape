@@ -63,6 +63,21 @@ export const fetchMachine = async (id) => {
   }
 };
 
+export const fetchAllMachines = async (status, type_id) => {
+  try {
+    const response = await fetch(
+      `/read/get_machines?status=${status}&type_id=${type_id}`
+    );
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+    return { success: true, machines: data.machines };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
 export const fetchMachines = async (endpoint, type_id) => {
   try {
     const response = await fetch(`/read/${endpoint}/${type_id}`);

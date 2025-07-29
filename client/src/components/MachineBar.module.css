@@ -1,0 +1,24 @@
+.machineBar {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 1rem;
+}
+.machineBar button {
+  font-size: 2rem;
+  padding: 0.4rem 1rem;
+  background-color: var(--buttonSecondary);
+  color: var(--textPrimary);
+}
+
+.machineBar button:first-child {
+  border-radius: 12px 0 0 12px;
+}
+.machineBar button:last-child {
+  border-radius: 0 12px 12px 0;
+}
+
+.machineBar button.active {
+  background-color: var(--buttonPrimary);
+}

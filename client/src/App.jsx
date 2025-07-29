@@ -17,9 +17,7 @@ import Login from "./routes/auth/Login";
 import Register from "./routes/auth/Register";
 import AddMachine from "./routes/add/AddMachine";
 import Card from "./routes/card/Card";
-import QueueTable from "./routes/table/QueueTable";
-import ExportTable from "./routes/table/ExportTable";
-import InventoryTable from "./routes/table/InventoryTable";
+import MachineTable from "./routes/table/MachineTable";
 import RequestPasswordReset from "./routes/auth/RequestPasswordReset";
 import ResetPassword from "./routes/auth/ResetPassword";
 import UpdateUserInfo from "./routes/admin/UpdateUserInfo";
@@ -41,9 +39,7 @@ const App = () => {
         <Route element={<ProtectedRoutes />}>
           <Route index element={user ? userPositions[user.position] : null} />
           <Route path="add" element={<AddMachine />} />
-          <Route path="queue" element={<QueueTable />} />
-          <Route path="export" element={<ExportTable />} />
-          <Route path="inventory" element={<InventoryTable />} />
+          <Route path="table/:status" element={<MachineTable />} />
           <Route path="admin-panel" element={<AdminPanel />} />
           <Route path="update-user/:user_id" element={<UpdateUserInfo />} />
         </Route>

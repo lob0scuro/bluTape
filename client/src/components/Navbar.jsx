@@ -51,7 +51,7 @@ const Navbar = () => {
           <h4>Tables</h4>
           <NavLink
             className={styles.adminNavLinks}
-            to="/queue"
+            to="/table/queued"
             onClick={() => setOpen(false)}
           >
             <small>Queue</small>
@@ -61,14 +61,14 @@ const Navbar = () => {
             <>
               <NavLink
                 className={styles.adminNavLinks}
-                to="/export"
+                to="/table/cleaned"
                 onClick={() => setOpen(false)}
               >
-                <small>Pending Export</small>
+                <small>Cleaned</small>
               </NavLink>
               <NavLink
                 className={styles.adminNavLinks}
-                to="/inventory"
+                to="/table/inventory"
                 onClick={() => setOpen(false)}
               >
                 <small>Inventory</small>
