@@ -14,11 +14,12 @@ def export_table():
     if not machines:
         return jsonify(message="No machines found"), 404
     data = [{
-            "model": m.model,
-            "serial": m.serial,
-            "style": m.style,
-            "color": m.color,
-            "type": m.machine_type.name if m.machine_type else None,
+            "Brand": m.brand,
+            "Model": m.model,
+            "Serial": m.serial,
+            "Style": m.style,
+            "Color": m.color,
+            "Type": m.machine_type.name if m.machine_type else None,
         } for m in machines]
     
     output = BytesIO()

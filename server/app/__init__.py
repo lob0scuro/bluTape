@@ -34,6 +34,8 @@ def create_app(config_class=Config):
     app.register_blueprint(read_bp)
     from app.update import bp as update_bp
     app.register_blueprint(update_bp)
+    from app.exports import bp as exports_bp
+    app.register_blueprint(exports_bp)
     
     #USERMIXIN
     @login_manager.user_loader

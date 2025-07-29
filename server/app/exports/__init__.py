@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-bp = Blueprint('exports', __name__, url_prefix='/exports')
+bp = Blueprint('export', __name__, url_prefix='/export')
 
 from app.exports import routes
