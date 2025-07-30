@@ -23,6 +23,7 @@ def get_machines():
         type_id = request.args.get('type_id', default=0, type=int)
         
         query = Machine.query
+        # .filter(Machine.is_deleted == False)
         
         if status == 'queued':
             query = query.filter(and_(Machine.is_clean == False, Machine.is_exported == False))

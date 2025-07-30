@@ -155,19 +155,11 @@ export const submitForm = async ({ endpoint, method, inputs }) => {
 export const exportTable = async () => {
   try {
     const response = await fetch("/export/export_table");
-    const data = await response.blob();
+    const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error || "Failed to export table");
     }
-    const url = window.URL.createObjectURL(data);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${status}_table.xlsx`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-    return { success: true, message: "Table exported successfully" };
+    return { success: true, message: data.message };
   } catch (error) {
     return { success: false, error: error.message };
   }

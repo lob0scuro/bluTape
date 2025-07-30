@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MachineBar from "../../components/MachineBar";
 import Table from "../../components/Table";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button";
 import { exportTable } from "../../utils/API";
 import toast from "react-hot-toast";
@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 const MachineTable = () => {
   const { status } = useParams();
   const [typeId, setTypeId] = useState(0);
+  const navigate = useNavigate();
 
   const exported = async () => {
     const response = await exportTable();
@@ -17,6 +18,7 @@ const MachineTable = () => {
       return;
     }
     toast.success(response.message);
+    navigate("/");
   };
 
   return (
