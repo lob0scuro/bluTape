@@ -17,3 +17,5 @@ desktop.ini
 notes.txt
 
 deploy.tar.gz
+
+deployServer.sh
