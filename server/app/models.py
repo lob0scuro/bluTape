@@ -75,7 +75,7 @@ class Task(db.Model):
 ApplianceEnum =  Enum("Refrigerator", "Washer", "Dryer", "Range", "Water Heater", "Dishwasher", "Microwave", name="appliance_types")   
 ConditionEnum = Enum("NEW", "USED", name="condition_enum")
 VendorEnum = Enum("Pasadena", "Baton Rouge", "Alexandria", "Stines LC", "Stines Jennings", "Scrappers", "Unknown", name="vendor_enum")
-    
+statusEnum = Enum("queued", "cleaned", "export", "deleted", name="status_enum")
 class Machine(db.Model):
     id = Column(Integer, primary_key=True)
     brand = Column(String(50), nullable=False)
@@ -87,10 +87,9 @@ class Machine(db.Model):
     vendor = Column(VendorEnum)
     repaired_on = Column(Date, default=func.current_date())
     repaired_by = Column(Integer, ForeignKey("user.id", ondelete='SET NULL'))
-    is_clean = Column(Boolean, default=False)
     cleaned_on = Column(Date)
     cleaned_by = Column(Integer, ForeignKey("user.id", ondelete='SET NULL'))
-    is_exported = Column(Boolean, default=False)
+    status = Column(statusEnum, default="queued")
     type_id = Column(Integer, ForeignKey("types.id", ondelete='SET NULL'))
     machine_type = db.relationship('Types', backref='machines')
     notes = db.relationship('Note', backref="machine", foreign_keys="Note.machine_id")
@@ -109,8 +108,7 @@ class Machine(db.Model):
             "repaired_by": self.repaired_by,
             "cleaned_on": self.cleaned_on,
             "cleaned_by": self.cleaned_by,
-            "is_clean": self.is_clean,
-            "is_exported": self.is_exported,
+            "status": self.status,
             "type_id": self.type_id,
             "machine_type": self.machine_type.name if self.machine_type else None,
             "notes": [note.serialize() for note in self.notes]

@@ -19,18 +19,13 @@ def get_machine(id):
 @bp.route("/get_machines", methods=['GET'])
 def get_machines():
     try:
-        status = request.args.get('status', 'all')
+        status = request.args.get('status', 'all').lower()
         type_id = request.args.get('type_id', default=0, type=int)
         
-        query = Machine.query
-        # .filter(Machine.is_deleted == False)
+        query = Machine.query.filter(Machine.status != "deleted")
         
-        if status == 'queued':
-            query = query.filter(and_(Machine.is_clean == False, Machine.is_exported == False))
-        elif status == 'cleaned':
-            query = query.filter(and_(Machine.is_clean == True, Machine.is_exported == False))
-        elif status == 'inventory':
-            query = query.filter(and_(Machine.is_clean == True, Machine.is_exported == True))
+        if status in ["queued", "cleaned", "export"]:
+            query = query.filter(Machine.status == status)
         
         if type_id != 0:
             query = query.filter(Machine.type_id == type_id)
@@ -89,7 +84,7 @@ def get_user_wrap_ups(id):
     try:
         wrap_ups = (
             db.session.query(Machine)
-            .filter((and_(Machine.repaired_by == id, Machine.is_exported == False)))
+            .filter((and_(Machine.repaired_by == id, Machine.status == "queued")))
             .order_by(Machine.id.desc())
             .limit(10)
             .all()

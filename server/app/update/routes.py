@@ -69,32 +69,17 @@ def change_status(id):
         data = request.get_json()
         if not data:
             return jsonify(error="No payload in request."), 400
-        statusField = data.get("status")
-        if statusField not in ["is_clean", "is_exported"]:
+        statusField = data.get("status", "").strip().lower()
+        if statusField not in ["queued", "cleaned", "export"]:
             return jsonify(error="Invalid status field."), 400
         machine = Machine.query.get(id)
         if not machine:
-            return jsonify(error="Could not find machine."), 400
+            return jsonify(error="Could not find machine."), 404
         
-        if "value" in data:
-            new_value = bool(data["value"])
-        else:
-            current_value = getattr(machine, statusField)
-            new_value = not current_value
-        setattr(machine, statusField, new_value)
-        
-        if statusField == "is_clean":
-            if new_value:
-                machine.cleaned_on = date.today()
-                machine.cleaned_by = current_user.id
-            else:
-                machine.cleaned_on = None
-                machine.cleaned_by = None
-        elif statusField == "is_exported":
-            pass
+        machine.status = statusField.strip()
         
         db.session.commit()
-        return jsonify(message=f"Machine {statusField} status updated successfully!"), 200
+        return jsonify(message=f"Machine status updated successfully!"), 200
     except Exception as e:
         print(f"Error when updating machine status: {e}")
         db.session.rollback()

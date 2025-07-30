@@ -18,7 +18,6 @@ import {
   conditions,
   vendors,
 } from "../../utils/Schemas";
-import clsx from "clsx";
 
 const styleMap = [
   machineStyles.fridge,
@@ -122,7 +121,7 @@ const Card = () => {
       return;
     }
     toast.success(message);
-    setNoteFormValues((noteFormValues.content = ""));
+    setNoteFormValues({ content: "" });
     setEditNotes(false);
   };
 
@@ -158,15 +157,40 @@ const Card = () => {
     setRefreshTrigger((prev) => prev + 1);
   };
 
-  const handleMachineStatus = async (id, status, value) => {
+  const handleMachineStatus = async (id, status) => {
     if (!confirm("Update status?")) return;
-    const sendUpdate = await changeStatus(id, status, value);
+    const sendUpdate = await changeStatus(id, status);
     if (!sendUpdate.success) {
       toast.error(sendUpdate.error);
       return;
     }
     toast.success(sendUpdate.message);
     setRefreshTrigger((prev) => prev + 1);
+  };
+
+  const statusMap = {
+    queued: { label: "Finish Cleaning", next: "cleaned" },
+    cleaned: { label: "Mark for Export", next: "export" },
+    export: { label: "Reset Status", next: "queued" },
+  };
+
+  const statusLabels = {
+    queued: "Repair done, pending clean",
+    cleaned: "Ready for export",
+    export: "Pending export",
+    deleted: "Removed from workflow",
+  };
+
+  const renderButton = (status, id) => {
+    const cnfg = statusMap[status];
+    if (!cnfg) return null;
+    return (
+      <Button
+        title={cnfg.label}
+        isSecondary
+        onClick={() => handleMachineStatus(id, cnfg.next)}
+      />
+    );
   };
 
   if (!machine) {
@@ -194,15 +218,7 @@ const Card = () => {
               fontWeight: "800",
             }}
           >
-            {!machine.is_clean && !machine.is_exported && (
-              <p>{machine.machine_type} queued - pending clean</p>
-            )}
-            {machine.is_clean && !machine.is_exported && (
-              <p>{machine.machine_type} cleaned - pending export</p>
-            )}
-            {machine.is_clean && machine.is_exported && (
-              <p>{machine.machine_type} inventoried</p>
-            )}
+            <p>{statusLabels[machine.status] || "Unknown status"}</p>
           </li>
           <li>
             <p>Brand:</p>
@@ -361,35 +377,7 @@ const Card = () => {
         </ul>
       </div>
       <div className={styles.handleMachineButtonBlock}>
-        {user && user?.is_admin && machine.is_clean && (
-          <button
-            onClick={() =>
-              handleMachineStatus(
-                machine.id,
-                "is_exported",
-                machine.is_exported ? false : true
-              )
-            }
-          >
-            {machine.is_exported ? "Undo Export" : "Export Machine"}
-          </button>
-        )}
-        {(user?.is_admin ||
-          (user &&
-            ["Cleaner", "Office"].includes(user.position) &&
-            !machine.is_exported)) && (
-          <button
-            onClick={() =>
-              handleMachineStatus(
-                machine.id,
-                "is_clean",
-                machine.is_clean ? false : true
-              )
-            }
-          >
-            {machine.is_clean ? "Undo Cleaning" : "Finish Cleaning"}
-          </button>
-        )}
+        {renderButton(machine.status, machine.id)}
 
         {user && ["Technician", "Office"].includes(user.position) && (
           <button

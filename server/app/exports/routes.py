@@ -11,7 +11,7 @@ from flask_mailman import EmailMessage
 @bp.route("/export_table", methods=["GET"])
 @login_required
 def export_table():
-    machines = Machine.query.filter(and_(Machine.is_clean==True, Machine.is_exported==True)).all()
+    machines = Machine.query.filter(Machine.status=="export").all()
     if not machines:
         return jsonify(error="No machines found"), 404
     data = [{
@@ -28,11 +28,7 @@ def export_table():
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False, sheet_name='Machines')
     output.seek(0)
-    
-    # add email logic here
-    #
-    #
-    #
+  
     try:
         
         msg = EmailMessage(
@@ -46,11 +42,13 @@ def export_table():
     except Exception as e:
         print(f"Email sending error: {e}")
         return jsonify(error="Failed to send email with export attachment."), 500
-    
-    for m in machines:
-        m.is_clean = False
-        m.is_exported = False
-        # m.is_deleted = True
-    db.session.commit()
+    try:
+        for m in machines:
+            m.status = "deleted"
+        db.session.commit()
+    except Exception as e:
+        print(f"Error updating machine status: {e}")
+        db.session.rollback()
+        return jsonify(error="Failed to update machine status after export."), 500
     
     return jsonify(message="Export successful, email sent with attachment."), 200

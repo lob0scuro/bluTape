@@ -70,7 +70,7 @@ export const fetchAllMachines = async (status, type_id) => {
     );
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error);
+      throw new Error(data.error || "Failed to fetch machines");
     }
     return { success: true, machines: data.machines };
   } catch (error) {
@@ -91,18 +91,18 @@ export const fetchMachineNotes = async (id) => {
   }
 };
 
-export const changeStatus = async (id, status, value) => {
+export const changeStatus = async (id, status) => {
   try {
     const response = await fetch(`/update/change_status/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ status: status, value: value }),
+      body: JSON.stringify({ status: status.trim().toLowerCase() }),
     });
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error);
+      throw new Error(data.error || "Failed to change status");
     }
     return { success: true, message: data.message };
   } catch (error) {

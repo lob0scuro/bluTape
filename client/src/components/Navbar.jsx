@@ -68,7 +68,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 className={styles.adminNavLinks}
-                to="/table/inventory"
+                to="/table/export"
                 onClick={() => setOpen(false)}
               >
                 <small>Inventory</small>

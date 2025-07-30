@@ -24,8 +24,8 @@ const MachineTable = () => {
   return (
     <>
       <MachineBar setTypeId={setTypeId} />
-      <Table endpoint={status} type_id={typeId} />
-      {status === "inventory" && (
+      <Table status={status} type_id={typeId} />
+      {status === "export" && (
         <Button title={"Export Table"} onClick={exported} />
       )}
     </>
