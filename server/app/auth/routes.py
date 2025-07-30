@@ -1,4 +1,4 @@
-from flask import jsonify, request, session, url_for, render_template_string
+from flask import jsonify, request, session, url_for, render_template_string, current_app
 from app.auth import bp
 from app.extensions import db, bcrypt, serializer
 from app.models import User
@@ -49,6 +49,7 @@ def login(id):
         login_user(user, remember=True)
         session["user"] = f"{user.first_name} {user.last_name[0]}"
         session["device"] = request.headers.get("User-Agent")
+        current_app.logger.info(f"{current_user.first_name} logged in")
         return jsonify(message=f"Logged in as {user.first_name}", user=user.serialize())
     except Exception as e:
         print(f"Login error: {e}")

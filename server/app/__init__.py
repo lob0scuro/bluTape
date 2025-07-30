@@ -3,6 +3,7 @@ from config import Config
 from .extensions import db, migrate, bcrypt, cors, login_manager, session, mail
 from .models import User
 from itsdangerous import URLSafeTimedSerializer
+from app.logging_config import setup_logging
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -16,6 +17,7 @@ def create_app(config_class=Config):
     login_manager.init_app(app) 
     session.init_app(app) 
     mail.init_app(app)
+    setup_logging(app)
     
     from . import extensions
     extensions.serializer = URLSafeTimedSerializer(app.secret_key)
