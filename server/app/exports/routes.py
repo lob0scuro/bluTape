@@ -1,4 +1,4 @@
-from flask import jsonify, request, send_file
+from flask import jsonify, request, send_file, current_app
 from app.exports import bp
 from app.extensions import db
 from app.models import Machine
@@ -39,8 +39,10 @@ def export_table():
         msg.attach('machine_exports.xlsx', output.getvalue(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         
         msg.send()
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has exported machines to xlsx to {current_user.email}")
     except Exception as e:
         print(f"Email sending error: {e}")
+        current_app.logger.warning(f"an error occured when trying to export machines to xlsx: {e}")
         return jsonify(error="Failed to send email with export attachment."), 500
     try:
         for m in machines:
@@ -49,6 +51,7 @@ def export_table():
     except Exception as e:
         print(f"Error updating machine status: {e}")
         db.session.rollback()
+        current_app.logger.warning(f"an error occured when trying to update machine status: {e}")
         return jsonify(error="Failed to update machine status after export."), 500
     
     return jsonify(message="Export successful, email sent with attachment."), 200

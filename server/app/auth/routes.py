@@ -49,7 +49,7 @@ def login(id):
         login_user(user, remember=True)
         session["user"] = f"{user.first_name} {user.last_name[0]}"
         session["device"] = request.headers.get("User-Agent")
-        current_app.logger.info(f"{current_user.first_name} logged in")
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} logged in")
         return jsonify(message=f"Logged in as {user.first_name}", user=user.serialize())
     except Exception as e:
         print(f"Login error: {e}")
@@ -92,6 +92,7 @@ def request_reset_password():
             to=[user.email],
         )
         msg.send()
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has requested a password reset")
         return jsonify(message="A reset link has been sent to your email!"), 200
     else:
         return jsonify(error="No user found with this email address"), 404
