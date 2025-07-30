@@ -124,5 +124,4 @@ export const vendors = {
 export const conditions = {
   NEW: "NEW",
   USED: "USED",
-  "Scratch and Dent": "Scratch and Dent",
 };
