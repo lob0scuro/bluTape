@@ -12,6 +12,9 @@ const MachineTable = () => {
   const navigate = useNavigate();
 
   const exported = async () => {
+    if (!confirm("Export table?")) {
+      return;
+    }
     const response = await exportTable();
     if (!response.success) {
       toast.error(response.error);
