@@ -63,16 +63,27 @@ export const fetchMachine = async (id) => {
   }
 };
 
-export const fetchAllMachines = async (status, type_id) => {
+export const fetchAllMachines = async (
+  status,
+  type_id,
+  page = 1,
+  limit = 10
+) => {
   try {
     const response = await fetch(
-      `/read/get_machines?status=${status}&type_id=${type_id}`
+      `/read/get_machines?status=${status}&type_id=${type_id}&page=${page}&limit=${limit}`
     );
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error || "Failed to fetch machines");
     }
-    return { success: true, machines: data.machines };
+    return {
+      success: true,
+      machines: data.machines,
+      total: data.total,
+      page: data.page,
+      limit: data.limit,
+    };
   } catch (error) {
     return { success: false, error: error.message };
   }

@@ -28,6 +28,8 @@ const MachineTable = () => {
     <>
       <MachineBar setTypeId={setTypeId} />
       <Table status={status} type_id={typeId} />
+      <br />
+      <br />
       {status === "export" && (
         <Button title={"Export Table"} onClick={exported} />
       )}
