@@ -1,4 +1,4 @@
-import styles from "./Home.Module.css";
+import styles from "./Home.module.css";
 import { useAuth } from "../../context/UserContext";
 import { currentDay } from "../../utils/Tools";
 import { fetchUserWrapUps } from "../../utils/API";
