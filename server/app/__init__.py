@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from config import Config
 from .extensions import db, migrate, bcrypt, cors, login_manager, session, mail
 from .models import User
@@ -38,6 +38,10 @@ def create_app(config_class=Config):
     app.register_blueprint(update_bp)
     from app.exports import bp as exports_bp
     app.register_blueprint(exports_bp)
+    
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        return jsonify(error="Unauthorized"), 401
     
     #USERMIXIN
     @login_manager.user_loader

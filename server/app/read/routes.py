@@ -73,7 +73,7 @@ def get_user_tasks(id, status):
         else:
             tasks = Task.query.filter(and_(Task.user_id==id, Task.is_complete==bool(status))).all()
         if not tasks:
-            return jsonify(error="No tasks found."), 404
+            return jsonify(tasks=[]), 200
         return jsonify(tasks=[task.serialize() for task in tasks]), 200
     except Exception as e:
         print(f"Error when querying for users tasks: {e}")

@@ -22,7 +22,6 @@ def export_table():
             "Type": m.machine_type.name if m.machine_type else None,
             "Color": m.color,
         } for m in machines]
-    
     output = BytesIO()
     df = pd.DataFrame(data)
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
@@ -30,7 +29,6 @@ def export_table():
     output.seek(0)
   
     try:
-        
         msg = EmailMessage(
             subject="Machine Export",
             body="Attached is the export of machines.",
@@ -39,7 +37,7 @@ def export_table():
         msg.attach('machine_exports.xlsx', output.getvalue(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         
         msg.send()
-        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has exported machines to xlsx to {current_user.email}")
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has exported xlsx file to {current_user.email}")
     except Exception as e:
         print(f"Email sending error: {e}")
         current_app.logger.warning(f"an error occured when trying to export machines to xlsx: {e}")

@@ -154,9 +154,13 @@ export const submitForm = async ({ endpoint, method, inputs }) => {
 
 export const exportTable = async () => {
   try {
-    const response = await fetch("/export/export_table");
+    const response = await fetch("/export/export_table", {
+      credentials: "include",
+    });
+
     const data = await response.json();
     if (!response.ok) {
+      console.error(data.error);
       throw new Error(data.error || "Failed to export table");
     }
     return { success: true, message: data.message };
