@@ -5,6 +5,7 @@ from .models import User
 from itsdangerous import URLSafeTimedSerializer
 from app.logging_config import setup_logging
 
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
