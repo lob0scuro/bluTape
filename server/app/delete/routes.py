@@ -1,7 +1,8 @@
-from flask import jsonify, request
+from flask import jsonify, request, current_app
 from app.delete import bp
 from app.extensions import db
 from app.models import Machine, Note, Task, User
+from flask_login import current_user
 
 @bp.route("/delete_user/<int:id>", methods=['POST'])
 def delete_user(id):
@@ -25,6 +26,7 @@ def delete_machine(id):
             return jsonify(error="Could not find machine."), 400
         db.session.delete(machine)
         db.session.commit()
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} deleted a {machine.machine_type} from the database")
         return jsonify(message="Machine has been deleted from database."), 200
     except Exception as e:
         print(f"Error when deleting machine: {e}")

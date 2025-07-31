@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, current_app
 from app.create import bp
 from app.extensions import db
 from flask_login import current_user
@@ -32,6 +32,8 @@ def add_machine():
         new_note = Note(content=note, user_id=current_user.id, machine_id=new_machine.id)
         db.session.add(new_note)
         db.session.commit()
+        
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} finished repairing a {new_machine.machine_type}")
         
         return jsonify(message="Successfully added machine to database!", machine=new_machine.serialize()), 201
     except Exception as e:

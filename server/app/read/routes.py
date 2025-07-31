@@ -22,6 +22,9 @@ def get_machines():
         status = request.args.get('status', 'all').lower()
         type_id = request.args.get('type_id', default=0, type=int)
         
+        page = request.args.get('page', default=1, type=int)
+        limit = request.args.get('limit', default=10, type=int)
+        
         query = Machine.query.filter(Machine.status != "deleted")
         
         if status in ["queued", "cleaned", "export"]:
@@ -30,9 +33,22 @@ def get_machines():
         if type_id != 0:
             query = query.filter(Machine.type_id == type_id)
             
-        machines = query.order_by(Machine.repaired_on.asc()).all()
+        total = query.count()
+            
+        machines = (
+            query
+            .order_by(Machine.repaired_on.asc())
+            .offset((page -1) * limit)
+            .limit(limit)
+            .all()
+        )
         
-        return jsonify(machines=[machine.serialize() for machine in machines])
+        return jsonify(
+            machines=[machine.serialize() for machine in machines],
+            total=total,
+            page=page,
+            limit=limit
+            )
     except Exception as e:
         print(f"Error when querying machines: {e}")
         return jsonify(error=f"Error when querying machines: {e}"), 500
