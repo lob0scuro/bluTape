@@ -138,7 +138,7 @@ const Card = () => {
       return;
     }
     toast.success(message);
-    navigate("/queue");
+    navigate("/table/queued");
   };
 
   const handleNoteDelete = async (note_id) => {
