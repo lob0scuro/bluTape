@@ -33,7 +33,7 @@ def add_machine():
         db.session.add(new_note)
         db.session.commit()
         
-        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} finished repairing a {new_machine.machine_type}")
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} finished repairing a {new_machine.machine_type.name}")
         
         return jsonify(message="Successfully added machine to database!", machine=new_machine.serialize()), 201
     except Exception as e:

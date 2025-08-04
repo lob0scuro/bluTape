@@ -60,6 +60,7 @@ def login(id):
 def logout():
     try:
         logout_user()
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has been logged out.")
         return jsonify(message="Logged out."), 200
     except Exception as e:
         print(f"Logout Error: {e}")
