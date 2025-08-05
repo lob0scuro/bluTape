@@ -50,7 +50,7 @@ def update_machine(id):
                 if incoming_value != current_value:
                     setattr(machine, field, incoming_value)
                     updated = True
-        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} updated info for {machine.machine_type} with id {machine.id}")
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} updated info for {machine.machine_type.name} with id {machine.id}")
         if updated:
             db.session.commit()
             return jsonify(message="Machine updated!"), 200
