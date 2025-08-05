@@ -1,6 +1,5 @@
 import styles from "./Scheduler.module.css";
-import React, { useEffect, useState } from "react";
-import { renderOptions } from "../../utils/Tools";
+import { useEffect, useState } from "react";
 import { fetchUsers } from "../../utils/API";
 import toast from "react-hot-toast";
 
@@ -46,6 +45,15 @@ const Scheduler = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "week_date") {
+      const selectedDate = new Date(value);
+      const day = selectedDate.getDay();
+
+      if (day !== 1) {
+        toast.error("Please select a Monday");
+        return;
+      }
+    }
     setSchedule((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -81,8 +89,49 @@ const Scheduler = () => {
     </div>
   );
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedUser) {
+      toast.error("Please select an employee");
+      return;
+    }
+
+    const payload = {
+      ...schedule,
+      user_id: selectedUser,
+      week_date: schedule.week_date,
+    };
+
+    try {
+      const response = await fetch("/schedule/input_week", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong");
+      } else {
+        toast.success("Schedule has been submitted!");
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.error(error);
+    }
+  };
+
   return (
     <div className={styles.scheduler}>
+      <input
+        type="date"
+        name="week_date"
+        value={schedule.week_date || ""}
+        onChange={handleChange}
+        required
+      />
       <select
         name="employee"
         id="employee"
