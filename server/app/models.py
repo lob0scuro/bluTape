@@ -1,8 +1,9 @@
 from app.extensions import db
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Text, Boolean, Date, Enum, ForeignKey, func
+from sqlalchemy import Column, Integer, String, Text, Boolean, Date, Time, Enum, ForeignKey, func
 from itsdangerous import URLSafeTimedSerializer
 from flask import current_app
+from datetime import datetime, timedelta
 
 roleEnum = Enum("Technician", "Cleaner", "Sales", "Office", "Driver", "Service", name="positions")
 
@@ -119,3 +120,68 @@ class Machine(db.Model):
 class Types(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(ApplianceEnum, nullable=False)
+    
+    
+class Schedule(db.Model):
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    week_of = Column(Date, nullable=False) #Monday for that week
+    
+    mon_start = Column(Time)
+    mon_end = Column(Time)
+    tue_start = Column(Time)
+    tue_end = Column(Time)
+    wed_start = Column(Time)
+    wed_end = Column(Time)
+    thu_start = Column(Time)
+    thu_end = Column(Time)
+    fri_start = Column(Time)
+    fri_end = Column(Time)
+    sat_start = Column(Time)
+    sat_end = Column(Time)
+    
+    submitted = Column(Boolean, default=False)
+    
+    user = db.relationship("User", backref="schedules")
+    
+    @property
+    def total_hours(self):
+        total = timedelta()
+        
+        for day in ["mon", "tue", "wed", "thu", "fri", "sat"]:
+            start = getattr(self, f"{day}_start")
+            end = getattr(self, f"{day}_end")
+            
+            if start and end:
+                #Convert Time objects to full datetime objects to get timedelta
+                dt_start = datetime.combine(self.week_of, start)
+                dt_end = datetime.combine(self.week_of, end)
+                
+                if dt_end > dt_start:
+                    total += dt_end - dt_start
+                    
+        hours = total.total_seconds() / 3600
+        rounded = round(hours * 2) / 2
+        
+        return rounded
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user": f"{self.user.first_name} {self.user.last_name}",
+            "week_of": self.week_of,
+            "mon_start": self.mon_start,
+            "mon_end": self.mon_end,
+            "tue_start": self.tue_start,
+            "tue_end": self.tue_end,
+            "wed_start": self.wed_start,
+            "wed_end": self.wed_end,
+            "thu_start": self.thu_start,
+            "thu_end": self.thu_end,
+            "fri_start": self.fri_start,
+            "fri_end": self.fri_end,
+            "sat_start": self.sat_start,
+            "sat_end": self.sat_end,
+            "submitted": self.submitted,
+            "total_hours": self.total_hours,
+        }
