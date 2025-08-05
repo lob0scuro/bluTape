@@ -21,6 +21,7 @@ import MachineTable from "./routes/table/MachineTable";
 import RequestPasswordReset from "./routes/auth/RequestPasswordReset";
 import ResetPassword from "./routes/auth/ResetPassword";
 import UpdateUserInfo from "./routes/admin/UpdateUserInfo";
+import Scheduler from "./routes/schedule/Scheduler";
 import { useAuth } from "./context/UserContext";
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="table/:status" element={<MachineTable />} />
           <Route path="admin-panel" element={<AdminPanel />} />
           <Route path="update-user/:user_id" element={<UpdateUserInfo />} />
+          <Route path="scheduler" element={<Scheduler />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

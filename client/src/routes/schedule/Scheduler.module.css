@@ -1,0 +1,34 @@
+.scheduler {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  align-items: center;
+}
+
+.week {
+  border: 1px solid var(--textPrimary);
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div.day {
+  border: 1px solid var(--textPrimary);
+  height: 80px;
+  width: 100%;
+  background-color: var(--linkText);
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+div.day div {
+  display: flex;
+  gap: 1rem;
+}

@@ -11,3 +11,11 @@
   color: var(--backgroundDark);
   margin-top: 0.6rem;
 }
+
+.schedulerLink {
+  border: 1px solid var(--textPrimary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  background-color: var(--bannerBackground);
+  font-size: 1.2rem;
+}

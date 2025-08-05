@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import InProgress from "../helpers/InProgress";
 import { fetchUsers } from "../../utils/API";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -48,6 +48,11 @@ const AdminPanel = () => {
             ))}
           </select>
         </div>
+        <br />
+        <br />
+        <Link className={styles.schedulerLink} to="/scheduler">
+          Scheduler
+        </Link>
       </div>
     </>
   );
