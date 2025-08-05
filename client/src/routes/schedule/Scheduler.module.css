@@ -1,14 +1,22 @@
 .scheduler {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   width: 100%;
   align-items: center;
 }
 
+.employeePicker {
+  background-color: transparent;
+  color: var(--linkText);
+  height: 30px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
 .week {
   border: 1px solid var(--textPrimary);
-  width: 95%;
+  width: 75%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -18,17 +26,34 @@
 
 div.day {
   border: 1px solid var(--textPrimary);
-  height: 80px;
+  height: 90px;
   width: 100%;
   background-color: var(--linkText);
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
 }
 
-div.day div {
+div.day span {
+  font-size: 1.2rem;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+div.timeSelectField {
   display: flex;
-  gap: 1rem;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  height: 50px;
+}
+
+div.timeSelectField select {
+  font-size: 1.5rem;
+  background-color: transparent;
+  border: 1px solid var(--backgroundDark);
+  height: 30px;
+  border-radius: 6px;
+  padding-inline: 8px;
 }

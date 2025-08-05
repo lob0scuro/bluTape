@@ -25,9 +25,12 @@ const HOURS = (() => {
   return result;
 })();
 
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 const Scheduler = () => {
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState("");
+  const [selectedUser, setSelectedUser] = useState();
+  const [schedule, setSchedule] = useState({});
 
   useEffect(() => {
     const get = async () => {
@@ -41,12 +44,50 @@ const Scheduler = () => {
     get();
   }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSchedule((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const timeSelects = (day) => (
+    <div key={day} className={styles.day}>
+      <span>{day}</span>
+      <div className={styles.timeSelectField}>
+        <select
+          name={`${day.toLowerCase()}_start`}
+          value={schedule[`${day.toLowerCase()}_start`] || ""}
+          onChange={handleChange}
+        >
+          <option value="">--start time--</option>
+          {HOURS.map(({ time, label }, idx) => (
+            <option value={time.toISOString()} key={`start-${idx}`}>
+              {label}
+            </option>
+          ))}
+        </select>
+        <select
+          name={`${day.toLowerCase()}_end`}
+          value={schedule[`${day.toLowerCase()}_end`] || ""}
+          onChange={handleChange}
+        >
+          <option value="">--end time--</option>
+          {HOURS.map(({ time, label }, idx) => (
+            <option value={time.toISOString()} key={`end-${idx}`}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.scheduler}>
       <select
         name="employee"
         id="employee"
         onChange={(e) => setSelectedUser(e.target.value)}
+        className={styles.employeePicker}
       >
         <option value="">--Select Employee--</option>
         {users?.map(({ id, first_name }) => (
@@ -55,35 +96,7 @@ const Scheduler = () => {
           </option>
         ))}
       </select>
-      <div className={styles.week}>
-        <div className={styles.day}>
-          <span>Mon</span>
-          <div>
-            <select name="start" id="start">
-              <option value="">--start time--</option>
-              {HOURS.map(({ time, label }, idx) => (
-                <option key={idx} value={time.toISOString()}>
-                  {label}
-                </option>
-              ))}
-            </select>
-
-            <select name="end" id="end">
-              <option value="">--end time--</option>
-              {HOURS.map(({ time, label }, idx) => (
-                <option key={idx} value={time.toISOString()}>
-                  {label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className={styles.day}>Tue</div>
-        <div className={styles.day}>Wed</div>
-        <div className={styles.day}>Thu</div>
-        <div className={styles.day}>Fri</div>
-        <div className={styles.day}>Sat</div>
-      </div>
+      <div className={styles.week}>{DAYS.map(timeSelects)}</div>
     </div>
   );
 };
