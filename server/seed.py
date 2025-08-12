@@ -25,10 +25,10 @@ with app.app_context():
             condition=random.choice(condition_values),  # now uses string values
             vendor=random.choice(vendor_values),        # now uses string values
             repaired_on=date.today(),
-            repaired_by=19,
+            repaired_by=1,
             cleaned_on=date.today(),
-            cleaned_by=37,
-            status="export",
+            cleaned_by=1,
+            status=random.choice(["queued", "cleaned", "export"]),
             type_id=1
         )
         db.session.add(machine)

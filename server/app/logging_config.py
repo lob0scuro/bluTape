@@ -3,9 +3,12 @@ from logging.handlers import RotatingFileHandler
 import os
 from app.config_flags import dev_mode
 
+work_path = "C:\\Users\\latin\\Desktop\\log"
+personal_path = "C:\\Users\\camer\\OneDrive\\Desktop\\log"
+
 
 def setup_logging(app):
-    log_dir = "/var/log/bluTape" if not dev_mode else "C:\\Users\\camer\\OneDrive\\Desktop\\log"
+    log_dir = "/var/log/bluTape" if not dev_mode else work_path
     log_file = os.path.join(log_dir, "app.log")
     
     file_handler = RotatingFileHandler(log_file, maxBytes=10_000_000, backupCount=5)
