@@ -28,7 +28,7 @@ with app.app_context():
             repaired_by=19,
             cleaned_on=date.today(),
             cleaned_by=37,
-            status="export",
+            status=random.choice(["queued", "cleaned", "export"]),
             type_id=1
         )
         db.session.add(machine)

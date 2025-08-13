@@ -54,3 +54,41 @@ def export_table():
         return jsonify(error="Failed to update machine status after export."), 500
     
     return jsonify(message="Export successful, email sent with attachment."), 200
+
+
+@bp.route("/dirty_export", methods=['GET'])
+def dirty_export():
+    machines = Machine.query.all()
+    if not machines:
+        return jsonify(error="No machines to export."), 400
+    data = [{
+            "Brand": m.brand,
+            "Model": m.model,
+            "Serial": m.serial,
+            "Style": m.style,
+            "Type": m.machine_type.name if m.machine_type else None,
+            "Color": m.color,
+            "Condition": m.condition,
+        } for m in machines]
+    
+    output = BytesIO()
+    df = pd.DataFrame(data)
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Machines')
+    output.seek(0)
+  
+    try:
+        msg = EmailMessage(
+            subject="Machine Export",
+            body="Attached is the export of machines.",
+            to=[current_user.email],
+        )
+        msg.attach('machine_exports.xlsx', output.getvalue(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        
+        msg.send()
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has exported xlsx file to {current_user.email}")
+        return jsonify(message="Export Complete."), 200
+    except Exception as e:
+        print(f"Email sending error: {e}")
+        current_app.logger.warning(f"an error occured when trying to export machines to xlsx: {e}")
+        return jsonify(error="Failed to send email with export attachment."), 500
