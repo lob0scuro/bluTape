@@ -1,9 +1,10 @@
 import styles from "./AdminPanel.module.css";
 import React, { useEffect, useState } from "react";
 import InProgress from "../helpers/InProgress";
-import { fetchUsers } from "../../utils/API";
+import { fetchUsers, dirtyExport } from "../../utils/API";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -28,6 +29,14 @@ const AdminPanel = () => {
     }
   }, [chosenUser, navigate]);
 
+  const dirty = async () => {
+    const e = await dirtyExport();
+    if (!e.success) {
+      toast.error(e.error);
+    }
+    toast.success(e.message);
+  };
+
   return (
     <>
       <InProgress page="Admin Panel" />
@@ -47,6 +56,11 @@ const AdminPanel = () => {
               </option>
             ))}
           </select>
+        </div>
+        <br />
+        <br />
+        <div>
+          <Button title="Export All" isSecondary onClick={dirty} />
         </div>
       </div>
     </>

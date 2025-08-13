@@ -179,3 +179,20 @@ export const exportTable = async () => {
     return { success: false, error: error.message };
   }
 };
+
+export const dirtyExport = async () => {
+  try {
+    const response = await fetch("/export/dirty_export", {
+      credentials: "include",
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+    return { success: true, message: data.message };
+  } catch (error) {
+    console.error(error.message);
+    return { success: false, error: error.message };
+  }
+};
