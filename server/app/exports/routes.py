@@ -21,6 +21,7 @@ def export_table():
             "Style": m.style,
             "Type": m.machine_type.name if m.machine_type else None,
             "Color": m.color,
+            "Condition": m.condition,
         } for m in machines]
     output = BytesIO()
     df = pd.DataFrame(data)
