@@ -87,6 +87,7 @@ def dirty_export():
         
         msg.send()
         current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has exported xlsx file to {current_user.email}")
+        current_app.logger.info("...It was dirty")
         return jsonify(message="Export Complete."), 200
     except Exception as e:
         print(f"Email sending error: {e}")
