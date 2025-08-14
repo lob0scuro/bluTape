@@ -80,7 +80,7 @@ def change_status(id):
         machine.status = statusField.strip()
         
         db.session.commit()
-        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has set a {machine.machine_type.name} status to {machine.status}")
+        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} has set a {machine.machine_type.name} status to {machine.status} || m:{machine.model}:s{machine.serial}")
         return jsonify(message=f"Machine status updated successfully!"), 200
     except Exception as e:
         print(f"Error when updating machine status: {e}")

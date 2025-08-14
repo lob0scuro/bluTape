@@ -169,8 +169,8 @@ const Card = () => {
   };
 
   const statusMap = {
-    queued: { label: "Finish Cleaning", next: "cleaned" },
-    cleaned: { label: "Mark for Export", next: "export" },
+    // queued: { label: "Finish Cleaning", next: "cleaned" },
+    // cleaned: { label: "Mark for Export", next: "export" },
     export: { label: "Reset Status", next: "queued" },
   };
 
@@ -208,7 +208,7 @@ const Card = () => {
       )}
       <form className={styles.cardForm} onSubmit={handleMachineForm}>
         <ul className={styles.machineData}>
-          <li
+          {/* <li
             style={{
               alignSelf: "center",
               width: "100%",
@@ -219,7 +219,7 @@ const Card = () => {
             }}
           >
             <p>{statusLabels[machine.status] || "Unknown status"}</p>
-          </li>
+          </li> */}
           <li>
             <p>Brand:</p>
             {editing ? (
@@ -350,18 +350,22 @@ const Card = () => {
           )}
         </h3>
         <ul>
-          {notes?.map(({ id, content, created_on, created_by, user_id }) => (
-            <li key={id}>
-              <div>
-                <p>{content}</p>
-                <p>~ {created_by}</p>
-                <p>[{formatDate(created_on)}]</p>
-              </div>
-              {user_id === user?.id && (
-                <button onClick={() => handleNoteDelete(id)}>x</button>
-              )}
-            </li>
-          ))}
+          {notes.length > 0 ? (
+            notes?.map(({ id, content, created_on, created_by, user_id }) => (
+              <li key={id}>
+                <div>
+                  <p>{content}</p>
+                  <p>~ {created_by}</p>
+                  <p>[{formatDate(created_on)}]</p>
+                </div>
+                {user_id === user?.id && (
+                  <button onClick={() => handleNoteDelete(id)}>x</button>
+                )}
+              </li>
+            ))
+          ) : (
+            <li>--No notes added to machine--</li>
+          )}
           {editNotes && (
             <form className={styles.noteForm} onSubmit={handleNoteForm}>
               <textarea
@@ -377,7 +381,7 @@ const Card = () => {
         </ul>
       </div>
       <div className={styles.handleMachineButtonBlock}>
-        {renderButton(machine.status, machine.id)}
+        {/* {renderButton(machine.status, machine.id)} */}
 
         {user && ["Technician", "Office"].includes(user.position) && (
           <button
