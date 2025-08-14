@@ -11,7 +11,7 @@ from flask_mailman import EmailMessage
 @bp.route("/export_table", methods=["GET"])
 @login_required
 def export_table():
-    machines = Machine.query.filter(Machine.status=="export").all()
+    machines = Machine.query.filter(Machine.status=="queued").all()
     if not machines:
         return jsonify(error="No machines found"), 404
     data = [{
@@ -46,7 +46,7 @@ def export_table():
         return jsonify(error="Failed to send email with export attachment."), 500
     try:
         for m in machines:
-            m.status = "deleted"
+            m.status = "export"
         db.session.commit()
     except Exception as e:
         print(f"Error updating machine status: {e}")

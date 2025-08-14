@@ -41,13 +41,13 @@ const Navbar = () => {
               Wrap-Up{" "}
             </NavLink>
           )}
-          <a
+          {/* <a
             href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSCvrr6XOeZ4rUCAl5t2sQDyuMINIFxVcVxWA7xb5hNrJtoUQZidzqEjg2PNE1UoqxSk7x-Fsj6yDpa/pubhtml?gid=122600756&single=true"
             target="_blank"
             rel="noopener noreferrer"
           >
             View Schedule
-          </a>
+          </a> */}
           <h4>Tables</h4>
           <NavLink
             className={styles.adminNavLinks}
@@ -59,19 +59,19 @@ const Navbar = () => {
           {(user.is_admin ||
             ["Office", "Service", "Sales"].includes(user.position)) && (
             <>
-              <NavLink
+              {/* <NavLink
                 className={styles.adminNavLinks}
                 to="/table/cleaned"
                 onClick={() => setOpen(false)}
               >
                 <small>Cleaned</small>
-              </NavLink>
+              </NavLink> */}
               <NavLink
                 className={styles.adminNavLinks}
                 to="/table/export"
                 onClick={() => setOpen(false)}
               >
-                <small>Inventory</small>
+                <small>Inventoried</small>
               </NavLink>
             </>
           )}
