@@ -30,7 +30,7 @@ const MachineTable = () => {
       <Table status={status} type_id={typeId} />
       <br />
       <br />
-      {status === "export" && (
+      {status === "queued" && (
         <Button title={"Export Table"} onClick={exported} />
       )}
     </>
