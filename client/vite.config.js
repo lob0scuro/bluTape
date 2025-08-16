@@ -38,6 +38,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/labels": {
+        target: URL,
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });
