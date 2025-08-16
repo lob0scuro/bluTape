@@ -7,6 +7,7 @@ import {
   fetchMachineNotes,
   submitForm,
   changeStatus,
+  printLabel,
 } from "../../utils/API";
 import toast from "react-hot-toast";
 import Button from "../../components/Button";
@@ -191,6 +192,23 @@ const Card = () => {
         onClick={() => handleMachineStatus(id, cnfg.next)}
       />
     );
+  };
+
+  const sendLabelData = async () => {
+    const send = await printLabel({
+      id: machine.id,
+      model: machine.model,
+      serial: machine.serial,
+      brand: machine.brand,
+      style: machine.style,
+      color: machine.color,
+    });
+    if (!send.success) {
+      toast.error(send.error);
+      return;
+    } else {
+      toast.success(send.message);
+    }
   };
 
   if (!machine) {
@@ -381,7 +399,7 @@ const Card = () => {
         </ul>
       </div>
       <div className={styles.handleMachineButtonBlock}>
-        {/* {renderButton(machine.status, machine.id)} */}
+        <button onClick={sendLabelData}>Print Label</button>
 
         {user && ["Technician", "Office"].includes(user.position) && (
           <button

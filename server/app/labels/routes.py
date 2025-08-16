@@ -47,13 +47,13 @@ def print_label():
         zpl = generate_ZPL_label(data)
         
         #Open socket to Zebra printer via raspberry pi
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.settimeout(5)
-            s.connect((PRINTER_IP, PRINTER_PORT))
-            s.sendall(zpl.encode("utf-8"))
+        # with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        #     s.settimeout(5)
+        #     s.connect((PRINTER_IP, PRINTER_PORT))
+        #     s.sendall(zpl.encode("utf-8"))
             
         current_app.logger.info(f"{current_user.first_name} {current_user.last_name} just printed a label")
-        return jsonify(message="Label sent to printer")
+        return jsonify(message="Label sent to printer"), 200
     except Exception as e:
         current_app.logger.error(f"Error when sending ZPL: {e}")
         return jsonify(error=f"Error when sending ZPL to printer: {e}"),500

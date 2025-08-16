@@ -196,3 +196,32 @@ export const dirtyExport = async () => {
     return { success: false, error: error.message };
   }
 };
+
+export const printLabel = async (data) => {
+  const inputs = {
+    id: data.id,
+    model: data.model,
+    serial: data.serial,
+    brand: data.brand,
+    style: data.style,
+    color: data.color,
+  };
+  try {
+    const response = await fetch("/labels/print_label", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputs),
+    });
+    data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+    return { success: true, message: data.message };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: error.message };
+  }
+};
