@@ -39,6 +39,8 @@ def create_app(config_class=Config):
     app.register_blueprint(update_bp)
     from app.exports import bp as exports_bp
     app.register_blueprint(exports_bp)
+    from app.labels import bp as labels_bp
+    app.register_blueprint(labels_bp)
     
     @login_manager.unauthorized_handler
     def unauthorized():
