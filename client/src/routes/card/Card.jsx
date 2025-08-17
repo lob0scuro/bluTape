@@ -158,42 +158,6 @@ const Card = () => {
     setRefreshTrigger((prev) => prev + 1);
   };
 
-  const handleMachineStatus = async (id, status) => {
-    if (!confirm("Update status?")) return;
-    const sendUpdate = await changeStatus(id, status);
-    if (!sendUpdate.success) {
-      toast.error(sendUpdate.error);
-      return;
-    }
-    toast.success(sendUpdate.message);
-    setRefreshTrigger((prev) => prev + 1);
-  };
-
-  const statusMap = {
-    // queued: { label: "Finish Cleaning", next: "cleaned" },
-    // cleaned: { label: "Mark for Export", next: "export" },
-    export: { label: "Reset Status", next: "queued" },
-  };
-
-  const statusLabels = {
-    queued: "Repair done, pending clean",
-    cleaned: "Ready for export",
-    export: "Pending export",
-    deleted: "Removed from workflow",
-  };
-
-  const renderButton = (status, id) => {
-    const cnfg = statusMap[status];
-    if (!cnfg) return null;
-    return (
-      <Button
-        title={cnfg.label}
-        isSecondary
-        onClick={() => handleMachineStatus(id, cnfg.next)}
-      />
-    );
-  };
-
   const sendLabelData = async () => {
     const send = await printLabel({
       id: machine.id,
@@ -226,18 +190,6 @@ const Card = () => {
       )}
       <form className={styles.cardForm} onSubmit={handleMachineForm}>
         <ul className={styles.machineData}>
-          {/* <li
-            style={{
-              alignSelf: "center",
-              width: "100%",
-              justifyContent: "center",
-              color: "var(--textSecondary)",
-              fontSize: "1rem",
-              fontWeight: "800",
-            }}
-          >
-            <p>{statusLabels[machine.status] || "Unknown status"}</p>
-          </li> */}
           <li>
             <p>Brand:</p>
             {editing ? (
