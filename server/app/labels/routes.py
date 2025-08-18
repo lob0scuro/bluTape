@@ -2,10 +2,18 @@ from flask import request, jsonify, current_app
 from app.labels import bp
 import socket
 from flask_login import current_user
+import subprocess
 
 #TODO: update with Pi's tailscale IP
 PRINTER_IP = "100.71.48.104"
 PRINTER_PORT = 9100
+
+def send_to_pi(zpl):
+    user = "cameron"
+    subprocess.run(
+        ["ssh", f"{user}@{PRINTER_IP}", f"echo '{zpl}' | sudo tee /dev/usb/lp0 > /dev/null"],
+        check=True,
+    )
 
 def generate_ZPL_label(data):
     zpl = f"""
@@ -51,6 +59,9 @@ def print_label():
         #     s.settimeout(5)
         #     s.connect((PRINTER_IP, PRINTER_PORT))
         #     s.sendall(zpl.encode("utf-8"))
+        
+        send_to_pi(zpl)
+        
             
         current_app.logger.info(f"{current_user.first_name} {current_user.last_name} just printed a label")
         return jsonify(message="Label sent to printer"), 200
