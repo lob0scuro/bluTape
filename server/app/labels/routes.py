@@ -4,7 +4,7 @@ import socket
 from flask_login import current_user
 
 #TODO: update with Pi's tailscale IP
-PRINTER_IP = "100.75.42.10"
+PRINTER_IP = "100.71.48.104"
 PRINTER_PORT = 9100
 
 def generate_ZPL_label(data):
