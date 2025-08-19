@@ -50,7 +50,7 @@ def print_label():
         
         zpl = generate_ZPL_label(data)
         
-        response = requests.post(URL, data=zpl.encode("utf-8"), headers={"Content-Type": "application/x-www-form-urlencoded"})
+        response = requests.post(URL, data=zpl.encode("utf-8"))
         
         #Open socket to Zebra printer via raspberry pi
         # with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
