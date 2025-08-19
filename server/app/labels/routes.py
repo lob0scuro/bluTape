@@ -1,12 +1,14 @@
 from flask import request, jsonify, current_app
 from app.labels import bp
 import socket
+import requests
 from flask_login import current_user
 
 #TODO: update with Pi's tailscale IP
 PRINTER_IP = "100.71.48.104"
 ZEBRA_IP = "192.168.1.113"
-PRINTER_PORT = 9100
+PRINTER_PORT = 5000
+URL = "http://100.71.48.104:5000/print"
 
 
 def generate_ZPL_label(data):
@@ -48,11 +50,13 @@ def print_label():
         
         zpl = generate_ZPL_label(data)
         
+        response = requests.post(URL, data=zpl.encode("utf-8"), headers={"Content-Type": "application/x-www-form-urlencoded"})
+        
         #Open socket to Zebra printer via raspberry pi
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.settimeout(5)
-            s.connect((PRINTER_IP, PRINTER_PORT))
-            s.sendall(zpl.encode("utf-8"))
+        # with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        #     s.settimeout(5)
+        #     s.connect((PRINTER_IP, PRINTER_PORT))
+        #     s.sendall(zpl.encode("utf-8"))
         
         
             
