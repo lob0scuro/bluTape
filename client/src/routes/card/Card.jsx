@@ -159,6 +159,9 @@ const Card = () => {
   };
 
   const sendLabelData = async () => {
+    if (!confirm("Print label?")) {
+      return;
+    }
     const send = await printLabel({
       id: machine.id,
       model: machine.model,
@@ -351,15 +354,16 @@ const Card = () => {
         </ul>
       </div>
       <div className={styles.handleMachineButtonBlock}>
-        <button onClick={sendLabelData}>Print Label</button>
-
         {user && ["Technician", "Office"].includes(user.position) && (
-          <button
-            onClick={handleMachineDelete}
-            className={styles.deleteMachineBtn}
-          >
-            Delete Machine
-          </button>
+          <>
+            <button onClick={sendLabelData}>Print Label</button>
+            <button
+              onClick={handleMachineDelete}
+              className={styles.deleteMachineBtn}
+            >
+              Delete Machine
+            </button>
+          </>
         )}
       </div>
     </div>
