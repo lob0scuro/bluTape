@@ -34,7 +34,7 @@ def print_label():
     {
         "id": "machine id",
         "model": "Machine Model Number",
-        "serial": "Serial number",
+        "serial": "Serial number", 
         "brand": "Machine brand",
         "style": "Machine style",
         "color": "Machine color"
@@ -50,7 +50,14 @@ def print_label():
         
         zpl = generate_ZPL_label(data)
         
-        response = requests.post(URL, data=zpl.encode("utf-8"))
+        response = requests.post(URL, data=zpl)
+        
+        if response.status_code == 200:
+            current_app.logger.info(f"{current_user.first_name} {current_user.last_name} just printed a label")
+            return jsonify(message="Label sent to printer successfully"), 200
+        else:
+            current_app.logger.error(f"Failed to send label to printer: {response.text}")
+            return jsonify(error=f"Failed to send label to printer: Error({response.text})"), 500
         
         #Open socket to Zebra printer via raspberry pi
         # with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -60,8 +67,6 @@ def print_label():
         
         
             
-        current_app.logger.info(f"{current_user.first_name} {current_user.last_name} just printed a label")
-        return jsonify(message="Label sent to printer"), 200
     except Exception as e:
         current_app.logger.error(f"Error when sending ZPL: {e}")
         return jsonify(error=f"Error when sending ZPL to printer: {e}"),500
