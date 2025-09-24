@@ -37,7 +37,8 @@ const App = () => {
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route element={<ProtectedRoutes />}>
-          <Route index element={user ? userPositions[user.position] : null} />
+          {/* <Route index element={user ? userPositions[user.position] : null} /> */}
+          <Route index element={<TechHome />} />
           <Route path="add" element={<AddMachine />} />
           <Route path="table/:status" element={<MachineTable />} />
           <Route path="admin-panel" element={<AdminPanel />} />
