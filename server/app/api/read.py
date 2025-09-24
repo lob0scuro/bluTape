@@ -1,0 +1,109 @@
+from flask import jsonify, request, Blueprint, current_app
+from app.extensions import db
+from flask_login import current_user
+from app.models import Machine, Note, User
+from datetime import datetime, timezone
+
+read_bp = Blueprint("read", __name__)
+
+@read_bp.route("/get_machine/<int:id>", methods=["GET"])
+def get_machine(id):
+    if not int(id):
+        return jsonify(success=False, message="Invalid Machine ID")
+    try:
+        machine = Machine.query.get(id)
+        if not machine:
+            return jsonify(success=False, message="Machine not found."), 404
+        return jsonify(success=True, data=machine.serialize()), 200
+    except Exception as e:
+        current_app.logger.error(f"Error when querying for machine {id}: {e}")
+        return jsonify(success=False, message="Could not query machine."), 500
+    
+@read_bp.route("/get_machines/<status>", methods=["GET"])
+def get_machines(status):
+    status = status.lower()
+    try:
+        if status not in ["in_progress", "completed", "trashed", "exported", "all"]:
+            return jsonify(success=False, message="status sent was invalid."), 400
+        
+        query = Machine.query
+        
+        if status != "all":
+            query = query.filter_by(status=status)
+            
+        created_by = request.args.get("created_by", type=int)
+        
+        if created_by:
+            query = query.filter_by(created_by=created_by)
+            
+        machines = query.all()
+        
+        return jsonify(success=True, data=[m.serialize() for m in machines]), 200
+    except Exception as e:
+        current_app.logger.error(f"Error when querying for machines with status {status}: {e}")
+        return jsonify(success=False, message=f"There was an error when querying for machines"), 500
+    
+@read_bp.route("/machines", methods=["GET"])
+def get_filtered_machines():
+    try:
+        
+        # Get query parameters
+        status = request.args.get("status", type=str)
+        vendor = request.args.get("vendor", type=str)
+        type_of = request.args.get("type_of", type=str)
+        tech_id = request.args.get("tech_id", type=int)
+
+        query = Machine.query
+
+        # Filter by status
+        if status and status.lower() != "all":
+            if status.lower() not in ["in_progress", "completed", "trashed", "exported"]:
+                return jsonify(success=False, message="Invalid status"), 400
+            query = query.filter_by(status=status.lower())
+
+        # Filter by vendor
+        if vendor:
+            query = query.filter_by(vendor=vendor.lower())
+
+        # Filter by machine type
+        if type_of:
+            query = query.filter_by(type_of=type_of.lower())
+
+        # Filter by technician
+        if tech_id:
+            query = query.join(Machine.technicians).filter(User.id == tech_id)
+
+        machines = query.all()
+        return jsonify(success=True, data=[m.serialize() for m in machines]), 200
+
+    except Exception as e:
+        current_app.logger.error(f"Error querying machines with filters: {e}")
+        return jsonify(success=False, message="Error querying machines."), 500
+
+
+@read_bp.route("/get_user/<int:id>", methods=['GET'])
+def get_user(id):
+    try:
+        view_range = request.args.get("view_range", "day")  # default to 'day'
+        selected_date_str = request.args.get("selected_date") # YYYY-MM-DD
+        selected_date = None
+        if selected_date_str:
+            selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+        user = User.query.get(id)
+        if not user:
+            return jsonify(success=False, message="User not found."), 404
+        return jsonify(success=True, data=user.serialize(view_range=view_range, selected_date=selected_date)), 200
+    except Exception as e:
+        current_app.logger.error(f"Error when querying for user with id {id}: {e}")
+        return jsonify(success=False, message="There was an error when querying for user."), 500
+
+
+
+@read_bp.route("/get_users", methods=['GET'])
+def get_users():
+    try:
+        users = User.query.order_by(User.last_name.asc()).all()
+        return jsonify(success=True, data=[u.serialize() for u in users]), 200
+    except Exception as e:
+        current_app.logger.error(f"Error when querying for users: {e}")
+        return jsonify(success=False, message="There was an error when querying for users"), 500

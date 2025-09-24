@@ -1,0 +1,59 @@
+.tableContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.tablesButtonBlock button {
+  background-color: var(--buttonSecondary);
+  border: none;
+  box-shadow: unset;
+  border-radius: 0;
+}
+.tablesButtonBlock button:first-child {
+  border-radius: 8px 0 0 8px;
+}
+.tablesButtonBlock button:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.tablesButtonBlock button.activeButton {
+  color: var(--textPrimary);
+  background-color: var(--linkText);
+  box-shadow: inset 1px 1px 2px #333;
+}
+
+.statusSwitchBlock {
+  display: flex;
+  background: var(--backgroundDark);
+  /* border-radius: 999px; */
+  overflow: hidden;
+  width: 80%;
+  cursor: pointer;
+  margin-bottom: 0.4rem;
+}
+
+.statusSwitchBlock input {
+  display: none;
+}
+
+.statusSwitchBlock label {
+  flex: 1;
+  text-align: center;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.statusSwitchBlock input:checked + label {
+  background: var(--background);
+  border: 1px solid var(--textPrimary);
+  color: white;
+}
+
+.machineTable {
+  width: 90%;
+}

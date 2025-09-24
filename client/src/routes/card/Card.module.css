@@ -1,0 +1,138 @@
+div.card {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button.toggleEditButton {
+  background-color: var(--buttonPrimary);
+  width: 60%;
+}
+
+form.machineEditForm {
+  width: 100%;
+}
+form.machineEditForm select,
+input {
+  width: 50%;
+  text-align: end;
+  font-size: 16px;
+  padding: 4px 4px 4px 0;
+}
+
+ul.machineDataList {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+ul.machineDataList li {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--backgroundDark);
+  padding: 8px 6px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+form.machineEditForm li.buttonLi {
+  background-color: transparent;
+}
+form.machineEditForm button.machineFormButton {
+  width: 100%;
+  margin: 0;
+}
+
+/*NOTES*/
+
+.noteSection {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.noteSection p {
+  margin: 0 10px 4px auto;
+  font-size: 16px;
+}
+.noteSection p button {
+  background-color: transparent;
+  box-shadow: unset;
+  margin: 0 0 0 4px;
+  padding: 0;
+  font-size: 26px;
+  color: var(--linkText);
+}
+
+.noteSection ul.currentNotes {
+  width: 100%;
+  background-color: var(--backgroundDark);
+  color: var(--inputBackground);
+  padding: 1rem 2rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-height: 15rem;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+.noteSection ul.currentNotes li {
+  width: 100%;
+  text-align: end;
+  display: flex;
+  flex-direction: column;
+}
+.noteSection ul.currentNotes li div:first-child {
+  background-color: var(--background);
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+.noteSection ul.currentNotes li div:last-child {
+  color: var(--linkText);
+}
+
+form.noteForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+form.noteForm textarea {
+  resize: none;
+  height: 8rem;
+  font-size: 18px;
+  padding: 0.4rem;
+}
+
+/*MACHINE CONTROLS*/
+div.machineControls {
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+div.machineControls button {
+  width: 90%;
+  font-size: 22px;
+  padding-block: 1rem;
+  font-weight: 600;
+}
+
+div.machineControls button.trashButtonControl {
+  background-color: rgb(100, 12, 12);
+}

@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+:root {
+  --background: #2a2829;
+  --backgroundDark: #1e1e1e;
+  --inputBackground: #d9d9d9;
+  --bannerBackground: #262f4c;
+  --linkText: #6d7db2;
+  --textPrimary: #f9f9f9;
+  --textSecondary: #8999af;
+  --buttonPrimary: #040b22;
+  --buttonSecondary: #8999af;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+body {
+  height: 100dvh;
+  background-color: var(--background);
+  color: var(--textPrimary);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  overflow-x: hidden;
+  position: relative;
+  height: 100dvh;
+}
+
+#root {
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header {
+  width: 100%;
+  min-height: 8rem;
+  padding-inline: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--backgroundDark);
+  color: var(--textPrimary);
+}
+header h1 {
+  color: var(--textSecondary);
+}
+header h1 small {
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: italic;
+}
+header div.nav-links {
+  font-size: 2rem;
+  position: relative;
+  width: 12rem;
+  text-align: end;
+  border-radius: 8px;
+}
+header div.nav-links nav {
+  font-size: 1.3rem;
+  background-color: var(--linkText);
+  color: var(--buttonPrimary);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 4rem;
+  right: 0;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+
+  text-align: end;
+}
+header div.nav-links nav a {
+  border: 1px solid var(--backgroundDark);
+  padding: 0.8rem 0.4rem 0.8rem 0;
+}
+header div.nav-links nav a:first-child {
+  border-radius: 8px 8px 0 0;
+}
+header div.nav-links nav a:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.navLinkActive {
+  color: var(--inputBackground);
+}
+
+.openNav {
+  visibility: hidden;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  width: 100vw;
+  padding: 1rem 0;
+  padding-block: 2rem;
+}
+
+footer {
+  width: 100%;
+  min-height: 6rem;
+  height: 5rem;
+  background-color: var(--backgroundDark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--textSecondary);
+}
+
+footer h4 small {
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+}

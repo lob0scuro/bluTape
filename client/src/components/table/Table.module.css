@@ -1,0 +1,24 @@
+table.masterTable {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+table.masterTable thead tr {
+  font-size: 1.2rem;
+  background-color: var(--buttonPrimary);
+}
+table.masterTable thead tr th {
+  padding: 0.4rem 0;
+  text-align: start;
+  padding-inline-start: 8px;
+}
+
+table.masterTable tbody {
+  background-color: var(--bannerBackground);
+  color: var(--linkText);
+}
+
+table.masterTable tbody tr td {
+  padding: 0.6rem 0 0.6rem 0.4rem;
+  font-size: 18px;
+}

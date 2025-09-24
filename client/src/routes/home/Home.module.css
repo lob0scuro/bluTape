@@ -1,0 +1,28 @@
+.buttonBlockHorizontal {
+  margin: 1.5rem 0;
+}
+
+.buttonBlockHorizontal button {
+  background-color: var(--buttonSecondary);
+  color: var(--bannerBackground);
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.buttonBlockHorizontal button:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.buttonBlockHorizontal button:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.buttonBlockHorizontal button.activeButton {
+  color: var(--textPrimary);
+  background-color: var(--linkText);
+  box-shadow: inset 1px 1px 2px #333;
+}
+
+.formContainer {
+  width: 80%;
+}

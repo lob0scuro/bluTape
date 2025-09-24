@@ -1,0 +1,44 @@
+form.registerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  width: 80%;
+}
+
+form.registerForm div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+form.registerForm div.adminContainer {
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+form.registerForm div.adminContainer label {
+  width: fit-content;
+}
+form.registerForm div.adminContainer input[type="checkbox"] {
+  width: fit-content;
+  height: fit-content;
+}
+
+form.registerForm div input,
+select {
+  width: 100%;
+  font-size: 18px;
+  height: 42px;
+  border-radius: 8px;
+  text-align: start;
+  padding-left: 0.5rem;
+}
+
+form.registerForm button {
+  width: 80%;
+  padding-block: 0.8rem;
+  font-size: 1.8rem;
+}

@@ -1,0 +1,42 @@
+.panelContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminControls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 1rem;
+}
+
+.adminControls div {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  color: var(--linkText);
+  margin-bottom: 2rem;
+}
+.adminControls div select {
+  width: fit-content;
+  height: unset;
+  background-color: var(--inputBackground);
+}
+
+.employeePicker {
+  width: max-content;
+  max-width: 500px;
+  text-align: center;
+}
+
+.metricMaster {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
