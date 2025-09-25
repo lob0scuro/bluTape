@@ -53,6 +53,12 @@ ul.exportList li div:last-child {
 .exportContainer button {
   width: 80%;
   margin-top: auto;
+  background-color: var(--buttonPrimary);
+  color: var(--textPrimary);
+  font-size: 1rem;
+  border: none;
+  box-shadow: -2px 2px 6px #000;
+  padding-block: 0.8rem;
 }
 .exportContainer button:disabled {
   filter: opacity(0.6);
