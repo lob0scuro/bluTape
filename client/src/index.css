@@ -25,7 +25,8 @@ a {
 }
 
 input,
-select {
+select,
+option {
   background-color: var(--inputBackground);
   color: var(--backgroundDark);
 }
