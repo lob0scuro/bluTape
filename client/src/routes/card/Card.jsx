@@ -94,13 +94,18 @@ const Card = () => {
   const handleMachineForm = async (e) => {
     e.preventDefault();
     try {
+      const inputs = {
+        ...formData,
+        model: formData.model.toUpperCase(),
+        serial: formData.serial.toUpperCase(),
+      };
       const response = await fetch(`/api/update/update_machine/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(inputs),
       });
       const data = await response.json();
       if (!data.success) {
