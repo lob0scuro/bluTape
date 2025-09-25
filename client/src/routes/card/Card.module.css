@@ -54,6 +54,8 @@ form.machineEditForm button.machineFormButton {
   padding-block: 0.8rem;
   color: var(--textPrimary);
   background-color: var(--buttonPrimary);
+  border: none;
+  box-shadow: -1px 1px 5px #000;
 }
 
 /*NOTES*/
@@ -131,7 +133,8 @@ form.noteForm button.noteFormSubmit {
   color: var(--textPrimary);
   border: none;
   border-radius: 8px;
-  padding: 0.2rem 0.4rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
 }
 
 /*MACHINE CONTROLS*/
