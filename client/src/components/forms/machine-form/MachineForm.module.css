@@ -33,5 +33,9 @@ form.machineForm button[type="submit"] {
   align-self: center;
   margin-top: 2rem;
   padding: 0.8rem 3rem;
-  font-size: 26px;
+  font-size: 28px;
+  background-color: var(--buttonPrimary);
+  border: none;
+  border-radius: 8px;
+  box-shadow: -1px 1px 6px #000;
 }
