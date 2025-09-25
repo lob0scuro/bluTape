@@ -17,6 +17,10 @@ const QRScannerPage = () => {
           const id = result.getText().trim();
           console.log("Scanned QR ID:", id);
 
+          if (streamRef && typeof streamRef.getTracks === "function") {
+            streamRef.getTracks().forEach((track) => track.stop());
+          }
+
           // Only navigate with the ID, not a full URL
           navigate(`/card/${id}`);
         }
