@@ -4,7 +4,7 @@ import Button from "../../components/buttons/Button";
 import Table from "../../components/table/Table";
 
 const MachineTable = () => {
-  const [machineStatus, setMachineStatus] = useState("all");
+  const [machineStatus, setMachineStatus] = useState("in_progress");
   return (
     <div className={styles.tableContainer}>
       <div className={styles.statusSwitchBlock}>
