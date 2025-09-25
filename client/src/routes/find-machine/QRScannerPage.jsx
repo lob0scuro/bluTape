@@ -84,8 +84,11 @@ const QRScannerPage = () => {
         onClick={handleManualSubmit}
         style={{
           marginTop: "1rem",
-          padding: "0.8rem 1.2rem",
+          padding: "1rem 1.5rem",
           cursor: "pointer",
+          backgroundColor: "var(--buttonPrimary)",
+          color: "var(--textPrimary)",
+          fontSize: "1rem",
         }}
       >
         Submit

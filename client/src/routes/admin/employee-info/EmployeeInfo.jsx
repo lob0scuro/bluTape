@@ -81,10 +81,10 @@ const EmployeeInfo = () => {
               <span style={{ fontSize: "1rem" }}>{selectedUser.email}</span>
             </li>
           </ul>
-          <Button
+          {/* <Button
             label={"Edit Employee Info"}
             onClick={() => setEditing(!editing)}
-          />
+          /> */}
         </div>
       )}
     </div>

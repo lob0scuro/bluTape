@@ -41,4 +41,9 @@ form.registerForm button {
   width: 80%;
   padding-block: 0.8rem;
   font-size: 1.8rem;
+  background-color: var(--buttonPrimary);
+  color: var(--textPrimary);
+  border: none;
+  border-radius: 8px;
+  box-shadow: -1px 1px 6px #000;
 }
