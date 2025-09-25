@@ -24,6 +24,12 @@ a {
   text-decoration: none;
 }
 
+input,
+select {
+  background-color: var(--inputBackground);
+  color: var(--backgroundDark);
+}
+
 body {
   height: 100dvh;
   background-color: var(--background);
