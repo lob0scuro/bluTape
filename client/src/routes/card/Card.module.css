@@ -9,6 +9,9 @@ div.card {
 button.toggleEditButton {
   background-color: var(--buttonPrimary);
   width: 60%;
+  font-size: 1.2rem;
+  padding-block: 0.8rem;
+  color: var(--textPrimary);
 }
 
 form.machineEditForm {
@@ -45,6 +48,10 @@ form.machineEditForm li.buttonLi {
 form.machineEditForm button.machineFormButton {
   width: 100%;
   margin: 0;
+  font-size: 1.2rem;
+  padding-block: 0.8rem;
+  color: var(--textPrimary);
+  background-color: var(--buttonPrimary);
 }
 
 /*NOTES*/
@@ -67,6 +74,7 @@ form.machineEditForm button.machineFormButton {
   padding: 0;
   font-size: 26px;
   color: var(--linkText);
+  border: none;
 }
 
 .noteSection ul.currentNotes {
@@ -131,6 +139,12 @@ div.machineControls button {
   font-size: 22px;
   padding-block: 1rem;
   font-weight: 600;
+  font-size: 1.2rem;
+  padding-block: 0.8rem;
+  color: var(--textPrimary);
+  border: none;
+  background-color: var(--buttonPrimary);
+  border-radius: 8px;
 }
 
 div.machineControls button.trashButtonControl {
