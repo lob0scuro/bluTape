@@ -18,7 +18,7 @@ def generate_ZPL_label(data):
     ^FO10,25^GB775,365,6^FS
     ^FO50, 60^A0,35^FDbluTape/ Matt's Appliances^FS
     ^FO530, 60^A0,35^FDID: {data["id"]}^FS
-    ^FO50,105^BQN,2,9^FDLA,https://blutape.net/card/{data["id"]}^FS
+    ^FO50,105^BQN,2,9^FDLA,{data["id"]}^FS
     ^FO300,130^A0,35^FDBrand: {data["brand"]}^FS
     ^FO300,175^A0,35^FDModel: {data["model"]}^FS
     ^FO300,220^A0,35^FDSerial: {data["serial"]}^FS
