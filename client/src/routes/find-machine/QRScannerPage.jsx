@@ -15,7 +15,7 @@ const QRScannerPage = () => {
       .decodeFromVideoDevice(null, "video", (result, err) => {
         if (result) {
           console.log("Scanned QR:", result.getText());
-          navigate(`/card/${result.getText()}`);
+          window.location.href = `https://blutape.net/card/${result.getText()}`;
         }
         if (err) {
           // Optional: console.warn(err);
