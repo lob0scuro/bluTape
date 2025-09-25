@@ -25,9 +25,14 @@ select {
 }
 
 form.loginForm button[type="submit"] {
-  padding-block: 0.8rem;
+  padding-block: 1rem;
   font-size: 1.5rem;
   width: 90%;
   align-self: center;
   font-weight: 700;
+  background-color: var(--buttonPrimary);
+  color: var(--textPrimary);
+  border: none;
+  border-radius: 8px;
+  box-shadow: -1px 1px 6px #000;
 }
