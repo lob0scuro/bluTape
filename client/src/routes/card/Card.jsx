@@ -366,7 +366,11 @@ const Card = () => {
                   autoFocus
                 ></textarea>
               </li>
-              <Button label={"Submit"} type="submit" />
+              <Button
+                className={styles.noteFormSubmit}
+                label={"Submit"}
+                type="submit"
+              />
             </form>
           )}
         </ul>
