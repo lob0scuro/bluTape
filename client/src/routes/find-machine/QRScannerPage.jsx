@@ -10,18 +10,21 @@ const QRScannerPage = () => {
   useEffect(() => {
     const codeReader = new BrowserQRCodeReader();
     let streamRef;
+    let scanned = false; // <- flag to prevent multiple navigations
 
     codeReader
       .decodeFromVideoDevice(null, "video", (result, err) => {
-        if (result) {
+        if (result && !scanned) {
+          scanned = true; // mark that we’ve already scanned
           const id = result.getText().trim();
           console.log("Scanned QR ID:", id);
 
+          // Stop the camera
           if (streamRef && typeof streamRef.getTracks === "function") {
             streamRef.getTracks().forEach((track) => track.stop());
           }
 
-          // Only navigate with the ID, not a full URL
+          // Navigate internally
           navigate(`/card/${id}`);
         }
         if (err) {
@@ -34,7 +37,6 @@ const QRScannerPage = () => {
       .catch((err) => console.error("QR reader failed:", err));
 
     return () => {
-      // Stop camera when component unmounts
       if (streamRef && typeof streamRef.getTracks === "function") {
         streamRef.getTracks().forEach((track) => track.stop());
       }
