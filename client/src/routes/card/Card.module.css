@@ -163,4 +163,5 @@ div.machineControls button {
 
 div.machineControls button.trashButtonControl {
   background-color: rgb(100, 12, 12);
+  box-shadow: -2px 2px 8px #0000007f;
 }
