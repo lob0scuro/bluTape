@@ -13,6 +13,7 @@ button.toggleEditButton {
   padding-block: 0.8rem;
   color: var(--textPrimary);
   border: none;
+  border-radius: 8px;
 }
 
 form.machineEditForm {
