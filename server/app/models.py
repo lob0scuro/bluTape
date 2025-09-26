@@ -124,6 +124,7 @@ class Machine(db.Model):
     condition = Column(ConditionEnum, nullable=False)
     vendor = Column(VendorEnum)
     status = Column(StatusEnum, default="in_progress", nullable=False)
+    # need_to_inventory = Column(Boolean, default=True)
 
     # Timestamps
     started_on = Column(DateTime, default=func.current_date())
