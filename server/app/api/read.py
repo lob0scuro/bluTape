@@ -80,6 +80,17 @@ def get_filtered_machines():
         current_app.logger.error(f"Error querying machines with filters: {e}")
         return jsonify(success=False, message="Error querying machines."), 500
 
+@read_bp.route("/get_id_by_serial/<serial_number>", methods=["GET"])
+def get_id_by_serial(serial_number):
+    try:
+        machine = Machine.query.filter_by(serial=serial_number).first()
+        if not machine:
+            return jsonify(success=False, message="Machine not found."), 404
+        return jsonify(success=True, data=machine.id), 200
+    except Exception as e:
+        current_app.logger.error(f"Error when querying for machine with serial number {serial_number}: {e}")
+        return jsonify(success=False, message="There was an error when querying for machine."), 500
+
 
 @read_bp.route("/get_user/<int:id>", methods=['GET'])
 def get_user(id):

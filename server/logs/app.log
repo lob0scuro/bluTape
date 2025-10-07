@@ -177,3 +177,5 @@
 2025-09-25 22:44:18,975 - app - INFO - Cameron Lopez has logged in at 2025-09-26 03:44:18.975616+00:00
 2025-09-25 22:46:27,485 - app - INFO - Cameron Lopez has logged in at 2025-09-26 03:46:27.485666+00:00
 2025-09-25 22:46:52,701 - app - INFO - Cameron L. logged a new Upright fridge into the database/// model:2R32R32 serial:RR2R2R32 at 2025-09-26 03:46:52.701511+00:00
+2025-10-07 14:54:32,303 - app - INFO - Cameron Lopez has logged in at 2025-10-07 19:54:32.303177+00:00
+2025-10-07 15:10:12,501 - app - ERROR - Error when querying for machine with serial number SERIAL-1000: Entity namespace for "machine" has no property "serial_number"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserQRCodeReader } from "@zxing/browser";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const QRScannerPage = () => {
   const navigate = useNavigate();
@@ -43,10 +44,24 @@ const QRScannerPage = () => {
     };
   }, [navigate]);
 
-  const handleManualSubmit = () => {
-    const id = machineId.trim();
-    if (id) {
-      navigate(`/card/${id}`);
+  const handleManualSubmit = async () => {
+    try {
+      const response = await fetch(
+        `/api/read/get_id_by_serial/${machineId.trim()}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.data) {
+          navigate(`/card/${data.data}`);
+        } else {
+          toast.error("No machine found with that serial number.");
+        }
+      } else {
+        toast.error("Error fetching machine ID. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during manual submission:", error);
+      toast.error("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -65,19 +80,20 @@ const QRScannerPage = () => {
         style={{ width: "100%", maxWidth: "200px", borderRadius: "8px" }}
       />
       <p style={{ margin: "1rem 0" }}>or</p>
-      <p>Enter Machine ID Manually</p>
+      <p>Search by Serial Number</p>
       <input
         type="text"
         name="machine_id"
         value={machineId}
         onChange={(e) => setMachineId(e.target.value)}
         style={{
-          width: "80px",
+          width: "200px",
           borderRadius: "8px",
           border: "1px solid #ccc",
           marginTop: "0.6rem",
           fontSize: "18px",
-          textAlign: "center",
+          textAlign: "left",
+          paddingLeft: "0.5rem",
         }}
       />
       <button
