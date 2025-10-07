@@ -82,6 +82,7 @@ def get_filtered_machines():
 
 @read_bp.route("/get_id_by_serial/<serial_number>", methods=["GET"])
 def get_id_by_serial(serial_number):
+    serial_number = serial_number.strip().upper()
     try:
         machine = Machine.query.filter_by(serial=serial_number).first()
         if not machine:
