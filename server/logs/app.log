@@ -1,0 +1,180 @@
+2025-09-22 15:10:12,133 - app - INFO - Cameron has been added to the database
+2025-09-22 15:32:53,156 - app - ERROR - There was an error when Cameron Lopez was logging in: 'str' object has no attribute 'get'
+2025-09-22 15:34:01,449 - app - ERROR - There was an error when Cameron Lopez was logging in: 'str' object has no attribute 'get'
+2025-09-22 15:34:33,206 - app - ERROR - There was an error when Cameron Lopez was logging in: 'str' object has no attribute 'get'
+2025-09-22 15:37:04,680 - app - INFO - Cameron Lopez has logged in at 2025-09-22 20:37:04.680362+00:00
+2025-09-22 15:37:30,382 - app - INFO - Cameron L. has logged out.
+2025-09-22 15:54:01,506 - app - INFO - Cameron Lopez has logged in at 2025-09-22 20:54:01.506165+00:00
+2025-09-22 15:54:15,240 - app - INFO - Cameron L. has logged out.
+2025-09-22 15:54:31,630 - app - INFO - Cameron Lopez has logged in at 2025-09-22 20:54:31.630481+00:00
+2025-09-22 15:55:58,403 - app - INFO - Cameron Lopez has logged in at 2025-09-22 20:55:58.403104+00:00
+2025-09-22 18:01:09,261 - app - INFO - Cameron Lopez has logged in at 2025-09-22 23:01:09.261516+00:00
+2025-09-22 18:02:04,265 - app - INFO - Cameron Lopez has logged in at 2025-09-22 23:02:04.265788+00:00
+2025-09-22 18:02:15,239 - app - ERROR - An error occured when inputing a new machine: (pymysql.err.DataError) (1265, "Data truncated for column 'type_of' at row 1")
+[SQL: INSERT INTO machine (brand, type_of, model, serial, style, color, `condition`, vendor, status, started_on, completed_on, updated_on) VALUES (%(brand)s, %(type_of)s, %(model)s, %(serial)s, %(style)s, %(color)s, %(condition)s, %(vendor)s, %(status)s, CURRENT_DATE, %(completed_on)s, CURRENT_DATE)]
+[parameters: {'brand': 'amana', 'type_of': '', 'model': 'Z900', 'serial': '001002003', 'style': 'Top & Bottom', 'color': 'White', 'condition': 'NEW', 'vendor': 'stines_jn', 'status': 'in_progress', 'completed_on': None}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-09-22 18:03:14,788 - app - INFO - Cameron L. logged a new Top & Bottom fridge into the database/// model:Z900 serial:001002003 at 2025-09-22 23:03:14.788744+00:00
+2025-09-22 18:04:04,906 - app - INFO - Cameron Lopez has logged in at 2025-09-22 23:04:04.906210+00:00
+2025-09-23 07:39:59,354 - app - INFO - Cameron Lopez has logged in at 2025-09-23 12:39:59.354487+00:00
+2025-09-23 07:57:36,993 - app - INFO - Cameron Lopez has logged in at 2025-09-23 12:57:36.993147+00:00
+2025-09-23 07:59:07,673 - app - INFO - Cameron Lopez has logged in at 2025-09-23 12:59:07.673039+00:00
+2025-09-23 08:01:14,088 - app - INFO - Cameron Lopez has logged in at 2025-09-23 13:01:14.088669+00:00
+2025-09-23 08:07:51,424 - app - INFO - Cameron L. has logged out.
+2025-09-23 08:08:46,041 - app - INFO - Cameron Lopez has logged in at 2025-09-23 13:08:46.041843+00:00
+2025-09-23 08:32:39,787 - app - INFO - Cameron L. has logged out.
+2025-09-23 08:32:57,003 - app - INFO - Cameron Lopez has logged in at 2025-09-23 13:32:57.003482+00:00
+2025-09-23 10:27:19,074 - app - INFO - Cameron L. has added a new note to machine with id 1
+2025-09-23 10:27:28,284 - app - INFO - Cameron L. has added a new note to machine with id 1
+2025-09-23 10:35:42,177 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 10:36:41,242 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 10:39:59,556 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 10:40:12,297 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 10:41:15,438 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 10:41:23,085 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 10:42:30,853 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 10:42:52,816 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 10:43:05,633 - app - INFO - Cameron L. has added a new note to machine with id 1
+2025-09-23 10:50:36,913 - app - INFO - Note with id 6 has been deleted from the database.
+2025-09-23 11:08:15,556 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 11:08:20,522 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 11:08:28,955 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 11:09:27,893 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 11:10:09,788 - app - INFO - Cameron L. has logged out.
+2025-09-23 11:12:44,338 - app - INFO - Cameron Lopez has logged in at 2025-09-23 16:12:44.338697+00:00
+2025-09-23 11:12:56,654 - app - INFO - Cameron L. has logged out.
+2025-09-23 11:13:28,063 - app - INFO - Cameron Lopez has logged in at 2025-09-23 16:13:28.063512+00:00
+2025-09-23 12:44:09,259 - app - INFO - Cameron L. logged a new Top Load Gas fridge into the database/// model:AAF332 serial:0504J45 at 2025-09-23 17:44:09.259237+00:00
+2025-09-23 12:47:32,403 - app - INFO - Cameron L. logged a new Coil fridge into the database/// model:1P2P3P4 serial:00EG444 at 2025-09-23 17:47:32.403624+00:00
+2025-09-23 12:51:32,613 - app - INFO - Cameron Lopez updated machine id 3
+2025-09-23 12:59:48,084 - app - INFO - Bob has been added to the database
+2025-09-23 12:59:54,436 - app - INFO - Bob Bobberson has logged in at 2025-09-23 17:59:54.436444+00:00
+2025-09-23 13:00:10,258 - app - INFO - Bob B. has logged out.
+2025-09-23 13:00:15,799 - app - INFO - Cameron Lopez has logged in at 2025-09-23 18:00:15.799025+00:00
+2025-09-23 14:42:04,825 - app - INFO - Cameron L. has logged out.
+2025-09-23 14:42:10,075 - app - INFO - Cameron Lopez has logged in at 2025-09-23 19:42:10.074984+00:00
+2025-09-23 14:42:15,265 - app - ERROR - An error occured when inputing a new machine: (pymysql.err.DataError) (1265, "Data truncated for column 'condition' at row 1")
+[SQL: INSERT INTO machine (brand, type_of, model, serial, style, color, `condition`, vendor, status, started_on, completed_on, updated_on) VALUES (%(brand)s, %(type_of)s, %(model)s, %(serial)s, %(style)s, %(color)s, %(condition)s, %(vendor)s, %(status)s, CURRENT_DATE, %(completed_on)s, CURRENT_DATE)]
+[parameters: {'brand': '', 'type_of': 'fridge', 'model': '', 'serial': '', 'style': '', 'color': '', 'condition': '', 'vendor': '', 'status': 'in_progress', 'completed_on': None}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-09-23 14:42:17,192 - app - ERROR - An error occured when inputing a new machine: (pymysql.err.DataError) (1265, "Data truncated for column 'condition' at row 1")
+[SQL: INSERT INTO machine (brand, type_of, model, serial, style, color, `condition`, vendor, status, started_on, completed_on, updated_on) VALUES (%(brand)s, %(type_of)s, %(model)s, %(serial)s, %(style)s, %(color)s, %(condition)s, %(vendor)s, %(status)s, CURRENT_DATE, %(completed_on)s, CURRENT_DATE)]
+[parameters: {'brand': '', 'type_of': 'fridge', 'model': '', 'serial': '', 'style': '', 'color': '', 'condition': '', 'vendor': '', 'status': 'in_progress', 'completed_on': None}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-09-23 14:51:17,698 - app - ERROR - Error when querying for users: 'User' object has no attribute 'serialize'
+2025-09-23 14:51:20,562 - app - ERROR - Error when querying for users: 'User' object has no attribute 'serialize'
+2025-09-23 14:51:27,835 - app - ERROR - Error when querying for users: 'User' object has no attribute 'serialize'
+2025-09-23 14:51:30,595 - app - ERROR - Error when querying for users: 'User' object has no attribute 'serialize'
+2025-09-23 15:02:24,277 - app - INFO - Cameron L. logged a new Top Load fridge into the database/// model:VSDSVSDVVVVD serial:VVDSERGHYMGHJM at 2025-09-23 20:02:24.277000+00:00
+2025-09-23 15:04:55,627 - app - INFO - Cameron L. has added a new note to machine with id 4
+2025-09-23 15:06:00,803 - app - INFO - Cameron L. logged a new Bottom Mount fridge into the database/// model:BHGK67UI554 serial:HDH454Y45 at 2025-09-23 20:06:00.803898+00:00
+2025-09-23 15:07:03,689 - app - INFO - Cameron L. logged a new Coil fridge into the database/// model:GGG53G3G34G34 serial:GGGWEW at 2025-09-23 20:07:03.689881+00:00
+2025-09-23 15:11:46,780 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-23 15:12:02,923 - app - INFO - Cameron Lopez updated machine id 4
+2025-09-23 15:12:12,528 - app - INFO - Cameron Lopez updated machine id 6
+2025-09-23 15:12:46,291 - app - INFO - Cameron L. has logged out.
+2025-09-23 15:12:51,431 - app - INFO - Cameron Lopez has logged in at 2025-09-23 20:12:51.431903+00:00
+2025-09-24 08:09:34,982 - app - INFO - Cameron L. logged a new Side by Side fridge into the database/// model:12131415 serial:987654321 at 2025-09-24 13:09:34.982253+00:00
+2025-09-24 08:35:47,881 - app - INFO - Cameron Lopez updated machine id 7
+2025-09-24 08:36:04,107 - app - INFO - Cameron L. has added a new note to machine with id 7
+2025-09-24 08:36:08,561 - app - INFO - Note with id 14 has been deleted from the database.
+2025-09-24 08:59:14,765 - app - INFO - Cameron Lopez updated machine id 7
+2025-09-24 08:59:36,313 - app - INFO - Cameron Lopez updated machine id 7
+2025-09-24 08:59:38,640 - app - INFO - Cameron Lopez updated machine id 7
+2025-09-24 09:05:15,069 - app - INFO - Cameron Lopez updated machine id 7
+2025-09-24 09:06:45,164 - app - INFO - Cameron L. logged a new French Door fridge into the database/// model:AD4FRF300/AA serial:129773FE422 at 2025-09-24 14:06:45.164927+00:00
+2025-09-24 10:12:54,979 - app - INFO - Terrain has been added to the database
+2025-09-24 10:13:48,166 - app - INFO - Donavon has been added to the database
+2025-09-24 10:14:29,772 - app - INFO - Chevis has been added to the database
+2025-09-24 10:14:40,514 - app - INFO - Cameron L. has logged out.
+2025-09-24 10:14:48,172 - app - INFO - Donavon Boutte has logged in at 2025-09-24 15:14:48.172830+00:00
+2025-09-24 10:15:58,279 - app - INFO - Donavon B. has logged out.
+2025-09-24 10:16:04,475 - app - INFO - Terrain Lemons has logged in at 2025-09-24 15:16:04.475600+00:00
+2025-09-24 10:16:20,554 - app - INFO - Terrain L. has logged out.
+2025-09-24 10:16:25,740 - app - INFO - Donavon Boutte has logged in at 2025-09-24 15:16:25.740039+00:00
+2025-09-24 10:16:28,743 - app - INFO - Donavon B. has logged out.
+2025-09-24 10:16:34,307 - app - INFO - Chevis Edwards has logged in at 2025-09-24 15:16:34.307151+00:00
+2025-09-24 10:17:23,627 - app - INFO - Chevis E. has logged out.
+2025-09-24 10:17:28,789 - app - INFO - Cameron Lopez has logged in at 2025-09-24 15:17:28.789782+00:00
+2025-09-24 10:50:45,034 - app - INFO - Cameron L. has logged out.
+2025-09-24 10:50:50,776 - app - INFO - Donavon Boutte has logged in at 2025-09-24 15:50:50.776055+00:00
+2025-09-24 10:50:53,543 - app - INFO - Donavon B. has logged out.
+2025-09-24 10:50:59,042 - app - INFO - Chevis Edwards has logged in at 2025-09-24 15:50:59.042141+00:00
+2025-09-24 10:51:01,166 - app - INFO - Chevis E. has logged out.
+2025-09-24 10:51:05,518 - app - INFO - Terrain Lemons has logged in at 2025-09-24 15:51:05.518225+00:00
+2025-09-24 10:51:09,189 - app - INFO - Terrain L. has logged out.
+2025-09-24 10:51:14,478 - app - INFO - Cameron Lopez has logged in at 2025-09-24 15:51:14.478664+00:00
+2025-09-24 10:51:22,194 - app - INFO - Cameron L. has logged out.
+2025-09-24 10:52:57,846 - app - INFO - Cameron Lopez has logged in at 2025-09-24 15:52:57.845965+00:00
+2025-09-24 11:12:39,556 - app - INFO - Cameron L. has logged out.
+2025-09-24 11:12:48,814 - app - INFO - Chevis Edwards has logged in at 2025-09-24 16:12:48.813977+00:00
+2025-09-24 11:13:07,401 - app - INFO - Chevis E. logged a new Top & Bottom fridge into the database/// model:1020304 serial:AASSEEDDFF at 2025-09-24 16:13:07.401296+00:00
+2025-09-24 11:13:39,196 - app - INFO - Chevis E. logged a new Side by Side fridge into the database/// model:ASERSDRTDF serial:GEGER42323F at 2025-09-24 16:13:39.196644+00:00
+2025-09-24 11:13:42,721 - app - INFO - Chevis E. has logged out.
+2025-09-24 11:13:57,263 - app - INFO - Donavon Boutte has logged in at 2025-09-24 16:13:57.263922+00:00
+2025-09-24 11:14:18,130 - app - INFO - Donavon B. logged a new Top Load Gas dryer into the database/// model:FEFF2F23 serial:FFFEEEEE at 2025-09-24 16:14:18.130617+00:00
+2025-09-24 11:14:36,561 - app - INFO - Donavon B. logged a new Glass Top dryer into the database/// model:232F2F2F32 serial:GGGGGGGGG at 2025-09-24 16:14:36.561379+00:00
+2025-09-24 11:14:55,902 - app - INFO - Donavon B. logged a new Front Load Electric dryer into the database/// model:HHHHHHHHHHH serial:44444444444 at 2025-09-24 16:14:55.902881+00:00
+2025-09-24 11:14:57,701 - app - INFO - Donavon B. has logged out.
+2025-09-24 11:15:02,305 - app - INFO - Terrain Lemons has logged in at 2025-09-24 16:15:02.304972+00:00
+2025-09-24 11:15:17,858 - app - INFO - Terrain L. logged a new All in One washer into the database/// model:G434G34G serial:GGGGGGG5GGG at 2025-09-24 16:15:17.858575+00:00
+2025-09-24 11:15:32,883 - app - INFO - Terrain L. logged a new Front Load washer into the database/// model:G43G34G serial:GGGG4GGG44G at 2025-09-24 16:15:32.883595+00:00
+2025-09-24 11:15:36,864 - app - INFO - Terrain L. has logged out.
+2025-09-24 11:15:48,713 - app - INFO - Cameron Lopez has logged in at 2025-09-24 16:15:48.713286+00:00
+2025-09-24 11:28:42,104 - app - INFO - Cameron L. has logged out.
+2025-09-24 11:28:47,797 - app - INFO - Donavon Boutte has logged in at 2025-09-24 16:28:47.797479+00:00
+2025-09-24 11:39:11,391 - app - INFO - Cameron has been added to the database
+2025-09-24 11:39:18,487 - app - INFO - Cameron Lopez has logged in at 2025-09-24 16:39:18.487766+00:00
+2025-09-24 11:46:49,171 - app - ERROR - An error occured when inputing a new machine: (pymysql.err.IntegrityError) (1048, "Column 'created_by' cannot be null")
+[SQL: INSERT INTO machine (brand, type_of, model, serial, style, color, `condition`, vendor, status, started_on, completed_on, updated_on, created_by) VALUES (%(brand)s, %(type_of)s, %(model)s, %(serial)s, %(style)s, %(color)s, %(condition)s, %(vendor)s, %(status)s, CURRENT_DATE, %(completed_on)s, CURRENT_DATE, %(created_by)s)]
+[parameters: {'brand': 'arctic_king', 'type_of': 'fridge', 'model': '123FYEIUD4', 'serial': 'SERIAL-1000', 'style': 'Top & Bottom', 'color': 'Teal', 'condition': 'NEW', 'vendor': 'pasadena', 'status': 'in_progress', 'completed_on': None, 'created_by': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-09-24 11:47:25,445 - app - INFO - Cameron L. logged a new Top & Bottom fridge into the database/// model:123FYEIUD4 serial:SERIAL-1000 at 2025-09-24 16:47:25.445283+00:00
+2025-09-24 11:47:55,006 - app - INFO - Chevis has been added to the database
+2025-09-24 11:48:12,334 - app - INFO - Terrain has been added to the database
+2025-09-24 11:48:31,089 - app - INFO - Donavon has been added to the database
+2025-09-24 11:48:33,622 - app - INFO - Cameron L. has logged out.
+2025-09-24 11:48:42,985 - app - INFO - Chevis Edwards has logged in at 2025-09-24 16:48:42.985303+00:00
+2025-09-24 13:29:29,850 - app - INFO - Chevis E. has logged out.
+2025-09-24 13:29:34,946 - app - INFO - Cameron Lopez has logged in at 2025-09-24 18:29:34.946953+00:00
+2025-09-24 14:33:27,811 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-24 14:51:39,642 - app - INFO - Cameron L. has logged out.
+2025-09-24 14:51:44,693 - app - INFO - Chevis Edwards has logged in at 2025-09-24 19:51:44.693830+00:00
+2025-09-24 14:52:00,754 - app - INFO - Chevis E. logged a new Side by Side fridge into the database/// model:12312V2323 serial:V BB345B34B at 2025-09-24 19:52:00.754036+00:00
+2025-09-24 14:52:03,553 - app - INFO - Chevis Edwards updated machine id 2
+2025-09-24 14:52:05,432 - app - INFO - Chevis E. has logged out.
+2025-09-24 14:52:10,809 - app - INFO - Donavon Boutte has logged in at 2025-09-24 19:52:10.809000+00:00
+2025-09-24 14:52:22,514 - app - INFO - Donavon B. logged a new Front Load Gas dryer into the database/// model:1243V324V23V serial:VV4234232V3 at 2025-09-24 19:52:22.514859+00:00
+2025-09-24 14:52:25,283 - app - INFO - Donavon Boutte updated machine id 3
+2025-09-24 14:52:27,376 - app - INFO - Donavon B. has logged out.
+2025-09-24 14:52:32,310 - app - INFO - Cameron Lopez has logged in at 2025-09-24 19:52:32.310225+00:00
+2025-09-24 14:54:15,782 - app - INFO - Cameron L. logged a new Side by Side fridge into the database/// model:GT43T334B34 serial:BBB3543B at 2025-09-24 19:54:15.782118+00:00
+2025-09-24 14:54:18,656 - app - INFO - Cameron Lopez updated machine id 4
+2025-09-24 15:11:44,324 - app - INFO - Cameron Lopez has exported xlsx file to cameron@mattsappliancesla.net
+2025-09-24 15:12:37,792 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-24 15:12:40,117 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-24 15:12:55,154 - app - INFO - Cameron Lopez has exported xlsx file to cameron@mattsappliancesla.net
+2025-09-24 15:16:06,858 - app - INFO - Cameron Lopez updated machine id 1
+2025-09-24 15:16:17,068 - app - INFO - Cameron Lopez updated machine id 4
+2025-09-24 15:16:19,408 - app - INFO - Cameron Lopez updated machine id 4
+2025-09-24 15:16:27,486 - app - INFO - Cameron Lopez has exported xlsx file to cameron@mattsappliancesla.net
+2025-09-24 16:16:45,745 - app - ERROR - Failed to send label to printer: {"error":"Error when sending data to printer: [Errno 113] No route to host"}
+
+2025-09-24 16:21:34,296 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:22:19,894 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:29:17,807 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:29:54,239 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:31:07,156 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:33:42,403 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:35:48,723 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:36:28,799 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:36:44,933 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:37:03,567 - app - INFO - Cameron Lopez just printed a label
+2025-09-24 16:50:35,512 - app - INFO - Cameron Lopez has logged in at 2025-09-24 21:50:35.512915+00:00
+2025-09-25 22:44:09,144 - app - INFO - Cameron has been added to the database
+2025-09-25 22:44:14,513 - app - INFO - Cameron Lopez has logged in at 2025-09-26 03:44:14.513505+00:00
+2025-09-25 22:44:16,497 - app - INFO - Cameron Lopez has logged in at 2025-09-26 03:44:16.497896+00:00
+2025-09-25 22:44:18,975 - app - INFO - Cameron Lopez has logged in at 2025-09-26 03:44:18.975616+00:00
+2025-09-25 22:46:27,485 - app - INFO - Cameron Lopez has logged in at 2025-09-26 03:46:27.485666+00:00
+2025-09-25 22:46:52,701 - app - INFO - Cameron L. logged a new Upright fridge into the database/// model:2R32R32 serial:RR2R2R32 at 2025-09-26 03:46:52.701511+00:00
+2025-09-26 15:04:40,209 - app - INFO - Cameron Lopez has logged in at 2025-09-26 20:04:40.209078+00:00

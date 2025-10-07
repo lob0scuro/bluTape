@@ -9,7 +9,7 @@ from collections import defaultdict
 # --------------------
 ConditionEnum = Enum("NEW", "USED", "Scratch and Dent", name="condition_enum")
 VendorEnum = Enum("pasadena", "baton_rouge", "alexandria", "stines_lc", "stines_jn", "scrappers", "unknown", name="vendor_enum")
-StatusEnum = Enum("completed", "trashed", "in_progress", "exported", name="status_enum")
+StatusEnum = Enum("completed", "trashed", "in_progress", "exported", "archived", name="status_enum")
 TypeEnum = Enum("fridge", "washer", "dryer", "range", "microwave", "water_heater", "stackable", "dishwasher")
 
 # --------------------
@@ -124,6 +124,7 @@ class Machine(db.Model):
     condition = Column(ConditionEnum, nullable=False)
     vendor = Column(VendorEnum)
     status = Column(StatusEnum, default="in_progress", nullable=False)
+    need_to_inventory = Column(Boolean, default=True)
 
     # Timestamps
     started_on = Column(DateTime, default=func.current_date())

@@ -6,6 +6,9 @@ server/app/api/__pycache__/
 client/node_modules/
 
 server/logs/*
+server/__pycache__/
+server/app/__pycache__/
+server/app/api/__pycache__/
 
 __pycache__/
 __pycache__/*
