@@ -68,7 +68,7 @@ const Login = () => {
             onChange={(e) => setUserID(Number(e.target.value))}
           >
             <option value="">--Select User--</option>
-            {users.map(({ id, first_name, last_name }) => (
+            {users?.map(({ id, first_name, last_name }) => (
               <option key={id} value={id}>
                 {first_name} {last_name}
               </option>

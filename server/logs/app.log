@@ -178,3 +178,88 @@
 2025-09-25 22:46:27,485 - app - INFO - Cameron Lopez has logged in at 2025-09-26 03:46:27.485666+00:00
 2025-09-25 22:46:52,701 - app - INFO - Cameron L. logged a new Upright fridge into the database/// model:2R32R32 serial:RR2R2R32 at 2025-09-26 03:46:52.701511+00:00
 2025-09-26 15:04:40,209 - app - INFO - Cameron Lopez has logged in at 2025-09-26 20:04:40.209078+00:00
+2025-10-07 15:33:49,247 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:33:50,458 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:33:53,720 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:33:54,592 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:34:08,536 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:34:09,517 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:35:34,020 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:35:34,926 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:35:38,385 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:35:39,360 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:36:37,706 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:36:38,653 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:37:05,100 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:37:05,992 - app - ERROR - Error when querying for users: (pymysql.err.OperationalError) (1054, "Unknown column 'machine.need_to_inventory' in 'field list'")
+[SQL: SELECT machine.id AS machine_id, machine.brand AS machine_brand, machine.type_of AS machine_type_of, machine.model AS machine_model, machine.serial AS machine_serial, machine.style AS machine_style, machine.color AS machine_color, machine.`condition` AS machine_condition, machine.vendor AS machine_vendor, machine.status AS machine_status, machine.need_to_inventory AS machine_need_to_inventory, machine.started_on AS machine_started_on, machine.completed_on AS machine_completed_on, machine.updated_on AS machine_updated_on, machine.created_by AS machine_created_by 
+FROM machine, machine_techs 
+WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine_id]
+[parameters: {'param_1': 4}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-07 15:39:09,704 - app - INFO - Cameron Lopez has logged in at 2025-10-07 20:39:09.704662+00:00
