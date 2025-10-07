@@ -13,7 +13,7 @@ const Table = ({ machine_status = "all" }) => {
     const get = async () => {
       try {
         const response = await fetch(
-          `/api/read/get_machines/${machine_status}?created_by=${user.id}`,
+          `/api/read/get_machines/${machine_status}`, // add this line to search by user --> ?created_by=${user.id},
           {
             method: "GET",
             credentials: "include",
