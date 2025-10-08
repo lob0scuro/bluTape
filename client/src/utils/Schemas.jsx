@@ -31,6 +31,7 @@ export const brands = {
   magic_chef: "Magic Chef",
   maytag: "Maytag",
   midea: "Midea",
+  mora: "Mora",
   richmond: "Richmond",
   roper: "Roper",
   samsung: "Samsung",
