@@ -79,6 +79,7 @@ export const machineStyles = {
     "Top Load": "Top Load",
     "Front Load": "Front Load",
     "All in One": "All in One",
+    Dishwasher: "Dishwasher",
   },
   dryer: {
     "Top Load Gas": "Top Load Gas",
