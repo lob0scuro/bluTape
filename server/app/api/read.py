@@ -96,18 +96,39 @@ def get_id_by_serial(serial_number):
 @read_bp.route("/get_user/<int:id>", methods=['GET'])
 def get_user(id):
     try:
-        view_range = request.args.get("view_range", "day")  # default to 'day'
-        selected_date_str = request.args.get("selected_date") # YYYY-MM-DD
-        selected_date = None
-        if selected_date_str:
-            selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
         user = User.query.get(id)
         if not user:
             return jsonify(success=False, message="User not found."), 404
-        return jsonify(success=True, data=user.serialize(view_range=view_range, selected_date=selected_date)), 200
+        return jsonify(success=True, data=user.serialize()), 200
     except Exception as e:
         current_app.logger.error(f"Error when querying for user with id {id}: {e}")
         return jsonify(success=False, message="There was an error when querying for user."), 500
+    
+@read_bp.route("/get_user_metrics/<int:id>", methods=['GET'])
+def get_user_metrics(id):
+    try:
+        user = User.query.get(id)
+        if not user:
+            return jsonify(success=False, message="User not found."), 404
+        
+        start_str = request.args.get("start")
+        end_str = request.args.get("end")
+        
+        if not start_str or not end_str:
+            return jsonify(success=False, message="Start and end date parameters are required."), 400
+        
+        try:
+            start = datetime.fromisoformat(start_str).replace(tzinfo=timezone.utc)
+            end = datetime.fromisoformat(end_str).replace(tzinfo=timezone.utc)
+        except ValueError:
+            return jsonify(success=False, message="Invalid date format. Use ISO format."), 400
+        
+        metrics = user.metrics_in_range(start, end)
+        
+        return jsonify(success=True, data=metrics), 200
+    except Exception as e:
+        current_app.logger.error(f"Error when querying for user metrics with id {id}: {e}")
+        return jsonify(success=False, message="There was an error when querying for user metrics."), 500
 
 
 

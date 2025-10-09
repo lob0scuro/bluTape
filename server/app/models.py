@@ -1,7 +1,7 @@
 from app.extensions import db
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, Enum, ForeignKey, Table, func
-from datetime import datetime, timezone, timedelta
+from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, Enum, ForeignKey, Table, func, case
+from datetime import datetime, date, timezone, timedelta
 from collections import defaultdict
 
 # --------------------
@@ -25,7 +25,7 @@ machine_techs = Table(
 
 # --------------------
 # User Model
-# --------------------
+# --------------------     
 class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True)
     first_name = Column(String(50), nullable=False)
@@ -49,63 +49,73 @@ class User(db.Model, UserMixin):
     def total_machines_worked(self):
         return len(self.machines_worked)
 
-    def total_notes_written(self):
-        return len(self.notes)
-
     def machines_by_status(self, status):
         return [m for m in self.machines_worked if m.status == status]
 
-    from datetime import datetime, timedelta, timezone
-
-    def serialize(self, view_range="day", selected_date=None):
-        totals = {
-            "machines_by_status": {
-                status: len(self.machines_by_status(status))
-                for status in ["in_progress", "completed", "trashed"]
-            },
-            "machines_worked_count": self.total_machines_worked(),
-            "notes_count": self.total_notes_written()
-        }
-
-        from datetime import datetime, timedelta, timezone
-        timeline = []
-        now = datetime.now(timezone.utc)
-
-        # Example: daily aggregation for last 30 days
-        if view_range == "day":
-            for i in range(30):
-                day = now - timedelta(days=i)
-                if selected_date and day.date() != selected_date:
-                    continue
-                completed = len([m for m in self.machines_worked if m.status=="completed" and m.completed_on and m.completed_on.date() == day.date()])
-                in_progress = len([m for m in self.machines_worked if m.status=="in_progress" and m.started_on.date() == day.date()])
-                trashed = len([m for m in self.machines_worked if m.status=="trashed" and m.completed_on and m.completed_on.date() == day.date()])
-                timeline.append({
-                    "date": day.strftime("%Y-%m-%d"),
-                    "completed": completed,
-                    "in_progress": in_progress,
-                    "trashed": trashed
-                })
-            timeline.reverse()
-        
-        current_workload = [
-            m.serialize() for m in self.machines_worked if m.status == "in_progress" and (not selected_date or m.started_on.date() == selected_date)
-        ]
-
-
+    
+    def serialize(self):
         return {
             "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
             "role": self.role,
             "is_admin": self.is_admin,
-            "email": self.email,
-            **totals,
-            "metrics_timeline": timeline,
-            "machines_worked": [m.serialize() for m in self.machines_worked],
-            "current_workload": current_workload,
-            "notes": [n.serialize() for n in self.notes]
+            "email": self.email
         }
+
+    def currenty_working_on(self):
+        return [m.serialize() for m in self.machines_worked if m.status == StatusEnum.in_progress]
+    
+    def metrics_in_range(self, start_date: date, end_date: date):
+        """
+        Returns machines stats for this user within a given date range, serialized for JSON.
+
+        Returns a dictionary:
+        - in_progress: list of serialized machines currently in progress
+        - completed_in_range: list of serialized machines completed within range
+        - trashed_in_range: list of serialized machines trashed within range
+        - count_completed_trashed: total number of completed + trashed within range
+        """
+        start = datetime.combine(start_date, datetime.min.time())
+        end = datetime.combine(end_date, datetime.max.time())
+
+        query = (
+            db.session.query(
+                Machine,
+                case((Machine.status == "in_progress", 1), else_=0).label("in_progress_flag"),
+                case((Machine.status == "completed", 1), else_=0).label("completed_flag"),
+                case((Machine.status == "trashed", 1), else_=0).label("trashed_flag"),
+            )
+            .join(Machine.technicians)
+            .filter(User.id == self.id)
+        )
+
+        machines = query.all()
+
+        in_progress = []
+        completed_in_range = []
+        trashed_in_range = []
+        count_completed_trashed = 0
+
+        for machine, in_flag, comp_flag, trash_flag in machines:
+            if in_flag:
+                in_progress.append(machine.serialize())
+            if comp_flag and machine.completed_on and start <= machine.completed_on <= end:
+                completed_in_range.append(machine.serialize())
+            if trash_flag and machine.updated_on and start <= machine.updated_on <= end:
+                trashed_in_range.append(machine.serialize())
+            if (comp_flag and machine.completed_on and start <= machine.completed_on <= end) or \
+            (trash_flag and machine.updated_on and start <= machine.updated_on <= end):
+                count_completed_trashed += 1
+
+        return {
+            "in_progress": in_progress,
+            "completed_in_range": completed_in_range,
+            "trashed_in_range": trashed_in_range,
+            "count_completed_trashed": count_completed_trashed
+        }
+
+    
 
 
 

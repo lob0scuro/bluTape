@@ -265,3 +265,18 @@ WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine
 2025-10-07 15:39:09,704 - app - INFO - Cameron Lopez has logged in at 2025-10-07 20:39:09.704662+00:00
 2025-10-07 15:46:19,820 - app - INFO - Cameron L. has logged out.
 2025-10-07 15:46:24,258 - app - INFO - Chevis Edwards has logged in at 2025-10-07 20:46:24.258696+00:00
+2025-10-09 10:31:32,126 - app - INFO - Cameron L. has logged out.
+2025-10-09 10:31:38,061 - app - INFO - Cameron Lopez has logged in at 2025-10-09 15:31:38.061889+00:00
+2025-10-09 11:00:56,330 - app - ERROR - Error when querying for user metrics with id 4: 'Enum' object has no attribute 'in_progress'
+2025-10-09 11:01:05,930 - app - ERROR - Error when querying for user metrics with id 2: 'Enum' object has no attribute 'in_progress'
+2025-10-09 11:02:32,555 - app - ERROR - Error when querying for user metrics with id 1: 'Enum' object has no attribute 'in_progress'
+2025-10-09 11:03:12,076 - app - ERROR - Error when querying for user metrics with id 3: 'Enum' object is not subscriptable
+2025-10-09 11:03:41,911 - app - ERROR - Error when querying for user metrics with id 1: 'Enum' object has no attribute 'in_progress'
+2025-10-09 11:04:37,251 - app - ERROR - Error when querying for user metrics with id 2: The "whens" argument to case(), when referring to a sequence of items, is now passed as a series of positional elements, rather than as a list. 
+2025-10-09 11:05:15,948 - app - ERROR - Error when querying for user metrics with id 1: The "whens" argument to case(), when referring to a sequence of items, is now passed as a series of positional elements, rather than as a list. 
+2025-10-09 11:06:49,202 - app - ERROR - Error when querying for user metrics with id 2: Operator 'getitem' is not supported on this expression
+2025-10-09 11:14:40,844 - app - INFO - Cameron L. logged a new Side by Side fridge into the database/// model:1564484 serial:4444555 at 2025-10-09 16:14:40.844476+00:00
+2025-10-09 11:15:00,283 - app - INFO - Cameron L. logged a new Bottom Mount fridge into the database/// model:12D12D12DE serial:3323323 at 2025-10-09 16:15:00.283014+00:00
+2025-10-09 11:15:19,104 - app - INFO - Cameron L. logged a new French Door fridge into the database/// model:321321111 serial:123123333 at 2025-10-09 16:15:19.104569+00:00
+2025-10-09 11:15:40,298 - app - INFO - Cameron L. logged a new Side by Side fridge into the database/// model:3333333 serial:22222221 at 2025-10-09 16:15:40.298325+00:00
+2025-10-09 11:16:03,085 - app - INFO - Cameron L. logged a new Chest fridge into the database/// model:GR3GR3GR3 serial:33RG33RG33 at 2025-10-09 16:16:03.085662+00:00

@@ -5,7 +5,7 @@ import EmployeeMetrics from "../../../components/employee-metrics/EmployeeMetric
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 const AdminPanel = () => {
-  const [userID, setUserID] = useState(0);
+  const [user, setUser] = useState(null);
   const [employees, setEmployees] = useState([]);
   const [action, setAction] = useState(null);
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ const AdminPanel = () => {
         if (!data.success) {
           throw new Error(data.message);
         }
-        console.log(data.data);
         setEmployees(data.data);
       } catch (error) {
         console.error(error);
@@ -36,6 +35,7 @@ const AdminPanel = () => {
   }, []);
 
   const selectAction = (target) => {
+    setAction(target);
     navigate(target);
   };
 
@@ -63,7 +63,11 @@ const AdminPanel = () => {
           name="users"
           id="users"
           className={styles.employeePicker}
-          onChange={(e) => setUserID(e.target.value)}
+          onChange={(e) => {
+            const id = Number(e.target.value);
+
+            setUser(id ? employees.find((emp) => emp.id === id) : null);
+          }}
         >
           <option value={0}>--Select Employee--</option>
           {employees.map(({ id, first_name, last_name }) => (
@@ -72,7 +76,7 @@ const AdminPanel = () => {
             </option>
           ))}
         </select>
-        <EmployeeMetrics uid={userID} />
+        <EmployeeMetrics user={user} />
       </div>
     </div>
   );
