@@ -83,3 +83,14 @@ ul.metrics_list li {
   font-size: 1.2rem;
   color: var(--textPrimary);
 }
+
+.printMetricsButton {
+  margin-top: 2rem;
+  padding: 26px 10px;
+  font-size: 2rem;
+  border-radius: 8px;
+  background-color: var(--buttonPrimary);
+  color: var(--textPrimary);
+  box-shadow: -2px 2px 8px #000;
+  width: 100%;
+}

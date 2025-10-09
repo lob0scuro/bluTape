@@ -57,6 +57,32 @@ const EmployeeMetrics = ({ user }) => {
     setEnd(today);
   };
 
+  const printMetrics = async () => {
+    try {
+      const response = await fetch(`/api/export/print_employee_metrics`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          employee_name: user.first_name,
+          metrics: metrics,
+        }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+      } else {
+        throw new Error("Failed to print metrics.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to print metrics.");
+      return;
+    }
+  };
+
   if (!user) {
     return (
       <p style={{ fontSize: "1.2rem", marginTop: "1rem", fontStyle: "italic" }}>
@@ -178,6 +204,11 @@ const EmployeeMetrics = ({ user }) => {
           {formatDate(start)} and {formatDate(end)}
         </p>
       </div>
+      <Button
+        label={"Print Metrics"}
+        className={styles.printMetricsButton}
+        onClick={printMetrics}
+      />
     </div>
   );
 };

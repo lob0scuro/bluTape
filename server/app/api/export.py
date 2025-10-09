@@ -1,4 +1,4 @@
-from flask import jsonify, current_app, Blueprint
+from flask import jsonify, current_app, Blueprint, request
 from app.extensions import db
 from app.models import Machine
 from flask_login import login_required, current_user
@@ -8,6 +8,50 @@ from flask_mailman import EmailMessage
 
 
 export_bp = Blueprint("export", __name__)
+
+
+def send_metrics_email(admin_email: str, employee_name: str, metrics: dict):
+    # Build HTML body
+    def machine_list(machines):
+        return ", ".join([m["model"] for m in machines]) if machines else "—"
+
+    html_body = f"""
+    <h2>Employee Metrics for {employee_name}</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr>
+            <th>Category</th><th>Count</th><th>Details</th>
+        </tr>
+        <tr>
+            <td>In Progress</td>
+            <td>{len(metrics.get('in_progress', []))}</td>
+            <td>{machine_list(metrics.get('in_progress', []))}</td>
+        </tr>
+        <tr>
+            <td>Completed in Range</td>
+            <td>{len(metrics.get('completed_in_range', []))}</td>
+            <td>{machine_list(metrics.get('completed_in_range', []))}</td>
+        </tr>
+        <tr>
+            <td>Trashed in Range</td>
+            <td>{len(metrics.get('trashed_in_range', []))}</td>
+            <td>{machine_list(metrics.get('trashed_in_range', []))}</td>
+        </tr>
+        <tr>
+            <td>Total Completed/Trashed</td>
+            <td>{metrics.get('count_completed_trashed', 0)}</td>
+            <td>—</td>
+        </tr>
+    </table>
+    """
+
+    email = EmailMessage(
+        subject=f"Employee Metrics for {employee_name}",
+        body=html_body,
+        from_email=current_app.config.get("MAIL_DEFAULT_SENDER"),
+        to=[admin_email],
+    )
+    email.content_subtype = "html"  # render as HTML
+    email.send()
 
 
 @export_bp.route("/export_machines", methods=["GET"])
@@ -57,3 +101,19 @@ def export_machines():
         return jsonify(success=False, message="Failed to update machine status after export."), 500
     
     return jsonify(success=True, message="Export successful, email sent with attachment."), 200
+
+
+@export_bp.route("/print_employee_metrics", methods=["POST"])
+def print_employee_metrics():
+    # Placeholder for future implementation
+    data = request.get_json()
+    metrics = data.get("metrics", {})
+    employee_name = data.get("employee_name", "Unknown")
+    admin_email = current_user.email
+    
+    try:
+        send_metrics_email(admin_email, employee_name, metrics)
+        return jsonify(success=True, message="Employee metrics emailed successfully."), 200
+    except Exception as e:
+        print(f"Error sending metrics email: {e}")
+        return jsonify(success=False, message="Failed to send employee metrics email."), 500
