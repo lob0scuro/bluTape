@@ -3,6 +3,14 @@
   width: 90%;
 }
 
+.todayButton {
+  width: fit-content;
+  align-self: flex-end;
+  margin: 0;
+  padding: 8px 6px;
+  border-radius: 4px;
+}
+
 .datePicker {
   display: flex;
   align-items: center;
@@ -16,4 +24,58 @@
 }
 .datePicker input {
   width: 100%;
+  text-align: center;
+}
+
+.metricResultsContainer {
+  border: 1px solid var(--textPrimary);
+  padding: 14px 8px;
+  margin-top: 1rem;
+  border-radius: 8px;
+  background-color: var(--backgroundDark);
+}
+
+.dateSpan {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+ul.metrics_list {
+  margin-top: 0.8rem;
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+ul.metrics_list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 8px;
+  border-radius: 6px;
+  background-color: var(--background);
+  color: var(--linkText);
+  font-size: 1rem;
+}
+
+.summaryContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.summaryContainer h2 {
+  font-size: 5rem;
+  color: var(--linkText);
+}
+.summaryContainer p {
+  font-size: 1.2rem;
+  color: var(--textPrimary);
 }
