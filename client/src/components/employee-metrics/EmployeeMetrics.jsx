@@ -64,6 +64,8 @@ const EmployeeMetrics = ({ user }) => {
       </p>
     );
   }
+
+  if (!metrics) return <p>Loading metrics...</p>;
   return (
     <div className={styles.metricsContainer}>
       <div className={styles.datePicker}>
