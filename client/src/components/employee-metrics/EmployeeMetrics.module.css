@@ -3,11 +3,36 @@
   width: 90%;
 }
 
-.todayButton {
-  width: fit-content;
-  align-self: flex-end;
-  margin: 0;
-  padding: 8px 6px;
+.weekButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  width: 80%;
+  margin: 0.6rem auto 0 auto;
+}
+.weekButtons button {
+  width: 40%;
+  padding: 14px 6px;
+  border-radius: 4px;
+  background-color: var(--buttonPrimary);
+  color: var(--textPrimary);
+  box-shadow: -2px 2px 8px #000;
+  font-size: 18px;
+}
+
+.dayButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  width: 80%;
+  margin: 0.6rem auto 0 auto;
+}
+
+.dayButtons button {
+  width: 30%;
+  padding: 12px 6px;
   border-radius: 4px;
   background-color: var(--buttonPrimary);
   color: var(--textPrimary);

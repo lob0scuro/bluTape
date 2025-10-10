@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/Tools";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBackwardStep,
   faCircleCheck,
+  faForwardStep,
   faScrewdriverWrench,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +21,7 @@ const EmployeeMetrics = ({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let ignore = false;
     const fetchUserMetrics = async () => {
       if (!user) return;
       try {
@@ -27,34 +30,80 @@ const EmployeeMetrics = ({ user }) => {
           {
             method: "GET",
             credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
           }
         );
-        if (response.ok) {
-          const data = await response.json();
-          if (!data.success) {
-            throw new Error(data.message);
-          }
-          console.log(data.data);
+        const data = await response.json();
+        if (!ignore && data.success) {
           setMetrics(data.data);
-        } else {
-          throw new Error("Failed to fetch user metrics.");
         }
       } catch (error) {
-        console.error(error);
-        toast.error(error.message);
-        return;
+        if (!ignore) {
+          toast.error(error.message || "Failed to fetch user metrics.");
+        }
       }
     };
     fetchUserMetrics();
+    return () => {
+      ignore = true;
+    };
   }, [user, start, end]);
 
-  const setDateToToday = () => {
-    const today = new Date().toISOString().split("T")[0];
-    setStart(today);
-    setEnd(today);
+  const setDate = (direction) => {
+    let newStart, newEnd;
+
+    const today = new Date(start); // base date — current selection
+
+    switch (direction) {
+      // --- DAY NAVIGATION ---
+      case "prev":
+        newStart = new Date(today);
+        newStart.setDate(today.getDate() - 1);
+        newEnd = new Date(newStart);
+        break;
+
+      case "next":
+        newStart = new Date(today);
+        newStart.setDate(today.getDate() + 1);
+        newEnd = new Date(newStart);
+        break;
+
+      // --- WEEK NAVIGATION ---
+      case "prev-week": {
+        const current = new Date(today);
+        current.setDate(current.getDate() - 7); // move one week back
+        const dayOfWeek = current.getDay(); // 0=Sunday
+
+        // set to Sunday of that week
+        newStart = new Date(current);
+        newStart.setDate(current.getDate() - dayOfWeek);
+
+        // Saturday = Sunday + 6
+        newEnd = new Date(newStart);
+        newEnd.setDate(newStart.getDate() + 6);
+        break;
+      }
+
+      case "next-week": {
+        const current = new Date(today);
+        current.setDate(current.getDate() + 7); // move one week forward
+        const dayOfWeek = current.getDay();
+
+        newStart = new Date(current);
+        newStart.setDate(current.getDate() - dayOfWeek);
+        newEnd = new Date(newStart);
+        newEnd.setDate(newStart.getDate() + 6);
+        break;
+      }
+
+      // --- DEFAULT: TODAY ---
+      default:
+        newStart = new Date();
+        newEnd = new Date();
+    }
+
+    const format = (d) => d.toISOString().split("T")[0];
+    setStart(format(newStart));
+    setEnd(format(newEnd));
   };
 
   const printMetrics = async () => {
@@ -115,10 +164,29 @@ const EmployeeMetrics = ({ user }) => {
             onChange={(e) => setEnd(e.target.value)}
           />
         </label>
+      </div>
+      <div className={styles.weekButtons}>
+        <Button label={"Prev Week"} onClick={() => setDate("prev-week")} />
+        <Button label={"Next Week"} onClick={() => setDate("next-week")} />
+      </div>
+
+      <div className={styles.dayButtons}>
         <Button
-          onClick={setDateToToday}
+          label={<FontAwesomeIcon icon={faBackwardStep} />}
+          onClick={() => setDate("prev")}
+        />
+        <Button
+          onClick={() => setDate("today")}
           label="Today"
           className={styles.todayButton}
+        />
+        <Button
+          label={
+            <FontAwesomeIcon
+              icon={faForwardStep}
+              onClick={() => setDate("next")}
+            />
+          }
         />
       </div>
       <div className={styles.metricResultsContainer}>

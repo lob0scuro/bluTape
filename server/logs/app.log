@@ -289,3 +289,5 @@ WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine
 2025-10-09 12:57:53,439 - app - INFO - Cameron Lopez updated machine id 8
 2025-10-09 12:58:03,912 - app - INFO - Cameron Lopez updated machine id 9
 2025-10-09 12:58:23,938 - app - INFO - Cameron Lopez updated machine id 6
+2025-10-10 09:11:40,914 - app - INFO - Cameron Lopez updated machine id 5
+2025-10-10 09:11:49,508 - app - INFO - Cameron Lopez updated machine id 11
