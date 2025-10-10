@@ -52,6 +52,11 @@ const Register = () => {
 
   return (
     <>
+      <Button
+        label={"Back to Admin Panel"}
+        onClick={() => navigate("/admin-panel")}
+      />
+      <br />
       <h1 className={styles.registerHeader}>Register New User</h1>
       <form onSubmit={handleSubmit} className={styles.registerForm}>
         <div className={styles.adminContainer}>

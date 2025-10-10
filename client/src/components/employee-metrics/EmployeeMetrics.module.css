@@ -19,6 +19,22 @@
   color: var(--textPrimary);
   box-shadow: -2px 2px 8px #000;
   font-size: 18px;
+  border: none;
+}
+
+.monthPicker {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 80%;
+  margin: 0.6rem auto 0 auto;
+}
+.monthPicker select {
+  text-align: center;
+  width: fit-content;
+  background-color: var(--inputBackground);
+  color: var(--bannerBackground);
+  border: 1px solid var(--backgroundDark);
 }
 
 .dayButtons {
@@ -38,6 +54,7 @@
   color: var(--textPrimary);
   box-shadow: -2px 2px 8px #000;
   font-size: 18px;
+  border: none;
 }
 
 .datePicker {

@@ -47,6 +47,11 @@ const ExportMachines = () => {
 
   return (
     <div className={styles.exportContainer}>
+      <Button
+        label={"Back to Admin Panel"}
+        onClick={() => navigate("/admin-panel")}
+      />
+      <br />
       <ul className={styles.exportList}>
         {machines.map(
           ({

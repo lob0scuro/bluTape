@@ -17,6 +17,7 @@ const EmployeeMetrics = ({ user }) => {
   const today = new Date().toISOString().split("T")[0];
   const [start, setStart] = useState(today);
   const [end, setEnd] = useState(today);
+  const [month, setMonth] = useState(today.split("-")[1]);
   const [metrics, setMetrics] = useState(null);
   const navigate = useNavigate();
 
@@ -47,6 +48,11 @@ const EmployeeMetrics = ({ user }) => {
       ignore = true;
     };
   }, [user, start, end]);
+
+  useEffect(() => {
+    const monthStr = start.split("-")[1];
+    setMonth(monthStr);
+  }, [start]);
 
   const setDate = (direction) => {
     let newStart, newEnd;
@@ -104,6 +110,22 @@ const EmployeeMetrics = ({ user }) => {
     const format = (d) => d.toISOString().split("T")[0];
     setStart(format(newStart));
     setEnd(format(newEnd));
+  };
+
+  const selectedMonth = (e) => {
+    const selected = e.target.value;
+    if (!selected) return;
+
+    const year = new Date(start).getFullYear();
+    const firstDay = `${year}-${selected}-01`;
+    const lastDay = new Date(year, parseInt(selected), 0).getDate(); // 0 gets last day of previous month
+    const lastDate = `${year}-${selected}-${
+      lastDay < 10 ? "0" + lastDay : lastDay
+    }`;
+
+    setStart(firstDay);
+    setEnd(lastDate);
+    setMonth(selected);
   };
 
   const printMetrics = async () => {
@@ -165,6 +187,28 @@ const EmployeeMetrics = ({ user }) => {
           />
         </label>
       </div>
+      <div className={styles.monthPicker}>
+        <select
+          name="month-view"
+          id="month-view"
+          value={month}
+          onChange={selectedMonth}
+        >
+          <option value="">-- Select Month --</option>
+          <option value="01">January</option>
+          <option value="02">February</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June</option>
+          <option value="07">July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+      </div>
       <div className={styles.weekButtons}>
         <Button label={"Prev Week"} onClick={() => setDate("prev-week")} />
         <Button label={"Next Week"} onClick={() => setDate("next-week")} />
@@ -181,12 +225,8 @@ const EmployeeMetrics = ({ user }) => {
           className={styles.todayButton}
         />
         <Button
-          label={
-            <FontAwesomeIcon
-              icon={faForwardStep}
-              onClick={() => setDate("next")}
-            />
-          }
+          label={<FontAwesomeIcon icon={faForwardStep} />}
+          onClick={() => setDate("next")}
         />
       </div>
       <div className={styles.metricResultsContainer}>

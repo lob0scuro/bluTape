@@ -2,6 +2,7 @@ import styles from "./EmployeeInfo.module.css";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "../../../components/buttons/Button";
+import { useNavigate } from "react-router-dom";
 
 const roleMap = {
   0: "Office",
@@ -16,6 +17,7 @@ const EmployeeInfo = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -53,6 +55,10 @@ const EmployeeInfo = () => {
 
   return (
     <div className={styles.empInfoContainer}>
+      <Button
+        label={"Back to Admin Panel"}
+        onClick={() => navigate("/admin-panel")}
+      />
       <select name="employee" id="employee" onChange={selectUser}>
         <option value="">-Select Employee--</option>
         {users.map(({ id, first_name, last_name }) => (
