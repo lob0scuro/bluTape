@@ -11,10 +11,12 @@
   border: 1px solid #fff;
   background-color: var(--linkText);
   color: var(--textPrimary);
+  font-size: 1.3rem;
+  border-radius: 8px;
 }
 
 .pageControls button:disabled {
-  color: var(--linkText);
+  color: var(--backgroundDark);
   background-color: var(--background);
   border-color: transparent;
 }
