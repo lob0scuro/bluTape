@@ -36,9 +36,20 @@ def get_machines(status):
         if created_by:
             query = query.filter_by(created_by=created_by)
             
-        machines = query.all()
+        page = request.args.get("page", type=int, default=1)
+        per_page = request.args.get("per_page", type=int, default=10)
         
-        return jsonify(success=True, data=[m.serialize() for m in machines]), 200
+        pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+        machines = pagination.items
+        
+        meta = {
+            "page": pagination.page,
+            "per_page": pagination.per_page,
+            "total_pages": pagination.pages,
+            "total_items": pagination.total
+        }
+                    
+        return jsonify(success=True, data=[m.serialize() for m in machines], meta=meta), 200
     except Exception as e:
         current_app.logger.error(f"Error when querying for machines with status {status}: {e}")
         return jsonify(success=False, message=f"There was an error when querying for machines"), 500
@@ -104,6 +115,16 @@ def get_user(id):
         current_app.logger.error(f"Error when querying for user with id {id}: {e}")
         return jsonify(success=False, message="There was an error when querying for user."), 500
     
+@read_bp.route("/get_users", methods=['GET'])
+def get_users():
+    try:
+        users = User.query.order_by(User.last_name.asc()).all()
+        return jsonify(success=True, data=[u.serialize() for u in users]), 200
+    except Exception as e:
+        current_app.logger.error(f"Error when querying for users: {e}")
+        return jsonify(success=False, message="There was an error when querying for users"), 500
+
+    
 @read_bp.route("/get_user_metrics/<int:id>", methods=['GET'])
 def get_user_metrics(id):
     try:
@@ -120,6 +141,7 @@ def get_user_metrics(id):
         try:
             start = datetime.fromisoformat(start_str).replace(tzinfo=timezone.utc)
             end = datetime.fromisoformat(end_str).replace(tzinfo=timezone.utc)
+            print(f"{start} - {end}")
         except ValueError:
             return jsonify(success=False, message="Invalid date format. Use ISO format."), 400
         
@@ -132,11 +154,3 @@ def get_user_metrics(id):
 
 
 
-@read_bp.route("/get_users", methods=['GET'])
-def get_users():
-    try:
-        users = User.query.order_by(User.last_name.asc()).all()
-        return jsonify(success=True, data=[u.serialize() for u in users]), 200
-    except Exception as e:
-        current_app.logger.error(f"Error when querying for users: {e}")
-        return jsonify(success=False, message="There was an error when querying for users"), 500

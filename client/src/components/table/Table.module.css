@@ -1,3 +1,24 @@
+.pageControls {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-block: 1rem;
+}
+.pageControls button {
+  padding: 8px 30px;
+  border: 1px solid #fff;
+  background-color: var(--linkText);
+  color: var(--textPrimary);
+}
+
+.pageControls button:disabled {
+  color: var(--linkText);
+  background-color: var(--background);
+  border-color: transparent;
+}
+
 table.masterTable {
   width: 100%;
   margin-top: 1rem;
