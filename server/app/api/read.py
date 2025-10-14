@@ -139,13 +139,14 @@ def get_user_metrics(id):
             return jsonify(success=False, message="Start and end date parameters are required."), 400
         
         try:
-            start = datetime.fromisoformat(start_str).replace(tzinfo=timezone.utc)
-            end = datetime.fromisoformat(end_str).replace(tzinfo=timezone.utc)
-            print(f"{start} - {end}")
+            start = datetime.strptime(start_str, "%Y-%m-%d")
+            end = datetime.strptime(end_str, "%Y-%m-%d")
+            print(f"{start} through {end}")
         except ValueError:
             return jsonify(success=False, message="Invalid date format. Use ISO format."), 400
         
         metrics = user.metrics_in_range(start, end)
+        print(metrics)
         
         return jsonify(success=True, data=metrics), 200
     except Exception as e:

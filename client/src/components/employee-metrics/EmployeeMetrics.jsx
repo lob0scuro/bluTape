@@ -22,6 +22,7 @@ const EmployeeMetrics = ({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(start + " - " + end);
     let ignore = false;
     const fetchUserMetrics = async () => {
       if (!user) return;
