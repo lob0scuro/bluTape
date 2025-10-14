@@ -295,3 +295,6 @@ WHERE %(param_1)s = machine_techs.user_id AND machine.id = machine_techs.machine
 2025-10-14 08:42:06,973 - app - ERROR - Error when querying for user metrics with id 2: combine() argument 1 must be datetime.date, not str
 2025-10-14 08:42:08,850 - app - ERROR - Error when querying for user metrics with id 1: combine() argument 1 must be datetime.date, not str
 2025-10-14 08:42:40,927 - app - ERROR - Error when querying for user metrics with id 4: combine() argument 1 must be datetime.date, not str
+2025-10-14 09:15:00,339 - app - INFO - Cameron Lopez has exported xlsx file to cameron@mattsappliancesla.net
+2025-10-14 09:15:49,945 - app - INFO - Cameron Lopez updated machine id 6
+2025-10-14 09:15:52,429 - app - INFO - Cameron Lopez updated machine id 6

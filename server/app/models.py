@@ -66,7 +66,7 @@ class User(db.Model, UserMixin):
     def currenty_working_on(self):
         return [m.serialize() for m in self.machines_worked if m.status == StatusEnum.in_progress]
     
-    def metrics_in_range(self, start_date: datetime, end_date: datetime):
+    def metrics_in_range(self, start_date: datetime, end_date: datetime): 
         """
         Returns machines stats for this user within a given date range, serialized for JSON.
 
@@ -83,7 +83,7 @@ class User(db.Model, UserMixin):
             db.session.query(
                 Machine,
                 case((Machine.status == "in_progress", 1), else_=0).label("in_progress_flag"),
-                case((Machine.status == "completed", 1), else_=0).label("completed_flag"),
+                case((Machine.status.in_(["completed", "exported"]), 1), else_=0).label("completed_flag"),
                 case((Machine.status == "trashed", 1), else_=0).label("trashed_flag"),
             )
             .join(Machine.technicians)

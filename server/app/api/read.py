@@ -146,7 +146,6 @@ def get_user_metrics(id):
             return jsonify(success=False, message="Invalid date format. Use ISO format."), 400
         
         metrics = user.metrics_in_range(start, end)
-        print(metrics)
         
         return jsonify(success=True, data=metrics), 200
     except Exception as e:

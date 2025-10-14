@@ -270,7 +270,8 @@ const EmployeeMetrics = ({ user }) => {
               key={machine.id}
               onClick={() => navigate(`/card/${machine.id}`)}
             >
-              {machine.brand.toUpperCase()} - {machine.style} | {machine.serial}
+              {machine.brand.toUpperCase()} - {machine.style} | {machine.serial}{" "}
+              {machine.status === "exported" && <small>(inventoried)</small>}
             </li>
           ))}
         </ul>
