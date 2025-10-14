@@ -273,7 +273,7 @@ const EmployeeMetrics = ({ user }) => {
               {machine.brand.toUpperCase()} - {machine.style} | {machine.serial}{" "}
               {machine.status === "exported" && (
                 <small style={{ color: "var(--textSecondary)" }}>
-                  (inventoried)
+                  [inventoried]
                 </small>
               )}
             </li>
