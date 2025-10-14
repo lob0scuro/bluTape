@@ -69,6 +69,7 @@ def export_machines():
             "Color": m.color,
             "Condition": m.condition,
             "Status": m.status,
+            "User": m.creator.first_name,
         } for m in machines]
     output = BytesIO()
     df = pd.DataFrame(data)

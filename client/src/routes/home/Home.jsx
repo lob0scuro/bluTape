@@ -1,5 +1,5 @@
 import styles from "./Home.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/buttons/Button";
 import MachineForm from "../../components/forms/machine-form/MachineForm";
 import { useAuth } from "../../context/AuthContext";
@@ -15,6 +15,10 @@ const Home = () => {
   const { user } = useAuth();
   const [machineType, setMachineType] = useState(formMap[user.role] || null);
   const [activeButton, setActiveButton] = useState(user.role || 1);
+
+  // useEffect(() => {
+  //   console.log(machineType);
+  // }, [machineType]);
 
   const handleChange = (t) => {
     setMachineType(formMap[t]);

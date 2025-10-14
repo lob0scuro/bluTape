@@ -1,5 +1,5 @@
 import styles from "./MachineForm.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { brands, colors, machineStyles } from "../../../utils/Schemas";
 import {
   VENDORS,
@@ -22,9 +22,11 @@ const MachineForm = ({ machine_type }) => {
     color: "",
     condition: "",
     vendor: "",
-    type_of: machine_type,
-    note: "",
   });
+
+  useEffect(() => {
+    console.log(machine_type);
+  }, [machine_type]);
 
   const handleChange = (e) => {
     setFormInputs({
@@ -35,6 +37,7 @@ const MachineForm = ({ machine_type }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    formInputs.type_of = machine_type;
     try {
       const response = await fetch(`/api/create/add_machine`, {
         method: "POST",
@@ -43,6 +46,7 @@ const MachineForm = ({ machine_type }) => {
         },
         body: JSON.stringify(formInputs),
       });
+      console.log(JSON.stringify(formInputs));
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
