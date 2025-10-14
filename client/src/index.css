@@ -31,6 +31,13 @@ option {
   color: var(--backgroundDark);
 }
 
+input:focus,
+select:focus {
+  background-color: var(--linkText);
+  color: var(--textPrimary);
+  border: unset;
+}
+
 body {
   height: 100dvh;
   background-color: var(--background);
