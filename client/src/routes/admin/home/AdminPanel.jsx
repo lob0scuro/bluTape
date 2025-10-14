@@ -51,7 +51,7 @@ const AdminPanel = () => {
           >
             <option value="">--Select Action--</option>
             <option value="/register">Register New User</option>
-            <option value="/employee-info">View Employee Info</option>
+            <option value="/employee-info">View/Edit Employee Info</option>
             <option value="/export">Export Machines</option>
           </select>
         </div>

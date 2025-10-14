@@ -38,6 +38,10 @@ select:focus {
   border: unset;
 }
 
+option {
+  text-align: unset;
+}
+
 body {
   height: 100dvh;
   background-color: var(--background);

@@ -26,6 +26,7 @@
   width: fit-content;
   height: unset;
   background-color: var(--inputBackground);
+  text-align: center;
 }
 
 .employeePicker {
