@@ -24,10 +24,6 @@ const MachineForm = ({ machine_type }) => {
     vendor: "",
   });
 
-  useEffect(() => {
-    console.log(machine_type);
-  }, [machine_type]);
-
   const handleChange = (e) => {
     setFormInputs({
       ...formInputs,
@@ -46,7 +42,6 @@ const MachineForm = ({ machine_type }) => {
         },
         body: JSON.stringify(formInputs),
       });
-      console.log(JSON.stringify(formInputs));
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
