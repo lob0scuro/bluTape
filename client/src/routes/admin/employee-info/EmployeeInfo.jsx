@@ -9,14 +9,13 @@ const roleMap = {
   1: "Fridge Tech",
   2: "Washer Tech",
   3: "Dryer/Range Tech",
-  4: "range",
 };
 
 const EmployeeInfo = () => {
   const [users, setUsers] = useState([] || null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,20 +34,47 @@ const EmployeeInfo = () => {
       }
 
       setUsers(data.data);
-      setFormData({
-        first_name: data.data.first_name,
-        last_name: data.data.last_name,
-        email: data.data.email,
-        role: data.data.role,
-      });
     };
     fetchEmployee();
   }, []);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const selectUser = (e) => {
     const uid = e.target.value;
     const user = users.find((u) => u.id === parseInt(uid));
     setSelectedUser(user);
+    setFormData({
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      role: user.role,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`/api/update/update_user/${selectedUser.id}`, {
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    if (!data.success) {
+      toast.error(data.message);
+      return;
+    }
+    toast.success(data.message);
+    setSelectedUser(data.user);
+    setEditing(false);
   };
 
   if (!users) return <h1>Loading....</h1>;
@@ -59,7 +85,12 @@ const EmployeeInfo = () => {
         label={"Back to Admin Panel"}
         onClick={() => navigate("/admin-panel")}
       />
-      <select name="employee" id="employee" onChange={selectUser}>
+      <select
+        name="employee"
+        id="employee"
+        onChange={selectUser}
+        className={styles.employeeSelect}
+      >
         <option value="">-Select Employee--</option>
         {users.map(({ id, first_name, last_name }) => (
           <option key={id} value={id}>
@@ -69,28 +100,95 @@ const EmployeeInfo = () => {
       </select>
       {selectedUser && (
         <div className={styles.infoMainContainer}>
-          <ul className={styles.infoBlock}>
-            <li>
-              <span>First Name</span>
-              <span>{selectedUser.first_name}</span>
-            </li>
-            <li>
-              <span>Last Name</span>
-              <span>{selectedUser.last_name}</span>
-            </li>
-            <li>
-              <span>Role</span>
-              <span>{roleMap[selectedUser.role]}</span>
-            </li>
-            <li>
-              <span>Email</span>
-              <span style={{ fontSize: "1rem" }}>{selectedUser.email}</span>
-            </li>
-          </ul>
-          {/* <Button
+          <form className={styles.employeeForm} onSubmit={handleSubmit}>
+            <ul className={styles.infoBlock}>
+              <li>
+                {editing ? (
+                  <>
+                    <label htmlFor="first_name">First Name</label>
+                    <input
+                      type="text"
+                      value={formData.first_name}
+                      onChange={handleChange}
+                      name="first_name"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <span>First Name</span>
+                    <span>{selectedUser.first_name}</span>
+                  </>
+                )}
+              </li>
+              <li>
+                {editing ? (
+                  <>
+                    <label htmlFor="last_name">Last Name</label>
+                    <input
+                      type="text"
+                      value={formData.last_name}
+                      onChange={handleChange}
+                      name="last_name"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <span>Last Name</span>
+                    <span>{selectedUser.last_name}</span>
+                  </>
+                )}
+              </li>
+              <li>
+                {editing ? (
+                  <>
+                    <label htmlFor="role">Role</label>
+                    <select name="role" id="role" value={formData.role}>
+                      <option value="">--Select Role--</option>
+                      {Object.entries(roleMap).map(([num, text]) => (
+                        <option key={num} value={num}>
+                          {text}
+                        </option>
+                      ))}
+                    </select>
+                  </>
+                ) : (
+                  <>
+                    <span>Role</span>
+                    <span>{roleMap[selectedUser.role]}</span>
+                  </>
+                )}
+              </li>
+              <li>
+                {editing ? (
+                  <>
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      name="email"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <span>Email</span>
+                    <span>{selectedUser.email}</span>
+                  </>
+                )}
+              </li>
+            </ul>
+            {editing && (
+              <Button
+                label={"Submit"}
+                type="submit"
+                className={styles.employeeSubmit}
+              />
+            )}
+          </form>
+          <Button
             label={"Edit Employee Info"}
             onClick={() => setEditing(!editing)}
-          /> */}
+          />
         </div>
       )}
     </div>

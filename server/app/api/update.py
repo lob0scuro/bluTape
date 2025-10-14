@@ -29,7 +29,7 @@ def update_user(id):
                 
         if updated:
             db.session.commit()
-            return jsonify(success=True, message=f"{user.first_name} info has been updated!"), 200
+            return jsonify(success=True, message=f"{user.first_name} info has been updated!", user=user.serialize()), 200
         else:
             return jsonify(success=True, message="no changes were made"), 200
     except Exception as e:

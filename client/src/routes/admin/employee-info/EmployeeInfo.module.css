@@ -11,6 +11,10 @@
   width: fit-content;
 }
 
+.employeeSelect {
+  text-align: center;
+}
+
 .infoMainContainer {
   width: 80%;
   display: flex;
@@ -32,4 +36,21 @@ ul.infoBlock li {
   align-items: center;
   width: 100%;
   justify-content: space-between;
+}
+
+.employeeForm input,
+select {
+  text-align: end;
+  border-radius: 8px;
+}
+
+.employeeSubmit {
+  align-self: center;
+  margin-top: 1rem;
+  width: 100%;
+  background-color: var(--textSecondary);
+  border: none;
+  box-shadow: -1px 1px 4px #000;
+  padding-block: 0.8rem;
+  color: var(--bannerBackground);
 }
