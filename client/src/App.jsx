@@ -17,6 +17,7 @@ import MachineTable from "./routes/tables/MachineTable";
 import AdminPanel from "./routes/admin/home/AdminPanel";
 import EmployeeInfo from "./routes/admin/employee-info/EmployeeInfo";
 import ExportMachines from "./routes/admin/export/ExportMachines";
+import PublicMetrics from "./routes/public-metrics/PublicMetrics";
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="card/:id" element={<Card />} />
           <Route path="find" element={<QRScannerPage />} />
           <Route path="table" element={<MachineTable />} />
+          <Route path="public-metrics" element={<PublicMetrics />} />
           <Route element={<AdminRoutes />}>
             <Route path="admin-panel" element={<AdminPanel />} />
             <Route path="employee-info" element={<EmployeeInfo />} />

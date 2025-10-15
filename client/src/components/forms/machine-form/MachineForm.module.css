@@ -28,6 +28,9 @@ select {
   border-radius: 8px;
   border: none;
 }
+form.machineForm div select option {
+  text-align: start;
+}
 
 form.machineForm button[type="submit"] {
   align-self: center;

@@ -64,6 +64,14 @@ const Header = () => {
             >
               Search
             </Link>
+            <Link
+              to={"/public-metrics"}
+              className={
+                location.pathname === "/public-metrics" ? "navLinkActive" : ""
+              }
+            >
+              Metrics
+            </Link>
             {user.is_admin && (
               <Link
                 to={"/admin-panel"}

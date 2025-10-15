@@ -318,11 +318,13 @@ const EmployeeMetrics = ({ user }) => {
           {formatDate(start)} and {formatDate(end)}
         </p>
       </div>
-      <Button
-        label={"Print Metrics"}
-        className={styles.printMetricsButton}
-        onClick={printMetrics}
-      />
+      {user.is_admin && (
+        <Button
+          label={"Print Metrics"}
+          className={styles.printMetricsButton}
+          onClick={printMetrics}
+        />
+      )}
     </div>
   );
 };
