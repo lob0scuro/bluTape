@@ -1,6 +1,6 @@
 from app.extensions import db
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, Enum, ForeignKey, Table, func, case
+from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, Enum, ForeignKey, Table, func, case, or_
 from datetime import datetime, date, timezone, timedelta
 from collections import defaultdict
 
@@ -78,6 +78,29 @@ class User(db.Model, UserMixin):
         """
         start = datetime.combine(start_date, datetime.min.time())
         end = datetime.combine(end_date, datetime.max.time())
+        
+        in_progress = [
+            m.serialize() for m in Machine.query.filter(
+                Machine.status == "in_progress",
+                or_(Machine.created_by == self.id, Machine.technicians.any(id=self.id))
+            ).all()
+        ]
+        
+        completed = [
+            m.serialize() for m  in Machine.query.filter(
+                Machine.status.in_(["completed", "exported"]),
+                Machine.completed_by == self.id,
+                Machine.completed_on.between(start, end)
+            ).all()
+        ]
+        
+        trashed = [
+            m.serialize() for m in Machine.query.filter(
+                Machine.status == "trashed",
+                Machine.trashed_by == self.id,
+                Machine.updated_on.between(start, end)
+            ).all()
+        ]
 
         query = (
             db.session.query(
@@ -86,13 +109,18 @@ class User(db.Model, UserMixin):
                 case((Machine.status.in_(["completed", "exported"]), 1), else_=0).label("completed_flag"),
                 case((Machine.status == "trashed", 1), else_=0).label("trashed_flag"),
             )
-            .join(Machine.technicians)
-            .filter(User.id == self.id)
+            .outerjoin(Machine.technicians)
+            .filter(or_(
+                Machine.created_by == self.id,
+                Machine.completed_by == self.id,
+                Machine.trashed_by == self.id,
+                Machine.technicians.any(id=self.id),
+            )).distinct()
         )
 
         machines = query.all()
 
-        in_progress = []
+        # in_progress = []
         completed_in_range = []
         trashed_in_range = []
         count_completed_trashed = 0
@@ -110,8 +138,8 @@ class User(db.Model, UserMixin):
 
         return {
             "in_progress": in_progress,
-            "completed_in_range": completed_in_range,
-            "trashed_in_range": trashed_in_range,
+            "completed_in_range": completed,
+            "trashed_in_range": trashed,
             "count_completed_trashed": count_completed_trashed
         }
 
@@ -140,8 +168,15 @@ class Machine(db.Model):
     started_on = Column(DateTime, default=func.current_date())
     completed_on = Column(DateTime)
     updated_on = Column(DateTime, default=func.current_date(), onupdate=func.current_date())
+    
+    # Users
     created_by = Column(Integer, ForeignKey("user.id"), nullable=False)
-    creator = db.relationship("User", backref="machines_created")
+    completed_by = Column(Integer, ForeignKey("user.id"))
+    trashed_by = Column(Integer, ForeignKey("user.id"))
+    
+    creator = db.relationship("User", foreign_keys=[created_by], backref="machines_created")
+    completer = db.relationship("User", foreign_keys=[completed_by], backref="machines_completed")
+    trasher = db.relationship("User", foreign_keys=[trashed_by], backref="machines_trashed")
 
     # Relationships
     technicians = db.relationship(
@@ -177,6 +212,10 @@ class Machine(db.Model):
             "updated_on": self.updated_on,
             "creator_id": self.created_by,
             "creator_name": f"{self.creator.first_name} {self.creator.last_name}",
+            "completed_by": self.completed_by,
+            "completer_name": f"{self.completer.first_name} {self.completer.last_name}" if self.completer else None,
+            "trashed_by": self.trashed_by,
+            "trasher_name": f"{self.trasher.first_name} {self.trasher.last_name}" if self.trasher else None,
             "technicians": self.tech_names(),
             "notes_count": self.total_notes(),
             "notes": [n.serialize() for n in self.notes]

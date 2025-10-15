@@ -74,12 +74,19 @@ def update_machine(id):
                     # Automatically set timestamps for status changes
                     if field == "status":
                         now_utc = datetime.now(timezone.utc)
-                        if incoming_value == "completed" and not machine.completed_on:
-                            machine.completed_on = now_utc
-                        elif incoming_value == "in_progress" and not machine.started_on:
-                            machine.started_on = now_utc
-                        elif incoming_value == "trashed" and not machine.completed_on:
-                            machine.completed_on = now_utc
+                        if incoming_value == "completed":
+                            if not machine.completed_on:
+                                machine.completed_on = now_utc
+                            machine.completed_by = current_user.id
+                        elif incoming_value == "trashed":
+                            if not machine.completed_on:
+                                machine.completed_on = now_utc
+                            machine.trashed_by = current_user.id                                
+                        elif incoming_value == "in_progress":
+                            if not machine.completed_on:
+                                machine.started_on = now_utc
+                                
+                        
 
         if updated:
             db.session.commit()

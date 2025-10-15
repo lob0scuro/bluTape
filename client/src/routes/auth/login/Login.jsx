@@ -57,7 +57,7 @@ const Login = () => {
   };
   return (
     <>
-      <h1>Login</h1>
+      <h1 className={styles.loginHeader}>Login</h1>
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <div>
           <label htmlFor="id">Select Technician</label>
