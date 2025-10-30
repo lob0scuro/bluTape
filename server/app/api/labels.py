@@ -7,7 +7,7 @@ labels_bp = Blueprint("labels", __name__)
 
 #TODO: update with Pi's tailscale IP
 PRINTER_IP = "100.71.48.104"
-ZEBRA_IP = "192.168.1.113"
+ZEBRA_IP = "192.168.1.155"
 PRINTER_PORT = 5000
 URL = "http://100.71.48.104:5000/print"
 
